@@ -9,18 +9,20 @@
 /* Begin PBXBuildFile section */
 		639C09022B0378C1004B061A /* burracopointsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09012B0378C1004B061A /* burracopointsApp.swift */; };
 		639C09042B0378C1004B061A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09032B0378C1004B061A /* ContentView.swift */; };
-		639C09062B0378C1004B061A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09052B0378C1004B061A /* Item.swift */; };
+		639C09062B0378C1004B061A /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09052B0378C1004B061A /* GameModel.swift */; };
 		639C09082B0378C2004B061A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639C09072B0378C2004B061A /* Assets.xcassets */; };
 		639C090B2B0378C2004B061A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639C090A2B0378C2004B061A /* Preview Assets.xcassets */; };
+		639C09142B037A42004B061A /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09132B037A42004B061A /* PlayerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		639C08FE2B0378C1004B061A /* burracopoints.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = burracopoints.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		639C09012B0378C1004B061A /* burracopointsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = burracopointsApp.swift; sourceTree = "<group>"; };
 		639C09032B0378C1004B061A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		639C09052B0378C1004B061A /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		639C09052B0378C1004B061A /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		639C09072B0378C2004B061A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		639C090A2B0378C2004B061A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		639C09132B037A42004B061A /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +57,8 @@
 			children = (
 				639C09012B0378C1004B061A /* burracopointsApp.swift */,
 				639C09032B0378C1004B061A /* ContentView.swift */,
-				639C09052B0378C1004B061A /* Item.swift */,
+				639C09052B0378C1004B061A /* GameModel.swift */,
+				639C09132B037A42004B061A /* PlayerModel.swift */,
 				639C09072B0378C2004B061A /* Assets.xcassets */,
 				639C09092B0378C2004B061A /* Preview Content */,
 			);
@@ -140,8 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639C09142B037A42004B061A /* PlayerModel.swift in Sources */,
 				639C09042B0378C1004B061A /* ContentView.swift in Sources */,
-				639C09062B0378C1004B061A /* Item.swift in Sources */,
+				639C09062B0378C1004B061A /* GameModel.swift in Sources */,
 				639C09022B0378C1004B061A /* burracopointsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
