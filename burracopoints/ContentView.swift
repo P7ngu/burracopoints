@@ -8,42 +8,81 @@
 import SwiftUI
 import SwiftData
 
+struct SheetView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        Button("Press to dismiss") {
+            dismiss()
+        }
+        .font(.title)
+        .padding()
+        .background(.black)
+    }
+}
+
 struct ContentView: View {
+    @State private var showingSheet = false
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var gameItems: [Game]
     
-    var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(gameItems) { game in
-                    NavigationLink {
-                        Text(game.squad1.first!.name)
-                    } label: {
-                        // Text(game))
+        var body: some View {
+            TabView{
+            NavigationView {
+                List {
+                    ForEach(gameItems) { game in
+                        NavigationLink {
+                            Text(game.squad1.first!.name)
+                        } label: {
+                            // Text(game))
+                        }
                     }
+                    // .onDelete(perform: deleteItems)
                 }
-               // .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
                     }
-                }
+                    ToolbarItem {
+                        Button(action: addItem) {
+                            Label("Add Item", systemImage: "plus")
+                        } .sheet(isPresented: $showingSheet) {
+                            SheetView()
+                        }
+                    }
+                }.navigationTitle("Games")
             }
-        } detail: {
-            Text("Select an item")
-        }
+            .tabItem {
+                Label("Games", systemImage: "pencil.and.list.clipboard")
+            }
+                PlayersView()
+                    .tabItem{
+                        Label ("Players", systemImage: "person.3.fill")
+                    }
+                LeaderboardView()
+                    .tabItem{
+                        Label ("Leaderboard", systemImage: "trophy.fill")
+                    }
+
+        } //end of tabview
     }
     
+       
+
+    
+    
     private func addItem() {
+        showingSheet.toggle()
+        
+        print("adding a new item")
         withAnimation {
-            let newItem = Game(
-                timestamp: Date(), maxPoints: 100, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: [Player(name: "Matteo", icon: "person")], squad2: [Player(name: "Nonna", icon: "person")], squad3: [Player(name: "nil", icon: "person")], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+          //  let newItem = Game(
+          //      timestamp: Date(), maxPoints: 100, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: [Player(name: "Matteo", icon: "person")], squad2: [Player(name: "Nonna", icon: "person")], squad3: [Player(name: "nil", icon: "person")], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+            
+           // modelContext.insert(newItem)
         }
+        
     }
 }
 

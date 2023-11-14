@@ -13,6 +13,7 @@ struct burracopointsApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
            Game.self,
+           Player.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
