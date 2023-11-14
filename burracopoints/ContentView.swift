@@ -8,16 +8,27 @@
 import SwiftUI
 import SwiftData
 
+
+//Shet view to create a new game
 struct SheetView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        Button("Press to dismiss") {
-            dismiss()
-        }
+        NavigationView{
+        Text("Hello World")
         .font(.title)
         .padding()
-        .background(.black)
+            
+            
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Done") {
+                    dismiss()
+                }
+            }
+        }
+            
+        }
     }
 }
 
@@ -41,9 +52,6 @@ struct ContentView: View {
                     // .onDelete(perform: deleteItems)
                 }
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
                     ToolbarItem {
                         Button(action: addItem) {
                             Label("Add Item", systemImage: "plus")

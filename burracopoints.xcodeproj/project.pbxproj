@@ -62,9 +62,9 @@
 				639C09012B0378C1004B061A /* burracopointsApp.swift */,
 				639C09032B0378C1004B061A /* ContentView.swift */,
 				639C09152B038328004B061A /* PlayersView.swift */,
+				639C09172B038485004B061A /* LeaderboardView.swift */,
 				639C09052B0378C1004B061A /* GameModel.swift */,
 				639C09132B037A42004B061A /* PlayerModel.swift */,
-				639C09172B038485004B061A /* LeaderboardView.swift */,
 				639C09072B0378C2004B061A /* Assets.xcassets */,
 				639C09092B0378C2004B061A /* Preview Content */,
 			);
