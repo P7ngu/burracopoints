@@ -13,12 +13,21 @@ import SwiftData
 struct SheetView: View {
     @State private var inputMaxPoints: String = ""
     @State private var selectedGameMode = "1 vs 1"
+    @State private var showingPlayerSheet = false
+    @State private var currentPlayersT1 = 0
+    @State private var currentPlayersT2 = 0
+    @State private var currentPlayersT3 = 0
+    
+    @State private var maximumPlayersT1 = 1
+    @State private var maximumPlayersT2 = 1
+    @State private var maximumPlayersT3 = 1
     
     @Environment(\.dismiss) var dismiss
     @Query private var players: [Player]
     @State var oldIcon: String = ""
     
     var body: some View {
+        
         NavigationView{
             VStack{
                 HStack{
@@ -34,12 +43,22 @@ struct SheetView: View {
                     }//.pickerStyle(.wheel)
                 }
                 Text("Select players for team 1: ")
+                //Add button to create a new player
+                Button(action: {
+                    setPlayerAmountBasedOnGamemode()
+                    showingPlayerSheet.toggle()
+                }, label: {
+                    Text("Create a new player")
+                }).sheet(isPresented: $showingPlayerSheet) {
+                    PlayerSheetView()
+                }
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(players){ player in
                             GroupBox{
                                 VStack{
                                     if(!player.currentlySelected1){
+                                        
                                         Image(systemName: player.icon)
                                         Text(player.name)
                                             .padding()
@@ -54,11 +73,19 @@ struct SheetView: View {
                                     }
                                 }
                             }.onTapGesture{
+                                setPlayerAmountBasedOnGamemode()
                                 if(player.currentlySelected1){
+                                    currentPlayersT1 = currentPlayersT1 - 1
                                     player.currentlySelected1 = false
+                                    print("currently selected players:")
+                                    print(currentPlayersT1)
                                 }
-                                else {
+                                else if (maximumPlayersT1 > currentPlayersT1){
+                                    setPlayerAmountBasedOnGamemode()
+                                    currentPlayersT1 = currentPlayersT1 + 1
                                     player.currentlySelected1 = true
+                                    print("currently selected players:")
+                                    print(currentPlayersT1)
                                     
                                 }
                             }
@@ -90,9 +117,13 @@ struct SheetView: View {
                                 }
                             }.onTapGesture{
                                 if(player.currentlySelected2){
+                                    setPlayerAmountBasedOnGamemode()
+                                    currentPlayersT2 = currentPlayersT2 - 1
                                     player.currentlySelected2 = false
                                 }
-                                else {
+                                else if (maximumPlayersT2 > currentPlayersT2){
+                                    setPlayerAmountBasedOnGamemode()
+                                    currentPlayersT2 = currentPlayersT2 + 1
                                     player.currentlySelected2 = true
                                     
                                 }
@@ -125,9 +156,13 @@ struct SheetView: View {
                                     }
                                 }.onTapGesture{
                                     if(player.currentlySelected3){
+                                        setPlayerAmountBasedOnGamemode()
+                                        currentPlayersT3 = currentPlayersT3 + 1
                                         player.currentlySelected3 = false
                                     }
-                                    else {
+                                    else if (maximumPlayersT3 > currentPlayersT3){
+                                        setPlayerAmountBasedOnGamemode()
+                                        currentPlayersT3 = currentPlayersT3 + 1
                                         player.currentlySelected3 = true
                                         
                                     }
@@ -166,6 +201,22 @@ struct SheetView: View {
             player.currentlySelected3 = false
         }
     }
+    
+    func setPlayerAmountBasedOnGamemode(){
+        if (selectedGameMode == "1 vs 1 vs 1"){
+            maximumPlayersT1 = 1
+            maximumPlayersT2 = 1
+            maximumPlayersT3 = 1
+        } else if (selectedGameMode == "2 vs 2"){
+            maximumPlayersT1 = 2
+            maximumPlayersT2 = 2
+            maximumPlayersT3 = 0
+        } else {
+            maximumPlayersT1 = 1
+            maximumPlayersT2 = 1
+            maximumPlayersT3 = 0
+        }
+    }
 }
 
 struct ContentView: View {
@@ -173,11 +224,15 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var gameItems: [Game]
+    @Query private var players: [Player]
+    
+  
     
     var body: some View {
         TabView{
             NavigationView {
                 List {
+                    
                     ForEach(gameItems) { game in
                         NavigationLink {
                             Text(game.squad1.first!.name)
@@ -227,6 +282,15 @@ struct ContentView: View {
         }
         
     }
+    
+    func resetPlayerSelection(){
+        for player in players {
+            player.currentlySelected1 = false
+            player.currentlySelected2 = false
+            player.currentlySelected3 = false
+        }
+    }
+    
 }
 
 

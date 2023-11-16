@@ -14,21 +14,56 @@ struct PlayerSheetView: View {
     @State private var playerName: String = ""
     @Environment(\.dismiss) var dismiss
     
+    var iconList = [
+        Icon(name: "star.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "sun.max.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "person.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "heart.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "moon.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "cloud.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "bolt.circle", id: UUID(), isSelected: false, color: Color.blue)
+    ]
+    
     var body: some View{
         NavigationView{
-        VStack{
-            Text("Please input the player's name")
-            TextField("Player name", text: $playerName).padding()
-        }
-        .navigationBarTitle("Add a new player", displayMode: .inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Done") {
-                    
-                    dismiss()
+            VStack{
+                HStack{
+                    Text("Name: ").padding()
+                    TextField("Player name", text: $playerName).padding()
+                }//.padding()
+                VStack{
+                    Text("Pick an icon: ")
+                    ScrollView(.horizontal) {
+                        LazyHStack {
+                            ForEach(iconList){ icon in
+                                if(!icon.isSelected){
+                                    Image(systemName: icon.name)
+                                        .font(.system(size: 52))
+                                        .foregroundColor(icon.color)
+                                        .onTapGesture {
+                                            icon.isSelected = true
+                                            icon.color = Color.green
+                                            print("icon selected")
+                                        }
+                                }
+                                else {
+                                    Image(systemName: icon.name)
+                                        .font(.system(size: 52))
+                                        .foregroundColor(Color.green)
+                                        .onTapGesture {
+                                            icon.isSelected = false
+                                            icon.color = Color.blue
+                                        }
+                                }
+                            }
+                        }//.padding()
+                        
+                    }
+                }
+                
+            }
+            .navigationBarTitle("Add a new player", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
                 }
             }
-        }
         }
     }
 }
@@ -44,18 +79,18 @@ struct PlayersView: View {
         NavigationView{
             List {
                 ForEach(playerItems) { player in
-                        HStack{
-                            Image(systemName: player.icon)
-    
-                            Text(player.name)
-                                .padding()
-                                .background(.white)
-                                .cornerRadius(8)
-                        }
-                   
+                    HStack{
+                        Image(systemName: player.icon)
+                        
+                        Text(player.name)
+                            .padding()
+                            .background(.white)
+                            .cornerRadius(8)
+                    }
+                    
                 }
                 // .onDelete(perform: deleteItems)
-               
+                
                 
             }
             .toolbar {
@@ -78,8 +113,8 @@ struct PlayersView: View {
         print("adding a new item in players")
         showingSheet.toggle()
         withAnimation {
-           // let newItem = Player(name: "Matteo", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
-         //   modelContext.insert(newItem)
+            // let newItem = Player(name: "Matteo", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+            //   modelContext.insert(newItem)
         }
     }
 }

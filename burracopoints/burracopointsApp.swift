@@ -10,6 +10,7 @@ import SwiftData
 
 @main
 struct burracopointsApp: App {
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
            Game.self,
