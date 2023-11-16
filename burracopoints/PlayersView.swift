@@ -105,14 +105,25 @@ struct PlayersView: View {
         NavigationView{
             List {
                 ForEach(playerItems) { player in
-                    HStack{
-                        Image(systemName: player.icon)
-                        
-                        Text(player.name)
-                            .padding()
-                            .background(.white)
-                            .cornerRadius(8)
+                    NavigationLink {
+                        HStack{
+                          //  Image(systemName: player.icon)
+                            
+                            Text(player.name)
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(8)
+                        }
+                    } label: {
+                        HStack{
+                                Text(player.name)
+                                    .padding()
+                                    .background(.white)
+                                    .cornerRadius(8)
+                            
+                        }
                     }
+                   
                     
                 }
                 // .onDelete(perform: deleteItems)
@@ -154,6 +165,6 @@ struct PlayersView: View {
 
 
 
-#Preview {
-    PlayersView()
-}
+//#Preview {
+   // PlayersView()
+//}

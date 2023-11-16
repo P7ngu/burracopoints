@@ -13,6 +13,7 @@ struct SheetView: View {
     @State private var inputMaxPoints: String = ""
     @State private var selectedGameMode = "1 vs 1"
     @State private var showingPlayerSheet = false
+    @Environment(\.modelContext) var modelContext
     
     @State private var currentPlayersT1 = 0
     @State private var currentPlayersT2 = 0
@@ -37,10 +38,10 @@ struct SheetView: View {
         
         NavigationView{
             VStack{
-                HStack{
-                    Text("Game win points: ").padding()
-                    TextField("Maximum points", text: $inputMaxPoints).padding().keyboardType(.decimalPad)
-                }
+                Image(systemName: "trophy.circle")
+                    .font(.system(size: 72))
+                    .foregroundColor(Color.green)
+              
                 HStack{
                     Text("Game mode: ").padding()
                     Picker(selection: $selectedGameMode, label: Text("Game mode: ")) {
@@ -49,16 +50,25 @@ struct SheetView: View {
                         Text("1 vs 1 vs 1").tag("1 vs 1 vs 1")
                     }//.pickerStyle(.wheel)
                 }
-                Text("Select players for team 1: ")
+                HStack{
+                    
+                    Text("Game win points: ").padding()
+                    TextField("Maximum points", text: $inputMaxPoints).padding().keyboardType(.decimalPad)
+                }.padding()
+                
+               
                 //Add button to create a new player
                 Button(action: {
                     setPlayerAmountBasedOnGamemode()
                     showingPlayerSheet.toggle()
                 }, label: {
                     Text("Create a new player")
+                        .padding()
                 }).sheet(isPresented: $showingPlayerSheet) {
                     PlayerSheetView()
-                }
+                }.padding()
+                
+                Text("Select players for team 1: ")
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(players){ player in
@@ -199,45 +209,35 @@ struct SheetView: View {
                         let gamemode = selectedGameMode
                         let timestamp = Date()
                         let maxPoints = Int(inputMaxPoints)
-                        print("playernil - player 1 - 2 - 3 - 4")
-                        print(nilplayer.name)
-                        print("playernil - player 1 - 2 - 3 - 4")
-                        print(player1.name)
-                        print("playernil - player 1 - 2 - 3 - 4")
-                        print(player2.name)
-                        print("playernil - player 1 - 2 - 3 - 4")
-                        print(player3.name)
-                        print("playernil - player 1 - 2 - 3 - 4")
-                        print(player4.name)
-                        
-                        print(selectedGameMode)
+                        var playerCounter = 0
                         
                         if (selectedGameMode == "1 vs 1 vs 1" && player1.name != "nil" &&  player2.name != "nil" &&  player3.name != "nil"){
                             print("valid data1")
-                            let playerCounter = 3
+                            playerCounter = 3
                             let squad3Enabled = true
-                            let squad1 = [player1]
-                            let squad2 = [player2]
-                            let squad3 = [player3]
+                            let squad1 = [player1.name]
+                            let squad2 = [player2.name]
+                            let squad3 = [player3.name]
                             resetPlayerSelection()
                             dismiss()
                         } else if (selectedGameMode == "2 vs 2" && player1.name != "" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
                             print("valid data2")
-                            let playerCounter = 4
+                            playerCounter = 4
                             let squad3Enabled = false
-                            let squad1 = [player1, player2]
-                            let squad2 = [player3, player4]
+                            let squad1 = [player1.name, player2.name]
+                            let squad2 = [player3.name, player4.name]
                             resetPlayerSelection()
                             dismiss()
                             
                         } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
                             print("valid data3")
-                            let playerCounter = 2
+                            playerCounter = 2
                             let squad3Enabled = false
-                            let squad1 = [player1]
-                            let squad2 = [player2]
+                            let squad1 = [player1.name]
+                            let squad2 = [player2.name]
                             resetPlayerSelection()
-                            var newGame = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: [nilplayer], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+                            var newGame = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+                            addNewGame(newItem: newGame)
                             dismiss()
                             
                         } else{
@@ -258,6 +258,9 @@ struct SheetView: View {
             }
             
         }
+    }
+    private func addNewGame(newItem: Game){
+        modelContext.insert(newItem)
     }
     
     func resetPlayerSelection(){
@@ -288,11 +291,9 @@ struct SheetView: View {
 struct ContentView: View {
     @State private var showingSheet = false
     
-    @Environment(\.modelContext) private var modelContext
+    @Environment(\.modelContext) var modelContext
     @Query private var gameItems: [Game]
     @Query private var players: [Player]
-    
-    
     
     var body: some View {
         TabView{
@@ -300,9 +301,21 @@ struct ContentView: View {
                 List {
                     ForEach(gameItems) { game in
                         NavigationLink {
-                            Text(game.squad1.first!.name)
+                            Text(game.squad1.first!)
+                            Text(" vs ")
+                            Text(game.squad2.first!)
                         } label: {
-                            // Text(game))
+                            HStack{
+                                if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){
+                                    Image(systemName: "play.circle")
+                                } else {
+                                    Image(systemName: "flag.checkered.circle")
+                                }
+                                Text(game.squad1.first!)
+                                Text(" vs ")
+                                Text(game.squad2.first!)
+                                // Text(game))
+                            }
                         }
                     }
                     // .onDelete(perform: deleteItems)
@@ -344,12 +357,15 @@ struct ContentView: View {
         showingSheet.toggle()
         print("adding a new item")
         withAnimation {
-            //  let newItem = Game(
-            //      timestamp: Date(), maxPoints: 100, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: [Player(name: "Matteo", icon: "person")], squad2: [Player(name: "Nonna", icon: "person")], squad3: [Player(name: "nil", icon: "person")], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+           // let newItem = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 3, squad3Enabled: true, squad1: [player1.name], squad2: [player2.name], squad3: [player3.name], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
             
-            // modelContext.insert(newItem)
+           //  modelContext.insert(newItem)
         }
         
+    }
+    
+    private func addNewGame(newItem: Game){
+        modelContext.insert(newItem)
     }
     
     func resetPlayerSelection(){
@@ -367,7 +383,7 @@ struct ContentView: View {
 
 
 
-#Preview {
-    ContentView()
-        .modelContainer(for: [Game.self, Player.self], inMemory: true)
-}
+//#Preview {
+   // ContentView(modelContext: modelContext)
+     //   .modelContainer(for: [Game.self, Player.self], inMemory: true)
+//}

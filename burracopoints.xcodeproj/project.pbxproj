@@ -16,6 +16,7 @@
 		639C09162B038328004B061A /* PlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09152B038328004B061A /* PlayersView.swift */; };
 		639C09182B038485004B061A /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09172B038485004B061A /* LeaderboardView.swift */; };
 		63C8D79A2B0600CA00B50EFC /* IconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8D7992B0600CA00B50EFC /* IconModel.swift */; };
+		63C8D79C2B0685D500B50EFC /* GameDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		639C09152B038328004B061A /* PlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersView.swift; sourceTree = "<group>"; };
 		639C09172B038485004B061A /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		63C8D7992B0600CA00B50EFC /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
+		63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				63C8D7992B0600CA00B50EFC /* IconModel.swift */,
 				639C09072B0378C2004B061A /* Assets.xcassets */,
 				639C09092B0378C2004B061A /* Preview Content */,
+				63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */,
 			);
 			path = burracopoints;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			files = (
 				639C09142B037A42004B061A /* PlayerModel.swift in Sources */,
 				63C8D79A2B0600CA00B50EFC /* IconModel.swift in Sources */,
+				63C8D79C2B0685D500B50EFC /* GameDetailedView.swift in Sources */,
 				639C09162B038328004B061A /* PlayersView.swift in Sources */,
 				639C09042B0378C1004B061A /* ContentView.swift in Sources */,
 				639C09062B0378C1004B061A /* GameModel.swift in Sources */,

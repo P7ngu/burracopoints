@@ -18,9 +18,10 @@ class Game{
     var playerCounter: Int
     var squad3Enabled: Bool = false
     
-    var squad1: [Player]
-    var squad2: [Player]
-    var squad3: [Player]
+   var squad1: [String]
+   var squad2: [String]
+
+    var squad3: [String]
     
     var currentPoints_p1: Int
     var currentPoints_p2: Int
@@ -32,7 +33,7 @@ class Game{
     
     var handsPlayed: Int
     
-    init(timestamp: Date, maxPoints: Int, gameMode: Int, playerCounter: Int, squad3Enabled: Bool, squad1: [Player], squad2: [Player], squad3: [Player], currentPoints_p1: Int, currentPoints_p2: Int, currentPoints_p3: Int, handPoints_p1: [Int], handPoints_p2: [Int], handPoints_p3: [Int], handsPlayed: Int) {
+    init(timestamp: Date, maxPoints: Int, gameMode: Int, playerCounter: Int, squad3Enabled: Bool, squad1: [String], squad2: [String], squad3: [String], currentPoints_p1: Int, currentPoints_p2: Int, currentPoints_p3: Int, handPoints_p1: [Int], handPoints_p2: [Int], handPoints_p3: [Int], handsPlayed: Int) {
         self.timestamp = timestamp
         self.maxPoints = maxPoints
         self.gameMode = gameMode
