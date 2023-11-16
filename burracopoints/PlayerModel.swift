@@ -10,7 +10,6 @@ import SwiftData
 
 @Model
 class Player {
-    
     var name: String
     var icon: String
     var currentlySelected1: Bool

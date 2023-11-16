@@ -8,12 +8,12 @@
 import SwiftUI
 import SwiftData
 
-
 //Sheet view to create a new game
 struct SheetView: View {
     @State private var inputMaxPoints: String = ""
     @State private var selectedGameMode = "1 vs 1"
     @State private var showingPlayerSheet = false
+    
     @State private var currentPlayersT1 = 0
     @State private var currentPlayersT2 = 0
     @State private var currentPlayersT3 = 0
@@ -22,9 +22,16 @@ struct SheetView: View {
     @State private var maximumPlayersT2 = 1
     @State private var maximumPlayersT3 = 1
     
+    @State private var nilplayer: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+    @State private var player1: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+    @State private var player2: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+    @State private var player3: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+    @State private var player4: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+    
     @Environment(\.dismiss) var dismiss
     @Query private var players: [Player]
     @State var oldIcon: String = ""
+    @State private var showingAlert = false
     
     var body: some View {
         
@@ -32,7 +39,7 @@ struct SheetView: View {
             VStack{
                 HStack{
                     Text("Game win points: ").padding()
-                    TextField("Maximum points", text: $inputMaxPoints).padding()
+                    TextField("Maximum points", text: $inputMaxPoints).padding().keyboardType(.decimalPad)
                 }
                 HStack{
                     Text("Game mode: ").padding()
@@ -58,7 +65,6 @@ struct SheetView: View {
                             GroupBox{
                                 VStack{
                                     if(!player.currentlySelected1){
-                                        
                                         Image(systemName: player.icon)
                                         Text(player.name)
                                             .padding()
@@ -74,9 +80,12 @@ struct SheetView: View {
                                 }
                             }.onTapGesture{
                                 setPlayerAmountBasedOnGamemode()
+                                
+                                //TODO add if to support the 2vs2
                                 if(player.currentlySelected1){
                                     currentPlayersT1 = currentPlayersT1 - 1
                                     player.currentlySelected1 = false
+                                    player1 = nilplayer
                                     print("currently selected players:")
                                     print(currentPlayersT1)
                                 }
@@ -86,6 +95,7 @@ struct SheetView: View {
                                     player.currentlySelected1 = true
                                     print("currently selected players:")
                                     print(currentPlayersT1)
+                                    player1 = player
                                     
                                 }
                             }
@@ -120,11 +130,13 @@ struct SheetView: View {
                                     setPlayerAmountBasedOnGamemode()
                                     currentPlayersT2 = currentPlayersT2 - 1
                                     player.currentlySelected2 = false
+                                    player2 = nilplayer
                                 }
                                 else if (maximumPlayersT2 > currentPlayersT2){
                                     setPlayerAmountBasedOnGamemode()
                                     currentPlayersT2 = currentPlayersT2 + 1
                                     player.currentlySelected2 = true
+                                    player2 = player
                                     
                                 }
                             }
@@ -159,11 +171,13 @@ struct SheetView: View {
                                         setPlayerAmountBasedOnGamemode()
                                         currentPlayersT3 = currentPlayersT3 + 1
                                         player.currentlySelected3 = false
+                                        player3 = nilplayer
                                     }
                                     else if (maximumPlayersT3 > currentPlayersT3){
                                         setPlayerAmountBasedOnGamemode()
                                         currentPlayersT3 = currentPlayersT3 + 1
                                         player.currentlySelected3 = true
+                                        player3 = player
                                         
                                     }
                                 }
@@ -183,12 +197,64 @@ struct SheetView: View {
                     Button("Done") {
                         //Create the new game
                         let gamemode = selectedGameMode
-                        // let newGame = Game(timestamp: Date(), maxPoints: Int(inputMaxPoints), gameMode: Int(gamemode), playerCounter: 2, squad3Enabled: false, squad1: <#T##[Player]#>, squad2: <#T##[Player]#>, squad3: <#T##[Player]#>, currentPoints_p1: <#T##Int#>, currentPoints_p2: <#T##Int#>, currentPoints_p3: <#T##Int#>, handPoints_p1: <#T##[Int]#>, handPoints_p2: <#T##[Int]#>, handPoints_p3: <#T##[Int]#>, handsPlayed: <#T##Int#>)
-                        //reset selection
+                        let timestamp = Date()
+                        let maxPoints = Int(inputMaxPoints)
+                        print("playernil - player 1 - 2 - 3 - 4")
+                        print(nilplayer.name)
+                        print("playernil - player 1 - 2 - 3 - 4")
+                        print(player1.name)
+                        print("playernil - player 1 - 2 - 3 - 4")
+                        print(player2.name)
+                        print("playernil - player 1 - 2 - 3 - 4")
+                        print(player3.name)
+                        print("playernil - player 1 - 2 - 3 - 4")
+                        print(player4.name)
+                        
+                        print(selectedGameMode)
+                        
+                        if (selectedGameMode == "1 vs 1 vs 1" && player1.name != "nil" &&  player2.name != "nil" &&  player3.name != "nil"){
+                            print("valid data1")
+                            let playerCounter = 3
+                            let squad3Enabled = true
+                            let squad1 = [player1]
+                            let squad2 = [player2]
+                            let squad3 = [player3]
+                            resetPlayerSelection()
+                            dismiss()
+                        } else if (selectedGameMode == "2 vs 2" && player1.name != "" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
+                            print("valid data2")
+                            let playerCounter = 4
+                            let squad3Enabled = false
+                            let squad1 = [player1, player2]
+                            let squad2 = [player3, player4]
+                            resetPlayerSelection()
+                            dismiss()
+                            
+                        } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
+                            print("valid data3")
+                            let playerCounter = 2
+                            let squad3Enabled = false
+                            let squad1 = [player1]
+                            let squad2 = [player2]
+                            resetPlayerSelection()
+                            var newGame = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: [nilplayer], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+                            dismiss()
+                            
+                        } else{
+                            print("invalid data - last else")
+                            showingAlert = true
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
                         resetPlayerSelection()
                         dismiss()
                     }
                 }
+            }.alert(isPresented: $showingAlert) {
+                Alert(title: Text("Select all the players"), message: Text("Please select all the players"), dismissButton: .default(Text("Got it!")))
             }
             
         }
@@ -226,13 +292,12 @@ struct ContentView: View {
     @Query private var gameItems: [Game]
     @Query private var players: [Player]
     
-  
+    
     
     var body: some View {
         TabView{
             NavigationView {
                 List {
-                    
                     ForEach(gameItems) { game in
                         NavigationLink {
                             Text(game.squad1.first!.name)
@@ -264,7 +329,11 @@ struct ContentView: View {
                     Label ("Leaderboard", systemImage: "trophy.fill")
                 }
             
-        } //end of tabview
+        }
+        //end of tabview
+        .onAppear(perform: {
+            resetPlayerSelection()
+        })
     }
     
     
@@ -291,11 +360,14 @@ struct ContentView: View {
         }
     }
     
+    
+    
+    
 }
 
 
 
 #Preview {
     ContentView()
-        .modelContainer(for: Game.self, inMemory: true)
+        .modelContainer(for: [Game.self, Player.self], inMemory: true)
 }

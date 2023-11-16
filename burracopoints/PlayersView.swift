@@ -12,7 +12,12 @@ import Foundation
 
 struct PlayerSheetView: View {
     @State private var playerName: String = ""
+    @State private var iconName: String = ""
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) private var modelContext
+    
+    @State private var showingAlert = false
+    
     
     var iconList = [
         Icon(name: "star.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "sun.max.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "person.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "heart.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "moon.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "cloud.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "bolt.circle", id: UUID(), isSelected: false, color: Color.blue)
@@ -31,20 +36,22 @@ struct PlayerSheetView: View {
                         LazyHStack {
                             ForEach(iconList){ icon in
                                 if(!icon.isSelected){
-                                    Image(systemName: icon.name)
-                                        .font(.system(size: 52))
-                                        .foregroundColor(icon.color)
-                                        .onTapGesture {
+                                    GroupBox{
+                                        Image(systemName: icon.name)
+                                            .font(.system(size: 52))
+                                            .foregroundColor(icon.color)
+                                    }.onTapGesture {
                                             icon.isSelected = true
                                             icon.color = Color.green
                                             print("icon selected")
                                         }
                                 }
                                 else {
-                                    Image(systemName: icon.name)
-                                        .font(.system(size: 52))
-                                        .foregroundColor(Color.green)
-                                        .onTapGesture {
+                                    GroupBox{
+                                        Image(systemName: icon.name)
+                                            .font(.system(size: 52))
+                                            .foregroundColor(Color.green)
+                                    }.onTapGesture {
                                             icon.isSelected = false
                                             icon.color = Color.blue
                                         }
@@ -60,11 +67,30 @@ struct PlayerSheetView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
+                        if(playerName != ""){
+                            var newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+                            
+                            addNewPlayer(player: newPlayer)
+                            dismiss()
+                        } else {
+                           showingAlert = true
+                            showingAlert = true
+                           
+                        }
+                    }
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
                         dismiss()
                     }
                 }
+            } .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Input a name"), message: Text("Please input a name"), dismissButton: .default(Text("Got it!")))
             }
         }
+    }
+    func addNewPlayer(player: Player){
+        modelContext.insert(player)
     }
 }
 
@@ -103,12 +129,19 @@ struct PlayersView: View {
                     } .sheet(isPresented: $showingSheet) {
                         PlayerSheetView()
                     }
+                    
                 }
-            }
-            .navigationTitle("Players")
+                
+            }  .navigationTitle("Players")
         }
-        
+      
     }
+    
+    
+    
+    
+    
+    
     private func addItem() {
         print("adding a new item in players")
         showingSheet.toggle()
@@ -118,6 +151,7 @@ struct PlayersView: View {
         }
     }
 }
+
 
 
 #Preview {
