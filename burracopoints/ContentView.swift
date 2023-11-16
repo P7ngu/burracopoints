@@ -301,9 +301,7 @@ struct ContentView: View {
                 List {
                     ForEach(gameItems) { game in
                         NavigationLink {
-                            Text(game.squad1.first!)
-                            Text(" vs ")
-                            Text(game.squad2.first!)
+                            GameDetailedView(displayedGame: game, title: game.squad1.first! + " vs " + game.squad2.first!)
                         } label: {
                             HStack{
                                 if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){

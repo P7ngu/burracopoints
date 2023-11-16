@@ -7,16 +7,43 @@
 
 import SwiftUI
 
-struct GameDetailedView: View {
-   // @Bindable var displayedGame: Game
-    
-    
+struct GameAddPointsSheetView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
     }
 }
 
-#Preview {
-   // GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: ["Matteo"], squad2: ["Nonna"], squad3: ["nil"], currentPoints_p1: 500, currentPoints_p2: 340, currentPoints_p3: 0, handPoints_p1: [500], handPoints_p2: [340], handPoints_p3: [0], handsPlayed: 1))
-    GameDetailedView()
+struct GameDetailedView: View {
+    @Bindable var displayedGame: Game
+    @State var title: String
+    @State private var showingSheet = false
+    var body: some View {
+        NavigationStack{
+            VStack{
+                HStack{
+                }
+            }
+        } .toolbar {
+            ToolbarItem {
+                Button(action: addPoints) {
+                    Label("Add Points", systemImage: "note.text.badge.plus")
+                } .sheet(isPresented: $showingSheet) {
+                    GameAddPointsSheetView()
+                }
+            }
+        }.navigationTitle(title)
+            .onAppear(){
+                title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
+            }
+    }
+    
+    func addPoints(){
+        showingSheet = true
+        
+    }
 }
+
+//#Preview {
+   // GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: ["Matteo"], squad2: ["Nonna"], squad3: ["nil"], currentPoints_p1: 500, currentPoints_p2: 340, currentPoints_p3: 0, handPoints_p1: [500], handPoints_p2: [340], handPoints_p3: [0], handsPlayed: 1))
+   // GameDetailedView()
+//}

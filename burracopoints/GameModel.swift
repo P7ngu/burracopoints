@@ -18,9 +18,8 @@ class Game{
     var playerCounter: Int
     var squad3Enabled: Bool = false
     
-   var squad1: [String]
-   var squad2: [String]
-
+    var squad1: [String]
+    var squad2: [String]
     var squad3: [String]
     
     var currentPoints_p1: Int
