@@ -128,11 +128,18 @@ struct GameAddPointsSheetView: View {
                             displayedGame.currentPoints_p2 += Int(squad2pointsbase)! + Int(squad2pointsscore)!
                             displayedGame.currentPoints_p3 += Int(squad3pointsbase)! + Int(squad3pointsscore)!
                             
+                            if( max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2, displayedGame.currentPoints_p3) > displayedGame.maxPoints){
+                                displayedGame.isGameConcluded = true
+                            } else {
+                                
+                            }
+                            
                             var currentHand = displayedGame.handPoints_p1.count
                             
                             displayedGame.handPoints_p1[currentHand] = Int(squad1pointsbase)! + Int(squad1pointsscore)!
                             displayedGame.handPoints_p2[currentHand] = Int(squad2pointsbase)! + Int(squad2pointsscore)!
                             displayedGame.handPoints_p3[currentHand] = Int(squad3pointsbase)! + Int(squad3pointsscore)!
+                            
                             dismiss()
                         } else {
                             print(squad1pointsbase + "  -  " + squad2pointsbase)
@@ -140,6 +147,13 @@ struct GameAddPointsSheetView: View {
                             
                             displayedGame.currentPoints_p1 += Int(squad1pointsbase)! + Int(squad1pointsscore)!
                             displayedGame.currentPoints_p2 += Int(squad2pointsbase)! + Int(squad2pointsscore)!
+                            
+                            if( max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2) > displayedGame.maxPoints){
+                                displayedGame.isGameConcluded = true
+                                print("the game is concluded")
+                            } else {
+                                
+                            }
                             
                             var currentHand = displayedGame.handPoints_p1.count
                             

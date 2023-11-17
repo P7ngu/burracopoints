@@ -36,7 +36,7 @@ struct SheetView: View {
     
     var body: some View {
         
-       
+        
         NavigationView{
             ScrollView{
                 VStack{
@@ -90,24 +90,51 @@ struct SheetView: View {
                                     }
                                 }.onTapGesture{
                                     setPlayerAmountBasedOnGamemode()
+                                    //TODO: add if to support the 2vs2
+                                    if(selectedGameMode == "1 vs 1"){
+                                        if(player.currentlySelected1){
+                                            currentPlayersT1 = currentPlayersT1 - 1
+                                            player.currentlySelected1 = false
+                                            player1 = nilplayer
+                                            print("deselec. currently selected players:")
+                                            print(currentPlayersT1)
+                                        }
+                                        else if (maximumPlayersT1 > currentPlayersT1){
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT1 = currentPlayersT1 + 1
+                                            player.currentlySelected1 = true
+                                            print("selecting. currently selected players:")
+                                            print(currentPlayersT1)
+                                            player1 = player
+                                            
+                                        }
+                                    } else if(selectedGameMode == "2 vs 2"){
+                                        print("TEST")
+                                        //TODO: test
+                                        if(player.currentlySelected1){
+                                            currentPlayersT1 = currentPlayersT1 - 1
+                                            player.currentlySelected1 = false
+                                            player1 = nilplayer
+                                            print("deselec. currently selected players:")
+                                            print(currentPlayersT1)
+                                        }
+                                        else if (maximumPlayersT1 > currentPlayersT1){
+                                            print("Entering else if")
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT1 = currentPlayersT1 + 1
+                                            player.currentlySelected1 = true
+                                            print("selecting. currently selected players:")
+                                            print(currentPlayersT1)
+                                            
+                                            if(player1.name == "nil"){
+                                                player1 = player
+                                            } else {
+                                                player2 = player
+                                            }
+                                            
+                                        }
+                                    }
                                     
-                                    //TODO add if to support the 2vs2
-                                    if(player.currentlySelected1){
-                                        currentPlayersT1 = currentPlayersT1 - 1
-                                        player.currentlySelected1 = false
-                                        player1 = nilplayer
-                                        print("currently selected players:")
-                                        print(currentPlayersT1)
-                                    }
-                                    else if (maximumPlayersT1 > currentPlayersT1){
-                                        setPlayerAmountBasedOnGamemode()
-                                        currentPlayersT1 = currentPlayersT1 + 1
-                                        player.currentlySelected1 = true
-                                        print("currently selected players:")
-                                        print(currentPlayersT1)
-                                        player1 = player
-                                        
-                                    }
                                 }
                             }
                         }
@@ -136,18 +163,57 @@ struct SheetView: View {
                                         }
                                     }
                                 }.onTapGesture{
-                                    if(player.currentlySelected2){
-                                        setPlayerAmountBasedOnGamemode()
-                                        currentPlayersT2 = currentPlayersT2 - 1
-                                        player.currentlySelected2 = false
-                                        player2 = nilplayer
+                                    if(selectedGameMode == "1 vs 1"){
+                                        if(player.currentlySelected2){
+                                            print("des. currently selected players:")
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT2 = currentPlayersT2 - 1
+                                            print(String(currentPlayersT2) + player.name)
+                                            player.currentlySelected2 = false
+                                            player2 = nilplayer
+                                        }
+                                        else if (maximumPlayersT2 > currentPlayersT2){
+                                            print("selec. currently selected players:")
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT2 = currentPlayersT2 + 1
+                                            print(String(currentPlayersT2) + player.name)
+                                            player.currentlySelected2 = true
+                                            player2 = player
+                                            
+                                        }
                                     }
-                                    else if (maximumPlayersT2 > currentPlayersT2){
-                                        setPlayerAmountBasedOnGamemode()
-                                        currentPlayersT2 = currentPlayersT2 + 1
-                                        player.currentlySelected2 = true
-                                        player2 = player
-                                        
+                                    else if(selectedGameMode == "2 vs 2"){
+                                        print("TEST 2")
+                                        //TODO: test
+                                        if(player.currentlySelected2){
+                                            currentPlayersT2 = currentPlayersT2 - 1
+                                            player.currentlySelected2 = false
+                                            if(player3.name == player.name){
+                                                player3 = nilplayer
+                                            } else {
+                                                player4 =  nilplayer
+                                            }
+                                            print("deselec. currently selected players:")
+                                            print(currentPlayersT2)
+                                        }
+                                        else if (maximumPlayersT2 > currentPlayersT2){
+                                            print("Entering else if 2")
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT2 = currentPlayersT2 + 1
+                                            player.currentlySelected2 = true
+                                            print("selecting. currently selected players:")
+                                            print(currentPlayersT2)
+                                            
+                                            if(player3.name == "nil"){
+                                                print("player 3 nil")
+                                                player3 = player
+                                            } else {
+                                                print("saving player 4")
+                                                player4 = player
+                                            }
+                                            
+                                            
+                                        }
                                     }
                                 }
                             }
@@ -220,28 +286,38 @@ struct SheetView: View {
                                 let squad3 = [player3.name]
                                 resetPlayerSelection()
                                 dismiss()
-                            } else if (selectedGameMode == "2 vs 2" && player1.name != "" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
+                            } else if (selectedGameMode == "2 vs 2" && player1.name != "nil" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
                                 print("valid data2")
                                 playerCounter = 4
                                 let squad3Enabled = false
                                 let squad1 = [player1.name, player2.name]
                                 let squad2 = [player3.name, player4.name]
                                 resetPlayerSelection()
+                                
+                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 4, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
+                                addNewGame(newItem: newGame)
                                 dismiss()
                                 
                             } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
+                                // 1 vs 1
                                 print("valid data3")
                                 playerCounter = 2
                                 let squad3Enabled = false
                                 let squad1 = [player1.name]
                                 let squad2 = [player2.name]
                                 resetPlayerSelection()
-                                var newGame = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
                                 addNewGame(newItem: newGame)
                                 dismiss()
                                 
                             } else{
                                 print("invalid data - last else")
+                                print(selectedGameMode)
+                                print(player1.name)
+                                print(player2.name)
+                                print(player3.name)
+                                print(player4.name)
+                                
                                 showingAlert = true
                             }
                         }
@@ -304,7 +380,8 @@ struct ContentView: View {
                             GameDetailedView(displayedGame: game, title: game.squad1.first! + " vs " + game.squad2.first!)
                         } label: {
                             HStack{
-                                if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){
+                                if(!game.isGameConcluded){
+                                    // if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){
                                     Image(systemName: "play.circle")
                                 } else {
                                     Image(systemName: "flag.checkered.circle")
@@ -355,9 +432,9 @@ struct ContentView: View {
         showingSheet.toggle()
         print("adding a new item")
         withAnimation {
-           // let newItem = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 3, squad3Enabled: true, squad1: [player1.name], squad2: [player2.name], squad3: [player3.name], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+            // let newItem = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 3, squad3Enabled: true, squad1: [player1.name], squad2: [player2.name], squad3: [player3.name], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
             
-           //  modelContext.insert(newItem)
+            //  modelContext.insert(newItem)
         }
         
     }
@@ -382,6 +459,6 @@ struct ContentView: View {
 
 
 //#Preview {
-   // ContentView(modelContext: modelContext)
-     //   .modelContainer(for: [Game.self, Player.self], inMemory: true)
+// ContentView(modelContext: modelContext)
+//   .modelContainer(for: [Game.self, Player.self], inMemory: true)
 //}
