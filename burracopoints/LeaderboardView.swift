@@ -12,7 +12,7 @@ struct LeaderboardView: View {
         NavigationView{
         Text("hello world")
          .navigationTitle("Leaderboard")
-        }.navigationTitle("Leaderboard")
+        }//.navigationTitle("Leaderboard")
     }
 }
 

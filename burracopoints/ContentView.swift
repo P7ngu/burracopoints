@@ -35,131 +35,93 @@ struct SheetView: View {
     @State private var showingAlert = false
     
     var body: some View {
+        
+       
         NavigationView{
-            VStack{
-                Image(systemName: "trophy.circle")
-                    .font(.system(size: 72))
-                    .foregroundColor(Color.green)
-              
-                HStack{
-                    Text("Game mode: ").padding()
-                    Picker(selection: $selectedGameMode, label: Text("Game mode: ")) {
-                        Text("1 vs 1").tag("1 vs 1")
-                        Text("2 vs 2").tag("2 vs 2")
-                        Text("1 vs 1 vs 1").tag("1 vs 1 vs 1")
-                    }//.pickerStyle(.wheel)
-                }
-                HStack{
-                    Text("Game win points: ").padding()
-                    TextField("Maximum points", text: $inputMaxPoints).padding().keyboardType(.decimalPad)
-                }.padding()
-                
-                //Add button to create a new player
-                Button(action: {
-                    setPlayerAmountBasedOnGamemode()
-                    showingPlayerSheet.toggle()
-                }, label: {
-                    Text("Create a new player")
-                        .padding()
-                }).sheet(isPresented: $showingPlayerSheet) {
-                    PlayerSheetView(playerItems: players)
-                }.padding()
-                
-                Text("Select players for team 1: ")
-                ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(players){ player in
-                            GroupBox{
-                                VStack{
-                                    if(!player.currentlySelected1){
-                                        Image(systemName: player.icon)
-                                        Text(player.name)
-                                            .padding()
-                                            .background(.white)
-                                            .cornerRadius(8)
-                                    } else { //player selected already
-                                        Image(systemName: "person.crop.circle.fill.badge.checkmark")
-                                        Text(player.name)
-                                            .padding()
-                                            .background(.white)
-                                            .cornerRadius(8)
-                                    }
-                                }
-                            }.onTapGesture{
-                                setPlayerAmountBasedOnGamemode()
-                                
-                                //TODO add if to support the 2vs2
-                                if(player.currentlySelected1){
-                                    currentPlayersT1 = currentPlayersT1 - 1
-                                    player.currentlySelected1 = false
-                                    player1 = nilplayer
-                                    print("currently selected players:")
-                                    print(currentPlayersT1)
-                                }
-                                else if (maximumPlayersT1 > currentPlayersT1){
-                                    setPlayerAmountBasedOnGamemode()
-                                    currentPlayersT1 = currentPlayersT1 + 1
-                                    player.currentlySelected1 = true
-                                    print("currently selected players:")
-                                    print(currentPlayersT1)
-                                    player1 = player
-                                    
-                                }
-                            }
-                        }
+            ScrollView{
+                VStack{
+                    Image(systemName: "trophy.circle")
+                        .font(.system(size: 72))
+                        .foregroundColor(Color.green)
+                    
+                    HStack{
+                        Text("Game mode: ").padding()
+                        Picker(selection: $selectedGameMode, label: Text("Game mode: ")) {
+                            Text("1 vs 1").tag("1 vs 1")
+                            Text("2 vs 2").tag("2 vs 2")
+                            Text("1 vs 1 vs 1").tag("1 vs 1 vs 1")
+                        }//.pickerStyle(.wheel)
                     }
-                    .padding()
-                }
-                .background(Color(UIColor.systemGroupedBackground))
-                
-                Text("Select players for team 2: ")
-                ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(players){ player in
-                            GroupBox{
-                                VStack{
-                                    if(!player.currentlySelected2){
-                                        Image(systemName: player.icon)
-                                        Text(player.name)
-                                            .padding()
-                                            .background(.white)
-                                            .cornerRadius(8)
-                                    } else {
-                                        Image(systemName: "person.crop.circle.fill.badge.checkmark")
-                                        Text(player.name)
-                                            .padding()
-                                            .background(.white)
-                                            .cornerRadius(8)
-                                    }
-                                }
-                            }.onTapGesture{
-                                if(player.currentlySelected2){
-                                    setPlayerAmountBasedOnGamemode()
-                                    currentPlayersT2 = currentPlayersT2 - 1
-                                    player.currentlySelected2 = false
-                                    player2 = nilplayer
-                                }
-                                else if (maximumPlayersT2 > currentPlayersT2){
-                                    setPlayerAmountBasedOnGamemode()
-                                    currentPlayersT2 = currentPlayersT2 + 1
-                                    player.currentlySelected2 = true
-                                    player2 = player
-                                    
-                                }
-                            }
-                        }
-                    }
-                    .padding()
-                }
-                .background(Color(UIColor.systemGroupedBackground))
-                if (selectedGameMode == "1 vs 1 vs 1"){
-                    Text("Select players for team 3: ")
+                    HStack{
+                        Text("Game win points: ").padding()
+                        TextField("Maximum points", text: $inputMaxPoints).padding().keyboardType(.decimalPad)
+                    }.padding()
+                    
+                    //Add button to create a new player
+                    Button(action: {
+                        setPlayerAmountBasedOnGamemode()
+                        showingPlayerSheet.toggle()
+                    }, label: {
+                        Text("Create a new player")
+                            .padding()
+                    }).sheet(isPresented: $showingPlayerSheet) {
+                        PlayerSheetView(playerItems: players)
+                    }.padding()
+                    
+                    Text("Select players for team 1: ")
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(players){ player in
                                 GroupBox{
                                     VStack{
-                                        if(!player.currentlySelected3){
+                                        if(!player.currentlySelected1){
+                                            Image(systemName: player.icon)
+                                            Text(player.name)
+                                                .padding()
+                                                .background(.white)
+                                                .cornerRadius(8)
+                                        } else { //player selected already
+                                            Image(systemName: "person.crop.circle.fill.badge.checkmark")
+                                            Text(player.name)
+                                                .padding()
+                                                .background(.white)
+                                                .cornerRadius(8)
+                                        }
+                                    }
+                                }.onTapGesture{
+                                    setPlayerAmountBasedOnGamemode()
+                                    
+                                    //TODO add if to support the 2vs2
+                                    if(player.currentlySelected1){
+                                        currentPlayersT1 = currentPlayersT1 - 1
+                                        player.currentlySelected1 = false
+                                        player1 = nilplayer
+                                        print("currently selected players:")
+                                        print(currentPlayersT1)
+                                    }
+                                    else if (maximumPlayersT1 > currentPlayersT1){
+                                        setPlayerAmountBasedOnGamemode()
+                                        currentPlayersT1 = currentPlayersT1 + 1
+                                        player.currentlySelected1 = true
+                                        print("currently selected players:")
+                                        print(currentPlayersT1)
+                                        player1 = player
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    .background(Color(UIColor.systemGroupedBackground))
+                    
+                    Text("Select players for team 2: ")
+                    ScrollView(.horizontal) {
+                        LazyHStack {
+                            ForEach(players){ player in
+                                GroupBox{
+                                    VStack{
+                                        if(!player.currentlySelected2){
                                             Image(systemName: player.icon)
                                             Text(player.name)
                                                 .padding()
@@ -174,17 +136,17 @@ struct SheetView: View {
                                         }
                                     }
                                 }.onTapGesture{
-                                    if(player.currentlySelected3){
+                                    if(player.currentlySelected2){
                                         setPlayerAmountBasedOnGamemode()
-                                        currentPlayersT3 = currentPlayersT3 + 1
-                                        player.currentlySelected3 = false
-                                        player3 = nilplayer
+                                        currentPlayersT2 = currentPlayersT2 - 1
+                                        player.currentlySelected2 = false
+                                        player2 = nilplayer
                                     }
-                                    else if (maximumPlayersT3 > currentPlayersT3){
+                                    else if (maximumPlayersT2 > currentPlayersT2){
                                         setPlayerAmountBasedOnGamemode()
-                                        currentPlayersT3 = currentPlayersT3 + 1
-                                        player.currentlySelected3 = true
-                                        player3 = player
+                                        currentPlayersT2 = currentPlayersT2 + 1
+                                        player.currentlySelected2 = true
+                                        player2 = player
                                         
                                     }
                                 }
@@ -193,67 +155,108 @@ struct SheetView: View {
                         .padding()
                     }
                     .background(Color(UIColor.systemGroupedBackground))
-                } else {
-                    
-                }
-            }
-            .navigationBarTitle("Create a new game", displayMode: .inline)
-            
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        //Create the new game
-                        let gamemode = selectedGameMode
-                        let timestamp = Date()
-                        let maxPoints = Int(inputMaxPoints)
-                        var playerCounter = 0
+                    if (selectedGameMode == "1 vs 1 vs 1"){
+                        Text("Select players for team 3: ")
+                        ScrollView(.horizontal) {
+                            LazyHStack {
+                                ForEach(players){ player in
+                                    GroupBox{
+                                        VStack{
+                                            if(!player.currentlySelected3){
+                                                Image(systemName: player.icon)
+                                                Text(player.name)
+                                                    .padding()
+                                                    .background(.white)
+                                                    .cornerRadius(8)
+                                            } else {
+                                                Image(systemName: "person.crop.circle.fill.badge.checkmark")
+                                                Text(player.name)
+                                                    .padding()
+                                                    .background(.white)
+                                                    .cornerRadius(8)
+                                            }
+                                        }
+                                    }.onTapGesture{
+                                        if(player.currentlySelected3){
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT3 = currentPlayersT3 + 1
+                                            player.currentlySelected3 = false
+                                            player3 = nilplayer
+                                        }
+                                        else if (maximumPlayersT3 > currentPlayersT3){
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT3 = currentPlayersT3 + 1
+                                            player.currentlySelected3 = true
+                                            player3 = player
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                            .padding()
+                        }
+                        .background(Color(UIColor.systemGroupedBackground))
+                    } else {
                         
-                        if (selectedGameMode == "1 vs 1 vs 1" && player1.name != "nil" &&  player2.name != "nil" &&  player3.name != "nil"){
-                            print("valid data1")
-                            playerCounter = 3
-                            let squad3Enabled = true
-                            let squad1 = [player1.name]
-                            let squad2 = [player2.name]
-                            let squad3 = [player3.name]
-                            resetPlayerSelection()
-                            dismiss()
-                        } else if (selectedGameMode == "2 vs 2" && player1.name != "" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
-                            print("valid data2")
-                            playerCounter = 4
-                            let squad3Enabled = false
-                            let squad1 = [player1.name, player2.name]
-                            let squad2 = [player3.name, player4.name]
-                            resetPlayerSelection()
-                            dismiss()
+                    }
+                }
+                .navigationBarTitle("Create a new game", displayMode: .inline)
+                
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            //Create the new game
+                            let gamemode = selectedGameMode
+                            let timestamp = Date()
+                            let maxPoints = Int(inputMaxPoints)
+                            var playerCounter = 0
                             
-                        } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
-                            print("valid data3")
-                            playerCounter = 2
-                            let squad3Enabled = false
-                            let squad1 = [player1.name]
-                            let squad2 = [player2.name]
-                            resetPlayerSelection()
-                            var newGame = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
-                            addNewGame(newItem: newGame)
-                            dismiss()
-                            
-                        } else{
-                            print("invalid data - last else")
-                            showingAlert = true
+                            if (selectedGameMode == "1 vs 1 vs 1" && player1.name != "nil" &&  player2.name != "nil" &&  player3.name != "nil"){
+                                print("valid data1")
+                                playerCounter = 3
+                                let squad3Enabled = true
+                                let squad1 = [player1.name]
+                                let squad2 = [player2.name]
+                                let squad3 = [player3.name]
+                                resetPlayerSelection()
+                                dismiss()
+                            } else if (selectedGameMode == "2 vs 2" && player1.name != "" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
+                                print("valid data2")
+                                playerCounter = 4
+                                let squad3Enabled = false
+                                let squad1 = [player1.name, player2.name]
+                                let squad2 = [player3.name, player4.name]
+                                resetPlayerSelection()
+                                dismiss()
+                                
+                            } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
+                                print("valid data3")
+                                playerCounter = 2
+                                let squad3Enabled = false
+                                let squad1 = [player1.name]
+                                let squad2 = [player2.name]
+                                resetPlayerSelection()
+                                var newGame = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
+                                addNewGame(newItem: newGame)
+                                dismiss()
+                                
+                            } else{
+                                print("invalid data - last else")
+                                showingAlert = true
+                            }
                         }
                     }
-                }
-                
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        resetPlayerSelection()
-                        dismiss()
+                    
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") {
+                            resetPlayerSelection()
+                            dismiss()
+                        }
                     }
+                }.alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Select all the players"), message: Text("Please select all the players"), dismissButton: .default(Text("Got it!")))
                 }
-            }.alert(isPresented: $showingAlert) {
-                Alert(title: Text("Select all the players"), message: Text("Please select all the players"), dismissButton: .default(Text("Got it!")))
             }
-            
         }
     }
     private func addNewGame(newItem: Game){

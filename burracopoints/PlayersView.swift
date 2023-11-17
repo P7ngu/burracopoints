@@ -18,6 +18,8 @@ struct PlayerSheetView: View {
     
     @State private var showingAlert = false
     
+    @State var colorState = Color.blue
+    
     var playerItems: [Player]
     
     
@@ -28,11 +30,25 @@ struct PlayerSheetView: View {
     var body: some View{
         NavigationView{
             VStack{
+                GroupBox{
+                    Text("You currently selected icon: ")
+                    if(iconName == ""){
+                        Image(systemName: "x.circle")
+                            .font(.system(size: 52))
+                            .padding()
+                    } else {
+                        Image(systemName: iconName)
+                            .font(.system(size: 52))
+                            .padding()
+                    }
+                }
+                
                 HStack{
                     Text("Name: ").padding()
                     TextField("Player name", text: $playerName).padding()
                 }//.padding()
-                VStack{
+                
+               
                     Text("Pick an icon: ")
                     ScrollView(.horizontal) {
                         LazyHStack {
@@ -44,7 +60,9 @@ struct PlayerSheetView: View {
                                             .foregroundColor(icon.color)
                                     }.onTapGesture {
                                             icon.isSelected = true
-                                            icon.color = Color.green
+                                            iconName = icon.name
+                                            colorState = Color.green
+                                            icon.color = colorState
                                             print("icon selected")
                                         }
                                 }
@@ -52,14 +70,16 @@ struct PlayerSheetView: View {
                                     GroupBox{
                                         Image(systemName: icon.name)
                                             .font(.system(size: 52))
-                                            .foregroundColor(Color.green)
+                                            .foregroundColor(icon.color)
                                     }.onTapGesture {
                                             icon.isSelected = false
-                                            icon.color = Color.blue
+                                        colorState = Color.blue
+                                        icon.color = colorState
+                                           
                                         }
                                 }
                             }
-                        }//.padding()
+                        //.padding()
                         
                     }
                 }
@@ -70,6 +90,13 @@ struct PlayerSheetView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         if(playerName != ""){
+                            ForEach(iconList){ icon in
+                                if icon.isSelected == true {
+                                  //  iconName = icon.name
+                                } else {
+                                    
+                                }
+                            }
                             var newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
                             
                             addNewPlayer(player: newPlayer, players: playerItems)
@@ -111,7 +138,7 @@ struct PlayersView: View {
                 ForEach(playerItems) { player in
                     NavigationLink {
                         HStack{
-                          //  Image(systemName: player.icon)
+                          Image(systemName: player.icon)
                             
                             Text(player.name)
                                 .padding()
@@ -125,6 +152,8 @@ struct PlayersView: View {
                         }
                     } label: {
                         HStack{
+                            Image(systemName: player.icon)
+                            
                                 Text(player.name)
                                     .padding()
                                     .background(.white)
