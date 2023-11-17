@@ -37,7 +37,6 @@ struct GameAddPointsSheetView: View {
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
-                        
                         VStack{
                             GroupBox{
                                 //player 2 points

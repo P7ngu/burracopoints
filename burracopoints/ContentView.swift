@@ -36,7 +36,6 @@ struct SheetView: View {
     
     var body: some View {
         
-        
         NavigationView{
             ScrollView{
                 VStack{
@@ -211,8 +210,6 @@ struct SheetView: View {
                                                 print("saving player 4")
                                                 player4 = player
                                             }
-                                            
-                                            
                                         }
                                     }
                                 }

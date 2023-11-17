@@ -142,12 +142,10 @@ struct PlayersView: View {
                             
                             Text(player.name)
                                 .padding()
-                                .background(.white)
                                 .cornerRadius(8)
                             
                             Text(String(player.id))
                                 .padding()
-                                .background(.white)
                                 .cornerRadius(8)
                         }
                     } label: {
@@ -156,7 +154,6 @@ struct PlayersView: View {
                             
                                 Text(player.name)
                                     .padding()
-                                    .background(.white)
                                     .cornerRadius(8)
                             
                         }
