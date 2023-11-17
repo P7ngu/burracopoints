@@ -68,7 +68,7 @@ struct PlayerSheetView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         if(playerName != ""){
-                            var newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+                            var newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0)
                             
                             addNewPlayer(player: newPlayer)
                             dismiss()

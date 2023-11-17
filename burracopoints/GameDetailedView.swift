@@ -8,8 +8,30 @@
 import SwiftUI
 
 struct GameAddPointsSheetView: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
-        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
+        NavigationView{
+            VStack{
+                
+                
+            }
+            .navigationBarTitle("Add points", displayMode: .inline)
+            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        //Add points and then dismiss
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
+            
+        }
     }
 }
 
@@ -21,7 +43,9 @@ struct GameDetailedView: View {
         NavigationStack{
             VStack{
                 HStack{
+                    
                 }
+                
             }
         } .toolbar {
             ToolbarItem {

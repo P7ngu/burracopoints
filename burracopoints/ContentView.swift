@@ -23,11 +23,11 @@ struct SheetView: View {
     @State private var maximumPlayersT2 = 1
     @State private var maximumPlayersT3 = 1
     
-    @State private var nilplayer: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
-    @State private var player1: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
-    @State private var player2: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
-    @State private var player3: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
-    @State private var player4: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
+    @State private var nilplayer: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0)
+    @State private var player1: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0)
+    @State private var player2: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0)
+    @State private var player3: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0)
+    @State private var player4: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0)
     
     @Environment(\.dismiss) var dismiss
     @Query private var players: [Player]
@@ -35,7 +35,6 @@ struct SheetView: View {
     @State private var showingAlert = false
     
     var body: some View {
-        
         NavigationView{
             VStack{
                 Image(systemName: "trophy.circle")
@@ -51,12 +50,10 @@ struct SheetView: View {
                     }//.pickerStyle(.wheel)
                 }
                 HStack{
-                    
                     Text("Game win points: ").padding()
                     TextField("Maximum points", text: $inputMaxPoints).padding().keyboardType(.decimalPad)
                 }.padding()
                 
-               
                 //Add button to create a new player
                 Button(action: {
                     setPlayerAmountBasedOnGamemode()
