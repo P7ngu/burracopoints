@@ -70,9 +70,9 @@
 				639C09052B0378C1004B061A /* GameModel.swift */,
 				639C09132B037A42004B061A /* PlayerModel.swift */,
 				63C8D7992B0600CA00B50EFC /* IconModel.swift */,
+				63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */,
 				639C09072B0378C2004B061A /* Assets.xcassets */,
 				639C09092B0378C2004B061A /* Preview Content */,
-				63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */,
 			);
 			path = burracopoints;
 			sourceTree = "<group>";

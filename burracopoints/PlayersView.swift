@@ -18,6 +18,8 @@ struct PlayerSheetView: View {
     
     @State private var showingAlert = false
     
+    var playerItems: [Player]
+    
     
     var iconList = [
         Icon(name: "star.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "sun.max.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "person.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "heart.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "moon.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "cloud.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "bolt.circle", id: UUID(), isSelected: false, color: Color.blue)
@@ -68,9 +70,9 @@ struct PlayerSheetView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         if(playerName != ""){
-                            var newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0)
+                            var newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
                             
-                            addNewPlayer(player: newPlayer)
+                            addNewPlayer(player: newPlayer, players: playerItems)
                             dismiss()
                         } else {
                            showingAlert = true
@@ -89,8 +91,10 @@ struct PlayerSheetView: View {
             }
         }
     }
-    func addNewPlayer(player: Player){
-        modelContext.insert(player)
+    func addNewPlayer(player: Player, players: [Player]){
+            player.id = players.count + 1
+            modelContext.insert(player)
+        
     }
 }
 
@@ -113,6 +117,11 @@ struct PlayersView: View {
                                 .padding()
                                 .background(.white)
                                 .cornerRadius(8)
+                            
+                            Text(String(player.id))
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(8)
                         }
                     } label: {
                         HStack{
@@ -131,14 +140,14 @@ struct PlayersView: View {
                 
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+               // ToolbarItem(placement: .navigationBarTrailing) {
+              //      EditButton()
+               // }
                 ToolbarItem {
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
                     } .sheet(isPresented: $showingSheet) {
-                        PlayerSheetView()
+                        PlayerSheetView(playerItems: playerItems)
                     }
                     
                 }

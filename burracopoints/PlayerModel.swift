@@ -18,8 +18,9 @@ class Player {
     var numberOfGamePlayed: Int
     var numberOfGameWon: Int
     var winRatio: Float
+    var id: Int
     
-    init(name: String, icon: String, currentlySelected1: Bool, currentlySelected2: Bool, currentlySelected3: Bool, numberOfGamePlayed: Int, numberOfGameWon: Int, winRatio: Float) {
+    init(name: String, icon: String, currentlySelected1: Bool, currentlySelected2: Bool, currentlySelected3: Bool, numberOfGamePlayed: Int, numberOfGameWon: Int, winRatio: Float, id: Int) {
         self.name = name
         self.icon = icon
         self.currentlySelected1 = currentlySelected1
@@ -28,6 +29,7 @@ class Player {
         self.numberOfGamePlayed = numberOfGamePlayed
         self.numberOfGameWon = numberOfGameWon
         self.winRatio = winRatio
+        self.id = id
     }
     
 }
