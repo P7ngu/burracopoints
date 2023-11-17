@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct GameAddPointsSheetView: View {
+    @Bindable var displayedGame: Game
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationView{
             VStack{
-                
+               //We need at least 2 input boxes, 3 maximum
+                if displayedGame.gameMode == 2 { 
+                    // 1 vs 1
+                    
+                } else if displayedGame.gameMode == 3 {
+                    // 1 vs 1 vs 1, 3 boxes
+                    
+                } else if displayedGame.gameMode == 4 {
+                    //2 vs 2, 2x2 boxes
+                }
+                    
                 
             }
             .navigationBarTitle("Add points", displayMode: .inline)
@@ -52,7 +63,7 @@ struct GameDetailedView: View {
                 Button(action: addPoints) {
                     Label("Add Points", systemImage: "note.text.badge.plus")
                 } .sheet(isPresented: $showingSheet) {
-                    GameAddPointsSheetView()
+                    GameAddPointsSheetView(displayedGame: displayedGame)
                 }
             }
         }.navigationTitle(title)
