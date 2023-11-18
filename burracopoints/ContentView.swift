@@ -86,7 +86,7 @@ struct SheetView: View {
                                     }
                                 }.onTapGesture{
                                     setPlayerAmountBasedOnGamemode()
-                                    //TODO: add if to support the 2vs2
+                                    //TODO: add if to support the 1vs 1 vs 1
                                     if(selectedGameMode == "1 vs 1"){
                                         if(player.currentlySelected1){
                                             currentPlayersT1 = currentPlayersT1 - 1
@@ -105,8 +105,6 @@ struct SheetView: View {
                                             
                                         }
                                     } else if(selectedGameMode == "2 vs 2"){
-                                        print("TEST")
-                                        //TODO: test
                                         if(player.currentlySelected1){
                                             currentPlayersT1 = currentPlayersT1 - 1
                                             player.currentlySelected1 = false
@@ -128,6 +126,25 @@ struct SheetView: View {
                                                 player2 = player
                                             }
                                             
+                                        }
+                                    } else if (selectedGameMode == "1 vs 1 vs 1"){
+                                        print("TEST 1 vs 1 vs 1")
+                                        //TODO: test
+                                        if(player.currentlySelected1){
+                                            currentPlayersT1 = currentPlayersT1 - 1
+                                            player.currentlySelected1 = false
+                                            player1 = nilplayer
+                                            print("deselec. cur selec players:")
+                                            print(currentPlayersT1)
+                                        }
+                                        else if (maximumPlayersT1 > currentPlayersT1){
+                                            print("Entering ")
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT1 = currentPlayersT1 + 1
+                                            player.currentlySelected1 = true
+                                            print("selecting. currently selected players:")
+                                            print(String(currentPlayersT1) + player.name)
+                                            player1 = player
                                         }
                                     }
                                     
@@ -208,6 +225,26 @@ struct SheetView: View {
                                                 player4 = player
                                             }
                                         }
+                                    }else if (selectedGameMode == "1 vs 1 vs 1"){
+                                        print("TEST 1 vs 1 vs 1")
+                                        //TODO: test
+                                        if(player.currentlySelected2){
+                                            currentPlayersT2 = currentPlayersT2 - 1
+                                            player.currentlySelected2 = false
+                                            player2 = nilplayer
+                                            print("deselec. cur selec players:")
+                                            print(currentPlayersT2)
+                                        }
+                                        else if (maximumPlayersT2 > currentPlayersT2){
+                                            print("Entering ")
+                                            setPlayerAmountBasedOnGamemode()
+                                            currentPlayersT2 = currentPlayersT2 + 1
+                                            player.currentlySelected2 = true
+                                            print("selecting. currently selected players:")
+                                            print(String(currentPlayersT2) + player.name)
+                                           
+                                            player2 = player
+                                        }
                                     }
                                 }
                             }
@@ -278,7 +315,11 @@ struct SheetView: View {
                                 let squad1 = [player1.name]
                                 let squad2 = [player2.name]
                                 let squad3 = [player3.name]
+                                
+                                
                                 resetPlayerSelection()
+                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 3, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: squad3, currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
+                                addNewGame(newItem: newGame)
                                 dismiss()
                             } else if (selectedGameMode == "2 vs 2" && player1.name != "nil" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
                                 print("valid data2")
@@ -384,6 +425,12 @@ struct ContentView: View {
                                     Text(game.squad1.first!)
                                     Text(" vs ")
                                     Text(game.squad2.first!)
+                                    if(game.squad3.first! != "nil"){
+                                        Text(" vs ")
+                                        Text(game.squad3.first!)
+                                    } else {
+                                        
+                                    }
                                     // Text(game))
                                 }.padding()
                             }

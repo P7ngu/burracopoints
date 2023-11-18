@@ -134,10 +134,10 @@ struct GameAddPointsSheetView: View {
                             }
                             
                             var currentHand = displayedGame.handPoints_p1.count
-                            
-                            displayedGame.handPoints_p1[currentHand] = Int(squad1pointsbase)! + Int(squad1pointsscore)!
-                            displayedGame.handPoints_p2[currentHand] = Int(squad2pointsbase)! + Int(squad2pointsscore)!
-                            displayedGame.handPoints_p3[currentHand] = Int(squad3pointsbase)! + Int(squad3pointsscore)!
+                            //TODO: debug for 1 vs 1
+                            displayedGame.handPoints_p1.append( Int( Int(squad1pointsbase)! + Int(squad1pointsscore)! ) )
+                            displayedGame.handPoints_p2.append( Int( Int(squad2pointsbase)! + Int(squad2pointsscore)! ) )
+                            displayedGame.handPoints_p3.append( Int( Int(squad3pointsbase)! + Int(squad3pointsscore)! ) )
                             
                             dismiss()
                         } else {
@@ -319,7 +319,12 @@ struct GameDetailedView: View {
             }
         }.navigationTitle(title)
             .onAppear(){
-                title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
+                if(displayedGame.squad3.first! != "nil"){
+                    title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
+                } else {
+                    title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
+                }
+               
             }
     }
     
