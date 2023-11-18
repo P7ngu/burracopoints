@@ -10,8 +10,18 @@ import SwiftData
 
 @main
 struct burracopointsApp: App {
-    //TODO: pick winner after hand points insertion, set the winner a win, the loser(s) a lost game, update win ratio accordingly.
+    //pick winner after hand points insertion, set the winner a win, the loser(s) a lost game,
+    
+    //TODO: update win ratio accordingly.
+
     //TODO: tell the user which one has to be dealer
+    
+    //TODO: sort games by time: most recent ones on top, divide them by finished and not
+    
+    //TODO: after the creation of a game consider opening the game detailed view instead of the games section
+    
+    //TODO: username costraints
+    
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([

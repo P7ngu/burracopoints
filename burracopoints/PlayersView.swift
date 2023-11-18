@@ -180,12 +180,31 @@ struct PlayersView: View {
                 
             }  .navigationTitle("player-title-string")
         }
+        
       
     }
     
     
     
+    func giveTheUserAWin(game: Game, username: String){
+        for player in playerItems {
+            if player.name == username{
+                player.numberOfGameWon += 1
+                player.numberOfGamePlayed += 1
+            }
+            
+        }
+    }
     
+        func giveTheUserALoss(game: Game, username: String){
+            for player in playerItems {
+                if player.name == username{
+                    player.numberOfGamePlayed += 1
+                }
+                
+            }
+        
+    }
     
     
     private func addItem() {

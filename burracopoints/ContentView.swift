@@ -48,7 +48,10 @@ struct SheetView: View {
                             Text("1 vs 1").tag("1 vs 1")
                             Text("2 vs 2").tag("2 vs 2")
                             Text("1 vs 1 vs 1").tag("1 vs 1 vs 1")
-                        }//.pickerStyle(.wheel)
+                        }//.pickerStyle(.wheel).
+                        .onTapGesture {
+                            resetPlayerSelection()
+                        }
                     }
                     HStack{
                         Text("gamewinpoints-string").padding()
@@ -375,6 +378,14 @@ struct SheetView: View {
     }
     
     func resetPlayerSelection(){
+        player1 = nilplayer
+        player2 = nilplayer
+        player3 = nilplayer
+        player4 = nilplayer
+        currentPlayersT1 = 0
+        currentPlayersT2 = 0
+        currentPlayersT3 = 0
+        
         for player in players {
             player.currentlySelected1 = false
             player.currentlySelected2 = false
@@ -422,14 +433,20 @@ struct ContentView: View {
                                     } else {
                                         Image(systemName: "flag.checkered.circle")
                                     }
+                                    
                                     Text(game.squad1.first!)
                                     Text(" vs ")
                                     Text(game.squad2.first!)
                                     if(game.squad3.first! != "nil"){
                                         Text(" vs ")
                                         Text(game.squad3.first!)
-                                    } else {
-                                        
+                                    } else { if(game.gamemode == "2 vs 2"){
+                                        Text(game.squad1.first! + " && ")
+                                        Text(game.squad1.last!)
+                                        Text(" vs ")
+                                        Text(game.squad2.first! + " && ")
+                                        Text(game.squad2.last!)
+                                    }
                                     }
                                     // Text(game))
                                 }.padding()

@@ -39,4 +39,7 @@
 "errorplayer-string" = "Scegli tutti i giocatori!";
 "errordescp-string" = "Perfavore, seleziona tutti i giocatori richiesti!";
 
+"gameover-string" = "Abbiamo un vincitore!";
+"gameoveradd-string" = "La partita si è conclusa, non puoi aggiungere dei punti!";
+
 
