@@ -17,6 +17,7 @@
 		639C09182B038485004B061A /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09172B038485004B061A /* LeaderboardView.swift */; };
 		63C8D79A2B0600CA00B50EFC /* IconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8D7992B0600CA00B50EFC /* IconModel.swift */; };
 		63C8D79C2B0685D500B50EFC /* GameDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */; };
+		63EC2EEB2B07DC1800FB156A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63EC2EED2B07DC1800FB156A /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		639C09172B038485004B061A /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		63C8D7992B0600CA00B50EFC /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
 		63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailedView.swift; sourceTree = "<group>"; };
+		63EC2EEC2B07DC1800FB156A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		63EC2EEE2B07DD9400FB156A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +69,7 @@
 				639C09012B0378C1004B061A /* burracopointsApp.swift */,
 				639C09032B0378C1004B061A /* ContentView.swift */,
 				639C09152B038328004B061A /* PlayersView.swift */,
+				63EC2EED2B07DC1800FB156A /* Localizable.strings */,
 				639C09172B038485004B061A /* LeaderboardView.swift */,
 				639C09052B0378C1004B061A /* GameModel.swift */,
 				639C09132B037A42004B061A /* PlayerModel.swift */,
@@ -127,6 +131,7 @@
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 639C08F52B0378C1004B061A;
 			productRefGroup = 639C08FF2B0378C1004B061A /* Products */;
@@ -144,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				639C090B2B0378C2004B061A /* Preview Assets.xcassets in Resources */,
+				63EC2EEB2B07DC1800FB156A /* Localizable.strings in Resources */,
 				639C09082B0378C2004B061A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,12 +174,25 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		63EC2EED2B07DC1800FB156A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63EC2EEC2B07DC1800FB156A /* en */,
+				63EC2EEE2B07DD9400FB156A /* it */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		639C090C2B0378C2004B061A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -237,6 +256,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

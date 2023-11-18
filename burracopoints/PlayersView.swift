@@ -31,7 +31,7 @@ struct PlayerSheetView: View {
         NavigationView{
             VStack{
                 GroupBox{
-                    Text("You currently selected icon: ")
+                    Text("selectedicon-string")
                     if(iconName == ""){
                         Image(systemName: "x.circle")
                             .font(.system(size: 52))
@@ -44,12 +44,12 @@ struct PlayerSheetView: View {
                 }
                 
                 HStack{
-                    Text("Name: ").padding()
-                    TextField("Player name", text: $playerName).padding()
+                    Text("name-string").padding()
+                    TextField("player-name-string", text: $playerName).padding()
                 }//.padding()
                 
                
-                    Text("Pick an icon: ")
+                    Text("pickicon-string")
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(iconList){ icon in
@@ -85,10 +85,10 @@ struct PlayerSheetView: View {
                 }
                 
             }
-            .navigationBarTitle("Add a new player", displayMode: .inline)
+            .navigationBarTitle("addnewplayer-string", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button("done-button-string") {
                         if(playerName != ""){
                             ForEach(iconList){ icon in
                                 if icon.isSelected == true {
@@ -109,12 +109,12 @@ struct PlayerSheetView: View {
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("cancel-button-string") {
                         dismiss()
                     }
                 }
             } .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Input a name"), message: Text("Please input a name"), dismissButton: .default(Text("Got it!")))
+                Alert(title: Text("errorinputname-string"), message: Text("errordetailinputname-string"), dismissButton: .default(Text("okbuttonerror-string")))
             }
         }
     }
@@ -178,7 +178,7 @@ struct PlayersView: View {
                     
                 }
                 
-            }  .navigationTitle("Players")
+            }  .navigationTitle("player-title-string")
         }
       
     }

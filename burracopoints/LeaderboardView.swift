@@ -10,8 +10,9 @@ import SwiftUI
 struct LeaderboardView: View {
     var body: some View {
         NavigationView{
-        Text("hello world")
-         .navigationTitle("Leaderboard")
+       // Text("hello-string")
+            Text("hello-string2 \("Matteo")")
+         .navigationTitle("leaderboard-title-string")
         }//.navigationTitle("Leaderboard")
     }
 }

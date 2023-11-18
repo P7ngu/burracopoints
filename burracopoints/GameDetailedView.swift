@@ -31,9 +31,9 @@ struct GameAddPointsSheetView: View {
                             //player 1 points
                             GroupBox{
                                 Text(displayedGame.squad1.first!)
-                                TextField("Base", text: $squad1pointsbase)
+                                TextField("base-string", text: $squad1pointsbase)
                                     .padding().keyboardType(.decimalPad)
-                                TextField("Score", text: $squad1pointsscore)
+                                TextField("score-string", text: $squad1pointsscore)
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
@@ -41,9 +41,9 @@ struct GameAddPointsSheetView: View {
                             GroupBox{
                                 //player 2 points
                                 Text(displayedGame.squad2.first!)
-                                TextField("Base", text: $squad2pointsbase)
+                                TextField("base-string", text: $squad2pointsbase)
                                     .padding().keyboardType(.decimalPad)
-                                TextField("Score", text: $squad2pointsscore)
+                                TextField("score-string", text: $squad2pointsscore)
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
@@ -56,9 +56,9 @@ struct GameAddPointsSheetView: View {
                             //player 1 points
                             GroupBox{
                                 Text(displayedGame.squad1.first!)
-                                TextField("Base", text: $squad1pointsbase)
+                                TextField("base-string", text: $squad1pointsbase)
                                     .padding().keyboardType(.decimalPad)
-                                TextField("Score", text: $squad1pointsscore)
+                                TextField("score-string", text: $squad1pointsscore)
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
@@ -67,9 +67,9 @@ struct GameAddPointsSheetView: View {
                             GroupBox{
                                 //player 2 points
                                 Text(displayedGame.squad2.first!)
-                                TextField("Base", text: $squad2pointsbase)
+                                TextField("base-string", text: $squad2pointsbase)
                                     .padding().keyboardType(.decimalPad)
-                                TextField("Score", text: $squad2pointsscore)
+                                TextField("score-string", text: $squad2pointsscore)
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
@@ -78,9 +78,9 @@ struct GameAddPointsSheetView: View {
                             GroupBox{
                                 //player 2 points
                                 Text(displayedGame.squad3.first!)
-                                TextField("Base", text: $squad3pointsbase)
+                                TextField("base-string", text: $squad3pointsbase)
                                     .padding().keyboardType(.decimalPad)
-                                TextField("Score", text: $squad3pointsscore)
+                                TextField("score-string", text: $squad3pointsscore)
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
@@ -93,9 +93,9 @@ struct GameAddPointsSheetView: View {
                             //player 1 points
                             GroupBox{
                                 Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
-                                TextField("Base", text: $squad1pointsbase)
+                                TextField("base-string", text: $squad1pointsbase)
                                     .padding().keyboardType(.decimalPad)
-                                TextField("Score", text: $squad1pointsscore)
+                                TextField("score-string", text: $squad1pointsscore)
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
@@ -104,9 +104,9 @@ struct GameAddPointsSheetView: View {
                             GroupBox{
                                 //player 2 points
                                 Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
-                                TextField("Base", text: $squad2pointsbase)
+                                TextField("base-string", text: $squad2pointsbase)
                                     .padding().keyboardType(.decimalPad)
-                                TextField("Score", text: $squad2pointsscore)
+                                TextField("score-string", text: $squad2pointsscore)
                                     .padding().keyboardType(.decimalPad)
                             }
                         }.padding()
@@ -115,11 +115,11 @@ struct GameAddPointsSheetView: View {
                     
                 
             }
-            .navigationBarTitle("Add points", displayMode: .inline)
+            .navigationBarTitle("addpoints-string", displayMode: .inline)
             
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button("done-button-string") {
                         //Add points and then dismiss
                         //TODO: check the input
                         if displayedGame.squad3Enabled {
@@ -164,7 +164,7 @@ struct GameAddPointsSheetView: View {
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("cancel-button-string") {
                         squad1pointsbase = "0"
                         squad1pointsscore = "0"
                         squad2pointsbase = "0"
@@ -197,14 +197,17 @@ struct GameDetailedView: View {
                             VStack{
                                 Text(displayedGame.squad1.first!).bold()
                                 HStack{
-                                    Text("Points: ")
+                                    Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p1))
                                 }
                                 
-                                ForEach(0..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                     HStack{
-                                        Text("Hand " + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p1[index]))
+                                       
+                                            Text("hand-string")
+                                            Text(String(index) + ":")
+                                            Text(String(displayedGame.handPoints_p1[index]))
+                                       
                                     }
                                 }
                             }
@@ -213,12 +216,13 @@ struct GameDetailedView: View {
                             VStack{
                                 Text(displayedGame.squad2.first!).bold()
                                 HStack{
-                                    Text("Points: ")
+                                    Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p2))
                                 }
-                                ForEach(0..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
                                     HStack{
-                                        Text("Hand " + String(index) + ":")
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
                                         Text(String(displayedGame.handPoints_p2[index]))
                                     }
                                 }
@@ -236,8 +240,10 @@ struct GameDetailedView: View {
                                 VStack{
                                     Text(displayedGame.squad1.first!)
                                     Text(String(displayedGame.currentPoints_p1))
-                                    ForEach(0..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                        Text("Hand " + String(index) + ":")
+                                    ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                        
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
                                         Text(String(displayedGame.handPoints_p1[index]))
                                     }
                                 }
@@ -250,8 +256,9 @@ struct GameDetailedView: View {
                                 //player 2 points
                                 Text(displayedGame.squad2.first!)
                                 Text(String(displayedGame.currentPoints_p2))
-                                ForEach(0..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                    Text("Hand " + String(index) + ":")
+                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                    Text("hand-string")
+                                    Text(String(index) + ":")
                                     Text(String(displayedGame.handPoints_p2[index]))
                                 }
                             }
@@ -262,8 +269,9 @@ struct GameDetailedView: View {
                                 //player 3 points
                                 Text(displayedGame.squad3.first!)
                                 Text(String(displayedGame.currentPoints_p3))
-                                ForEach(0..<displayedGame.handPoints_p3.count, id: \.self){ index in
-                                    Text("Hand " + String(index) + ":")
+                                ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
+                                    Text("hand-string")
+                                    Text(String(index) + ":")
                                     Text(String(displayedGame.handPoints_p3[index]))
                                 }
                             }
@@ -277,8 +285,9 @@ struct GameDetailedView: View {
                             GroupBox{
                                 Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
                                 Text(String(displayedGame.currentPoints_p1))
-                                ForEach(0..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                    Text("Hand " + String(index) + ":")
+                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                    Text("hand-string")
+                                    Text(String(index) + ":")
                                     Text(String(displayedGame.handPoints_p1[index]))
                                 }
                             }
@@ -288,8 +297,9 @@ struct GameDetailedView: View {
                                 //player 2 points
                                 Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
                                 Text(String(displayedGame.currentPoints_p2))
-                                ForEach(0..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                    Text("Hand " + String(index) + ":")
+                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                    Text("hand-string")
+                                    Text(String(index) + ":")
                                     Text(String(displayedGame.handPoints_p2[index]))
                                 }
                             }
@@ -302,7 +312,7 @@ struct GameDetailedView: View {
         } .toolbar {
             ToolbarItem {
                 Button(action: addPoints) {
-                    Label("Add Points", systemImage: "note.text.badge.plus")
+                    Label("addpoints-string", systemImage: "note.text.badge.plus")
                 } .sheet(isPresented: $showingSheet) {
                     GameAddPointsSheetView(displayedGame: displayedGame)
                 }

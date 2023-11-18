@@ -1,0 +1,42 @@
+"hello-string" = "Hello there, localized string";
+"hello-string2%@" = "Hello there, %@.";
+
+"game-title-string" = "Partite";
+"player-title-string" = "Giocatori";
+"leaderboard-title-string" = "Classifica";
+
+"points-section-string" = "Punti totali:";
+"hand-string" = "Mano ";
+"addpoints-string" = "Aggiungi punti";
+"base-string" = "Base";
+"score-string" = "Punti";
+
+"done-button-string" = "Fine";
+"cancel-button-string" = "Annulla";
+
+"addnewplayer-string" = "Aggiungi nuovo giocatore";
+"selectedicon-string" = "La tua icona selezionata: ";
+"pickicon-string" = "Scegli un'icona: ";
+"name-string" = "Nome";
+"player-name-string" = "Nome player";
+
+
+"creategame-string" = "Crea un nuovo gioco";
+"gamemode-string" = "Modalità di gioco: ";
+"maxpoints-string" = "Punti";
+"gamewinpoints-string" = "Punti per la vittoria:";
+
+"selecteplayers1-string" = "Seleziona giocatore/i squadra 1: ";
+"selecteplayers2-string" = "Seleziona giocatore/i squadra 2: ";
+"selecteplayers3-string" = "Seleziona giocatore/i squadra 3: ";
+
+"errorinputname-string" = "Inserisci un nome";
+"errordetailinputname-string" = "Compila tutti i campi!";
+"okbuttonerror-string" = "Capito!";
+
+"addpoints-string" = "Aggiungi punti";
+
+"errorplayer-string" = "Scegli tutti i giocatori!";
+"errordescp-string" = "Perfavore, seleziona tutti i giocatori richiesti!";
+
+

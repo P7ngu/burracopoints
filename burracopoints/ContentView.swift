@@ -38,13 +38,12 @@ struct SheetView: View {
         
         NavigationView{
             ScrollView{
-                VStack{
-                    Image(systemName: "trophy.circle")
-                        .font(.system(size: 72))
-                        .foregroundColor(Color.green)
-                    
-                    HStack{
-                        Text("Game mode: ").padding()
+                Image(systemName: "trophy.circle")
+                    .font(.system(size: 72))
+                    .foregroundColor(Color.green)
+                LazyVStack(alignment: .leading){
+                    HStack(){
+                        Text("gamemode-string").padding()
                         Picker(selection: $selectedGameMode, label: Text("Game mode: ")) {
                             Text("1 vs 1").tag("1 vs 1")
                             Text("2 vs 2").tag("2 vs 2")
@@ -52,22 +51,20 @@ struct SheetView: View {
                         }//.pickerStyle(.wheel)
                     }
                     HStack{
-                        Text("Game win points: ").padding()
-                        TextField("Maximum points", text: $inputMaxPoints).padding().keyboardType(.decimalPad)
-                    }.padding()
-                    
+                        Text("gamewinpoints-string").padding()
+                        TextField("maxpoints-string", text: $inputMaxPoints).keyboardType(.decimalPad)
+                    }
                     //Add button to create a new player
                     Button(action: {
                         setPlayerAmountBasedOnGamemode()
                         showingPlayerSheet.toggle()
                     }, label: {
-                        Text("Create a new player")
-                            .padding()
+                        Text("addnewplayer-string")
                     }).sheet(isPresented: $showingPlayerSheet) {
                         PlayerSheetView(playerItems: players)
                     }.padding()
                     
-                    Text("Select players for team 1: ")
+                    Text("selecteplayers1-string").padding()
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(players){ player in
@@ -141,7 +138,7 @@ struct SheetView: View {
                     }
                     .background(Color(UIColor.systemGroupedBackground))
                     
-                    Text("Select players for team 2: ")
+                    Text("selecteplayers2-string").padding()
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(players){ player in
@@ -219,7 +216,7 @@ struct SheetView: View {
                     }
                     .background(Color(UIColor.systemGroupedBackground))
                     if (selectedGameMode == "1 vs 1 vs 1"){
-                        Text("Select players for team 3: ")
+                        Text("selecteplayers3-string").padding()
                         ScrollView(.horizontal) {
                             LazyHStack {
                                 ForEach(players){ player in
@@ -263,11 +260,11 @@ struct SheetView: View {
                         
                     }
                 }
-                .navigationBarTitle("Create a new game", displayMode: .inline)
+                .navigationBarTitle("creategame-string", displayMode: .inline)
                 
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Done") {
+                        Button("done-button-string") {
                             //Create the new game
                             let gamemode = selectedGameMode
                             let timestamp = Date()
@@ -321,13 +318,13 @@ struct SheetView: View {
                     }
                     
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") {
+                        Button("cancel-button-string") {
                             resetPlayerSelection()
                             dismiss()
                         }
                     }
                 }.alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Select all the players"), message: Text("Please select all the players"), dismissButton: .default(Text("Got it!")))
+                    Alert(title: Text("errorplayer-string"), message: Text("errordescp-string"), dismissButton: .default(Text("okbuttonerror-string")))
                 }
             }
         }
@@ -371,26 +368,28 @@ struct ContentView: View {
     var body: some View {
         TabView{
             NavigationView {
-                List {
-                    ForEach(gameItems) { game in
-                        NavigationLink {
-                            GameDetailedView(displayedGame: game, title: game.squad1.first! + " vs " + game.squad2.first!)
-                        } label: {
-                            HStack{
-                                if(!game.isGameConcluded){
-                                    // if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){
-                                    Image(systemName: "play.circle")
-                                } else {
-                                    Image(systemName: "flag.checkered.circle")
-                                }
-                                Text(game.squad1.first!)
-                                Text(" vs ")
-                                Text(game.squad2.first!)
-                                // Text(game))
+                VStack{
+                    List {
+                        ForEach(gameItems) { game in
+                            NavigationLink {
+                                GameDetailedView(displayedGame: game, title: game.squad1.first! + " vs " + game.squad2.first!)
+                            } label: {
+                                HStack{
+                                    if(!game.isGameConcluded){
+                                        // if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){
+                                        Image(systemName: "play.circle")
+                                    } else {
+                                        Image(systemName: "flag.checkered.circle")
+                                    }
+                                    Text(game.squad1.first!)
+                                    Text(" vs ")
+                                    Text(game.squad2.first!)
+                                    // Text(game))
+                                }.padding()
                             }
                         }
+                        // .onDelete(perform: deleteItems)
                     }
-                    // .onDelete(perform: deleteItems)
                 }
                 .toolbar {
                     ToolbarItem {
@@ -400,18 +399,18 @@ struct ContentView: View {
                             SheetView()
                         }
                     }
-                }.navigationTitle("Games")
+                }.navigationTitle("game-title-string")
             }
             .tabItem {
-                Label("Games", systemImage: "pencil.and.list.clipboard")
+                Label("game-title-string", systemImage: "pencil.and.list.clipboard")
             }
             PlayersView()
                 .tabItem{
-                    Label ("Players", systemImage: "person.3.fill")
+                    Label ("player-title-string", systemImage: "person.3.fill")
                 }
             LeaderboardView()
                 .tabItem{
-                    Label ("Leaderboard", systemImage: "trophy.fill")
+                    Label ("leaderboard-title-string", systemImage: "trophy.fill")
                 }
             
         }

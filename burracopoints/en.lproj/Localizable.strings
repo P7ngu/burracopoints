@@ -1,0 +1,40 @@
+"hello-string" = "Hello there, localized string";
+"hello-string2%@" = "Hello there, %@.";
+
+"game-title-string" = "Games";
+"player-title-string" = "Players";
+"leaderboard-title-string" = "Leaderboard";
+
+"points-section-string" = "Points: ";
+"hand-section-string" = "Hand ";
+"addpoints-string" = "Add points";
+"base-string" = "Base";
+"score-string" = "Score";
+
+"done-button-string" = "Done";
+"cancel-button-string" = "Cancel";
+
+"addnewplayer-string" = "Add a new player";
+"selectedicon-string" = "Your currently selected icon: ";
+"pickicon-string" = "Pick an icon: ";
+"name-string" = "Name";
+"player-name-string" = "Player name";
+
+
+"creategame-string" = "Create a new game";
+"gamemode-string" = "Select game mode: ";
+"maxpoints-string" = "points";
+"gamewinpoints-string" = "Game win points";
+
+"selecteplayers1-string" = "Select players for team 1: ";
+"selecteplayers2-string" = "Select players for team 2: ";
+"selecteplayers3-string" = "Select players for team 3: ";
+
+"errorinputname-string" = "Input a name";
+"errordetailinputname-string" = "Please input a name";
+"okbuttonerror-string" = "Got it!";
+
+"addpoints-string" = "Add points";
+
+"errorplayer-string" = "Select all the players";
+"errordescp-string" = "Please, select all the players";
