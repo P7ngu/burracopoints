@@ -22,6 +22,8 @@ struct burracopointsApp: App {
     
     //TODO: username costraints
     
+    //TODO: fix wins
+    
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([

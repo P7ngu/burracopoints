@@ -416,6 +416,7 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var gameItems: [Game]
     @Query private var players: [Player]
+    @State var fulltitle: String = "..."
     
     var body: some View {
         TabView{
@@ -424,7 +425,7 @@ struct ContentView: View {
                     List {
                         ForEach(gameItems) { game in
                             NavigationLink {
-                                GameDetailedView(displayedGame: game, title: game.squad1.first! + " vs " + game.squad2.first!)
+                                GameDetailedView(displayedGame: game, title: fulltitle)
                             } label: {
                                 HStack{
                                     if(!game.isGameConcluded){
@@ -434,20 +435,38 @@ struct ContentView: View {
                                         Image(systemName: "flag.checkered.circle")
                                     }
                                     
-                                    Text(game.squad1.first!)
-                                    Text(" vs ")
-                                    Text(game.squad2.first!)
-                                    if(game.squad3.first! != "nil"){
+                                    if(game.squad1.count == 1 && game.squad3.first! == "nil" && game.squad2.count == 1 && game.squad3.count == 1){
+                                        //fulltitle = String(game.squad1.first!) + " vs " + String(game.squad2.first!)
+                                        
+                                        Text(game.squad1.first!)
+                                        Text(" vs ")
+                                        Text(game.squad2.first!)
+                                         
+                                    }
+                                    
+                                   else if(game.squad3.first! != "nil"){
+                                        Text(game.squad1.first!)
+                                        Text(" vs ")
+                                        Text(game.squad2.first!)
                                         Text(" vs ")
                                         Text(game.squad3.first!)
-                                    } else { if(game.gamemode == "2 vs 2"){
-                                        Text(game.squad1.first! + " && ")
-                                        Text(game.squad1.last!)
-                                        Text(" vs ")
-                                        Text(game.squad2.first! + " && ")
-                                        Text(game.squad2.last!)
                                     }
-                                    }
+                                    else if(game.squad1.count > 1){
+                                        HStack{
+                                           let fulltitle2 = String(game.squad1.first!) + " && " + String(game.squad1.last!) + "  vs  " + String(game.squad2.first!) + " && " + String(game.squad2.last!)
+                                            Text(String(fulltitle2))
+                                            /*
+                                            Text(game.squad1.first!)
+                                            Text(" && ")
+                                            Text(game.squad1.last!)
+                                            Text(" vs ")
+                                            Text(game.squad2.first!)
+                                            Text(" && ")
+                                            Text(game.squad2.last!)
+                                             */
+                                        }
+                                            }
+                                    
                                     // Text(game))
                                 }.padding()
                             }

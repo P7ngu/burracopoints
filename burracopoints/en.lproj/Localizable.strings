@@ -41,3 +41,6 @@
 
 "gameover-string" = "We have a winner!";
 "gameoveradd-string" = "The game is over, we already have a winner! You cannot add points to an ended game.";
+
+"winplayer-string" = "Win: ";
+"gamesplayed-string" = "Matches: ";

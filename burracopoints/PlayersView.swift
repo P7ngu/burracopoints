@@ -137,20 +137,30 @@ struct PlayersView: View {
             List {
                 ForEach(playerItems) { player in
                     NavigationLink {
-                        HStack{
-                          Image(systemName: player.icon)
-                            
-                            Text(player.name)
-                                .padding()
-                                .cornerRadius(8)
-                            
-                            Text(String(player.id))
-                                .padding()
-                                .cornerRadius(8)
+                        VStack{
+                            Image(systemName: player.icon).font(.system(size: 70))
+                            HStack{
+                                Text(player.name).font(.title)
+                                    .padding()
+                                    .cornerRadius(8)
+                               // Text(String(player.id))
+                            }
+                            HStack{
+                                Text("winplayer-string")
+                                Text(String(player.numberOfGameWon))
+                            }
+                            HStack{
+                                Text("gamesplayed-string")
+                                Text(String(player.numberOfGamePlayed))
+                            }
                         }
                     } label: {
                         HStack{
-                            Image(systemName: player.icon)
+                            if player.icon != ""{
+                                Image(systemName: player.icon)
+                            } else {
+                                Image(systemName: "person.fill")
+                            }
                             
                                 Text(player.name)
                                     .padding()

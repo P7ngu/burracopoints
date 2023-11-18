@@ -42,4 +42,7 @@
 "gameover-string" = "Abbiamo un vincitore!";
 "gameoveradd-string" = "La partita si è conclusa, non puoi aggiungere dei punti!";
 
+"winplayer-string" = "Vittorie: ";
+"gamesplayed-string" = "Partite: ";
+
 
