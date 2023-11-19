@@ -26,6 +26,7 @@ struct GameAddPointsSheetView: View {
     @Query var players: [Player]
     
     @Environment(\.dismiss) var dismiss
+    var count = 0
     
     var body: some View {
         NavigationView{
@@ -36,6 +37,7 @@ struct GameAddPointsSheetView: View {
                     }
                 }
                 else{
+                   
                     
                     //We need at least 2 input boxes, 3 maximum
                     if displayedGame.gameMode == 2 {
@@ -44,7 +46,6 @@ struct GameAddPointsSheetView: View {
                             VStack{
                                 //player 1 points
                                 GroupBox{
-                                    
                                     Text(displayedGame.squad1.first!)
                                     TextField("base-string", text: $squad1pointsbase)
                                         .padding().keyboardType(.decimalPad)
@@ -102,6 +103,7 @@ struct GameAddPointsSheetView: View {
                         }
                         
                     } else if displayedGame.gameMode == 4 {
+                       
                         //2 vs 2, 2x2 boxes
                         HStack{
                             VStack{
@@ -141,6 +143,8 @@ struct GameAddPointsSheetView: View {
                         if displayedGame.isGameConcluded{
                             
                             Text("gameoveradd-string")
+                            dismiss()
+                            GameDetailedView(displayedGame: displayedGame, title: "")
                             
                         } else{
                             if squad1pointsbase == "" {
@@ -206,12 +210,13 @@ struct GameAddPointsSheetView: View {
                                 }
                                 
                                 var currentHand = displayedGame.handPoints_p1.count
-                                //TODO: debug for 1 vs 1
+                                
                                 displayedGame.handPoints_p1.append( Int( Int(squad1pointsbase)! + Int(squad1pointsscore)! ) )
                                 displayedGame.handPoints_p2.append( Int( Int(squad2pointsbase)! + Int(squad2pointsscore)! ) )
                                 displayedGame.handPoints_p3.append( Int( Int(squad3pointsbase)! + Int(squad3pointsscore)! ) )
                                 
                                 dismiss()
+                                GameDetailedView(displayedGame: displayedGame, title: "")
                             } else {
                                 print(squad1pointsbase + "  -  " + squad2pointsbase)
                                 print(squad1pointsscore + "  -  " + squad2pointsscore)
@@ -255,6 +260,7 @@ struct GameAddPointsSheetView: View {
                                 displayedGame.handPoints_p1.append( Int( Int(squad1pointsbase)! + Int(squad1pointsscore)! ))
                                 displayedGame.handPoints_p2.append( Int( Int(squad2pointsbase)! + Int(squad2pointsscore)! ))
                                 dismiss()
+                                GameDetailedView(displayedGame: displayedGame, title: "")
                             }
                         }
                     }
@@ -268,6 +274,7 @@ struct GameAddPointsSheetView: View {
                         squad3pointsbase = "0"
                         squad3pointsscore = "0"
                         dismiss()
+                        GameDetailedView(displayedGame: displayedGame, title: "")
                     }
                 }
             }
@@ -326,7 +333,7 @@ struct GameDetailedView: View {
                                         HStack{
                                             Text("points-section-string")
                                             Text(String(displayedGame.currentPoints_p1))
-                                        }
+                                        }.padding()
                                         
                                         ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                             HStack{
@@ -344,7 +351,9 @@ struct GameDetailedView: View {
                                         HStack{
                                             Text("points-section-string")
                                             Text(String(displayedGame.currentPoints_p2))
-                                        }
+                                        }.padding()
+                                        
+                                        
                                         ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
                                             HStack{
                                                 Text("hand-string")

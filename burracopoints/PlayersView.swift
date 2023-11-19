@@ -174,6 +174,10 @@ struct PlayersView: View {
                                     .cornerRadius(8)
                             
                         }
+                    } .swipeActions {
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                            modelContext.delete(player)
+                        }
                     }
                    
                     

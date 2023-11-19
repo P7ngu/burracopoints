@@ -16,13 +16,13 @@ struct burracopointsApp: App {
 
     //TODO: tell the user which one has to be dealer
     
-    //TODO: sort games by time: most recent ones on top, divide them by finished and not
+    //sort games by time: most recent ones on top, divide them by finished and not
     
     //TODO: after the creation of a game consider opening the game detailed view instead of the games section
     
     //TODO: username costraints
     
-    //TODO: fix wins
+    //TODO: fix wins ____
     
     
     var sharedModelContainer: ModelContainer = {

@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct LeaderboardView: View {
     
-    var bestPlayers: [Player] = [Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)]
+    //@Query var allPlayers: [Player]
+    
+    @State var bestPlayers: [Player]
     @State var rotation:CGFloat = 0.0
+    
+    @Environment(\.modelContext) var modelContext
     
     init(bestPlayers: [Player], rotation: CGFloat) {
         self.bestPlayers = bestPlayers
@@ -56,6 +61,8 @@ struct LeaderboardView: View {
                 
             }
             .onAppear(){
+            //TODO: test this
+              // bestPlayers = ContentView().getBestPlayers()
                 withAnimation(.linear(duration: 4).repeatForever(autoreverses: false)){
                     rotation = 360
                 }

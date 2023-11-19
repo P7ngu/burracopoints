@@ -14,7 +14,7 @@
 "done-button-string" = "Fine";
 "cancel-button-string" = "Annulla";
 
-"addnewplayer-string" = "Aggiungi nuovo giocatore";
+"addnewplayer-string" = "Crea un nuovo giocatore";
 "selectedicon-string" = "La tua icona selezionata: ";
 "pickicon-string" = "Scegli un'icona: ";
 "name-string" = "Nome";

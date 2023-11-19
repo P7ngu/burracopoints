@@ -51,6 +51,10 @@ struct SheetView: View {
                             Text("1 vs 1 vs 1").tag("1 vs 1 vs 1")
                         }//.pickerStyle(.wheel).
                         .onTapGesture {
+                            SheetView()
+                            currentPlayersT1 = 0
+                            currentPlayersT2 = 0
+                            currentPlayersT3 = 0
                             resetPlayerSelection()
                         }
                     }
@@ -78,19 +82,19 @@ struct SheetView: View {
                                             Image(systemName: player.icon)
                                             Text(player.name)
                                                 .padding()
-                                                .background(.white)
+                                                
                                                 .cornerRadius(8)
                                         } else { //player selected already
                                             Image(systemName: "person.crop.circle.fill.badge.checkmark")
                                             Text(player.name)
                                                 .padding()
-                                                .background(.white)
+                                                
                                                 .cornerRadius(8)
                                         }
                                     }
                                 }.onTapGesture{
                                     setPlayerAmountBasedOnGamemode()
-                                    //TODO: add if to support the 1vs 1 vs 1
+                                    
                                     if(selectedGameMode == "1 vs 1"){
                                         if(player.currentlySelected1){
                                             currentPlayersT1 = currentPlayersT1 - 1
@@ -169,13 +173,13 @@ struct SheetView: View {
                                             Image(systemName: player.icon)
                                             Text(player.name)
                                                 .padding()
-                                                .background(.white)
+                                               
                                                 .cornerRadius(8)
                                         } else {
                                             Image(systemName: "person.crop.circle.fill.badge.checkmark")
                                             Text(player.name)
                                                 .padding()
-                                                .background(.white)
+                                                
                                                 .cornerRadius(8)
                                         }
                                     }
@@ -234,6 +238,7 @@ struct SheetView: View {
                                         //TODO: test
                                         if(player.currentlySelected2){
                                             currentPlayersT2 = currentPlayersT2 - 1
+                                           
                                             player.currentlySelected2 = false
                                             player2 = nilplayer
                                             print("deselec. cur selec players:")
@@ -267,20 +272,22 @@ struct SheetView: View {
                                                 Image(systemName: player.icon)
                                                 Text(player.name)
                                                     .padding()
-                                                    .background(.white)
+                                                   
                                                     .cornerRadius(8)
                                             } else {
                                                 Image(systemName: "person.crop.circle.fill.badge.checkmark")
                                                 Text(player.name)
                                                     .padding()
-                                                    .background(.white)
+                                                   
                                                     .cornerRadius(8)
                                             }
                                         }
                                     }.onTapGesture{
+                                        setPlayerAmountBasedOnGamemode()
                                         if(player.currentlySelected3){
                                             setPlayerAmountBasedOnGamemode()
-                                            currentPlayersT3 = currentPlayersT3 + 1
+                                            print("curr selected 333")
+                                            currentPlayersT3 = currentPlayersT3 - 1
                                             player.currentlySelected3 = false
                                             player3 = nilplayer
                                         }
@@ -325,6 +332,7 @@ struct SheetView: View {
                                 var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 3, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: squad3, currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
                                 addNewGame(newItem: newGame)
                                 dismiss()
+                                GameDetailedView(displayedGame: newGame, title: "")
                             } else if (selectedGameMode == "2 vs 2" && player1.name != "nil" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
                                 print("valid data2")
                                 playerCounter = 4
@@ -336,6 +344,7 @@ struct SheetView: View {
                                 var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 4, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
                                 addNewGame(newItem: newGame)
                                 dismiss()
+                                GameDetailedView(displayedGame: newGame, title: "")
                                 
                             } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
                                 // 1 vs 1
@@ -348,6 +357,7 @@ struct SheetView: View {
                                 var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
                                 addNewGame(newItem: newGame)
                                 dismiss()
+                                GameDetailedView(displayedGame: newGame, title: "")
                                 
                             } else{
                                 print("invalid data - last else")
@@ -366,6 +376,8 @@ struct SheetView: View {
                         Button("cancel-button-string") {
                             resetPlayerSelection()
                             dismiss()
+                            
+                            
                         }
                     }
                 }.alert(isPresented: $showingAlert) {
@@ -459,6 +471,11 @@ struct ContentView: View {
     
     @Query private var players: [Player]
     
+    init() {
+       self.bestPlayers = getBestPlayers()
+       
+    }
+    
   
     
    @State private var bestPlayers: [Player] = [Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)]
@@ -516,9 +533,17 @@ struct ContentView: View {
                                     
                                     // Text(game))
                                 }.padding(.top, 15)
+                            } .swipeActions {
+                                Button("Delete", systemImage: "trash", role: .destructive) {
+                                    modelContext.delete(game)
+                                }
                             }
-                        }
-                        // .onDelete(perform: deleteItems)
+                        } // end for each
+                        /*
+                        .onDelete { indexSet in
+                            gameItems.remove(atOffsets: indexSet)
+
+                        })*/
                     }
                 }
                 .toolbar {
@@ -539,7 +564,7 @@ struct ContentView: View {
                     Label ("player-title-string", systemImage: "person.3.fill")
                 }
             //Let's pass the best players
-            LeaderboardView(bestPlayers: bestPlayers, rotation: 0.0)
+            LeaderboardView(bestPlayers: getBestPlayers(), rotation: 0.0)
                 .tabItem{
                     Label ("leaderboard-title-string", systemImage: "trophy.fill")
                 }
@@ -548,38 +573,56 @@ struct ContentView: View {
         //end of tabview
         .onAppear(perform: {
             resetPlayerSelection()
-           bestPlayers = getBestPlayers()
+          // bestPlayers = getBestPlayers()
         })
     }
     
     
-    private func getBestPlayers() -> [Player]{
+    public func getBestPlayers() -> [Player]{
+        
+        if (bestPlayers.first!.name == "nil"){
+        
         var nilplayer: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
         var maxPlayer = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
         var maxPlayer2 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
         var maxPlayer3 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
         
         for player in players{
+           
+            print(maxPlayer.numberOfGameWon)
             if player.numberOfGameWon > maxPlayer.numberOfGameWon{
                 maxPlayer = player
+                print("switching player - 1")
             }
         }
         
         for player in players{
+           
+           
             if player.numberOfGameWon > maxPlayer2.numberOfGameWon && player != maxPlayer{
                 maxPlayer2 = player
+                print("switching player - 2")
             }
         }
         
         for player in players{
-            print(player.name)
+            
             if player.numberOfGameWon > maxPlayer3.numberOfGameWon && player != maxPlayer2 && player != maxPlayer{
                 print("true")
                 maxPlayer3 = player
             }
         }
         
-        return [maxPlayer, maxPlayer2, maxPlayer3]
+        print(maxPlayer.name + " " + maxPlayer2.name + " " + maxPlayer3.name + "!")
+        if(maxPlayer.name != "nil"){
+            return [maxPlayer, maxPlayer2, maxPlayer3]
+        }
+        
+        }else {
+            print("elses")
+            return players
+        }
+        return players
     }
      
     private func addItem() {
@@ -598,6 +641,7 @@ struct ContentView: View {
     }
     
     func resetPlayerSelection(){
+        
         for player in players {
             player.currentlySelected1 = false
             player.currentlySelected2 = false
