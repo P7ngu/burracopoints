@@ -139,6 +139,7 @@ struct GameAddPointsSheetView: View {
                         //Add points and then dismiss
                         //TODO: check the input
                         if displayedGame.isGameConcluded{
+                            
                             Text("gameoveradd-string")
                             
                         } else{

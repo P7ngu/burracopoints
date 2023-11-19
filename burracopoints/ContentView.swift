@@ -10,7 +10,7 @@ import SwiftData
 
 //Sheet view to create a new game
 struct SheetView: View {
-    @State private var inputMaxPoints: String = ""
+    @State private var inputMaxPoints: String = "2000"
     @State private var selectedGameMode = "1 vs 1"
     @State private var showingPlayerSheet = false
     
@@ -554,10 +554,10 @@ struct ContentView: View {
     
     
     private func getBestPlayers() -> [Player]{
-        var nilplayer: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
-        var maxPlayer = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
-        var maxPlayer2 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
-        var maxPlayer3 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+        var nilplayer: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
+        var maxPlayer = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
+        var maxPlayer2 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
+        var maxPlayer3 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: -1, numberOfGameWon: -1, winRatio: 0.0, id: -1)
         
         for player in players{
             if player.numberOfGameWon > maxPlayer.numberOfGameWon{
@@ -572,7 +572,9 @@ struct ContentView: View {
         }
         
         for player in players{
-            if player.numberOfGameWon > maxPlayer2.numberOfGameWon && player != maxPlayer2{
+            print(player.name)
+            if player.numberOfGameWon > maxPlayer3.numberOfGameWon && player != maxPlayer2 && player != maxPlayer{
+                print("true")
                 maxPlayer3 = player
             }
         }

@@ -7,6 +7,7 @@
 
 "points-section-string" = "Points: ";
 "hand-section-string" = "Hand ";
+"hand-string" = "Hand ";
 "addpoints-string" = "Add points";
 "base-string" = "Base";
 "score-string" = "Score";

@@ -23,7 +23,7 @@ struct LeaderboardView: View {
             ZStack{
                 RoundedRectangle(cornerRadius: 20, style:  .continuous)
                     .frame(width: 260, height: 340)
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Color.green)
                 
                 RoundedRectangle(cornerRadius: 20, style:  .continuous)
                     .frame(width: 130, height: 500)
@@ -35,18 +35,36 @@ struct LeaderboardView: View {
                             .frame(width: 256, height: 336)
                     }
                 
-               Text(bestPlayers.first!.name).bold()
+                VStack{
+                    Image(systemName: "trophy.circle.fill")
+                        .foregroundColor(Color.yellow)
+                        .font(.system(size: 40))
+                        //.withAnimation(SwiftUI.Animation?, <#T##() -> Result#>)
+                    Text(bestPlayers.first!.name).bold()
+                    
+                    VStack{
+                        Image(systemName: "trophy.circle.fill")
+                            .foregroundColor(Color.gray)
+                            .font(.system(size: 35))
+                        Text(bestPlayers[1].name).bold().padding()
+                        Image(systemName: "trophy.circle.fill")
+                            .foregroundColor(Color.orange)
+                            .font(.system(size: 30))
+                        Text(bestPlayers[2].name).bold().padding()
+                    }.padding()
+                }
                 
             }
             .onAppear(){
                 withAnimation(.linear(duration: 4).repeatForever(autoreverses: false)){
                     rotation = 360
                 }
-            }
+            } .navigationTitle("leaderboard-title-string")
        // Text("hello-string")
-            Text("hello-string2 \("Matteo")")
-         .navigationTitle("leaderboard-title-string")
+           
+         //.navigationTitle("leaderboard-title-string")
         }//.navigationTitle("Leaderboard")
+        //.navigationTitle("leaderboard-title-string")
     }
 }
 
