@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct GameAddPointsSheetView: View {
     
@@ -19,6 +20,10 @@ struct GameAddPointsSheetView: View {
     @State private var squad3pointsbase: String = ""
     
     @State var winner: String = ""
+    
+    @Environment(\.modelContext) var modelContext
+    
+    @Query var players: [Player]
     
     @Environment(\.dismiss) var dismiss
     
@@ -137,7 +142,26 @@ struct GameAddPointsSheetView: View {
                             Text("gameoveradd-string")
                             
                         } else{
+                            if squad1pointsbase == "" {
+                                squad1pointsbase = "0"
+                            }
+                            if squad2pointsbase == "" {
+                                squad2pointsbase = "0"
+                            }
+                            if squad1pointsscore == "" {
+                                squad1pointsscore = "0"
+                            }
+                            if squad2pointsscore == "" {
+                                squad2pointsscore = "0"
+                            }
+                            
                             if displayedGame.squad3Enabled {
+                                if squad3pointsbase == "" {
+                                    squad3pointsbase = "0"
+                                }
+                                if squad3pointsscore == "" {
+                                    squad3pointsscore = "0"
+                                }
                                 displayedGame.currentPoints_p1 += Int(squad1pointsbase)! + Int(squad1pointsscore)!
                                 displayedGame.currentPoints_p2 += Int(squad2pointsbase)! + Int(squad2pointsscore)!
                                 displayedGame.currentPoints_p3 += Int(squad3pointsbase)! + Int(squad3pointsscore)!
@@ -145,33 +169,33 @@ struct GameAddPointsSheetView: View {
                                 if( max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2, displayedGame.currentPoints_p3) > displayedGame.maxPoints){
                                     displayedGame.isGameConcluded = true
                                     //let's save our winner
-                                    
                                     if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2 && displayedGame.currentPoints_p1 > displayedGame.currentPoints_p3){
                                         //player 1 is the winner
+                                        print("player 1 wins - 3")
                                         var winner = displayedGame.squad1.first!
                                         var loser1 = displayedGame.squad2.first!
                                         var loser2 = displayedGame.squad3.first!
                                         //we need the player name to be unique at this point, or switch to id for every check
-                                        PlayersView().giveTheUserAWin(game: displayedGame, username: winner)
-                                        PlayersView().giveTheUserALoss(game: displayedGame, username: loser1)
-                                        PlayersView().giveTheUserALoss(game: displayedGame, username: loser2)
+                                        giveTheUserAWin(game: displayedGame, username: winner)
+                                        giveTheUserALoss(game: displayedGame, username: loser1)
+                                        giveTheUserALoss(game: displayedGame, username: loser2)
                                         //TODO: if the game is finished do not let the user add other points and change the interface accordingly.
                                     } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p3){
                                         var winner = displayedGame.squad2.first!
                                         var loser1 = displayedGame.squad1.first!
                                         var loser2 = displayedGame.squad3.first!
                                         //we need the player name to be unique at this point, or switch to id for every check
-                                        PlayersView().giveTheUserAWin(game: displayedGame, username: winner)
-                                        PlayersView().giveTheUserALoss(game: displayedGame, username: loser1)
-                                        PlayersView().giveTheUserALoss(game: displayedGame, username: loser2)
+                                        giveTheUserAWin(game: displayedGame, username: winner)
+                                        giveTheUserALoss(game: displayedGame, username: loser1)
+                                        giveTheUserALoss(game: displayedGame, username: loser2)
                                     } else if(displayedGame.currentPoints_p3 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p3 > displayedGame.currentPoints_p2){
                                         var winner = displayedGame.squad3.first!
                                         var loser1 = displayedGame.squad1.first!
                                         var loser2 = displayedGame.squad2.first!
                                         //we need the player name to be unique at this point, or switch to id for every check
-                                        PlayersView().giveTheUserAWin(game: displayedGame, username: winner)
-                                        PlayersView().giveTheUserALoss(game: displayedGame, username: loser1)
-                                        PlayersView().giveTheUserALoss(game: displayedGame, username: loser2)
+                                        giveTheUserAWin(game: displayedGame, username: winner)
+                                        giveTheUserALoss(game: displayedGame, username: loser1)
+                                        giveTheUserALoss(game: displayedGame, username: loser2)
                                         
                                         //TODO: pareggio, the most unlikely thing to happen so all good for now, right me of the future?
                                     }
@@ -195,7 +219,30 @@ struct GameAddPointsSheetView: View {
                                 displayedGame.currentPoints_p2 += Int(squad2pointsbase)! + Int(squad2pointsscore)!
                                 
                                 if( max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2) > displayedGame.maxPoints){
+                                    //TODO: add here
                                     displayedGame.isGameConcluded = true
+                                        //let's save our winner
+                                        if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2){
+                                            //player 1 is the winner
+                                            print("player 1 wins 1 vs 1")
+                                            var winner = displayedGame.squad1.first!
+                                            var loser1 = displayedGame.squad2.first!
+                                            //we need the player name to be unique at this point, or switch to id for every check
+                                            giveTheUserAWin(game: displayedGame, username: winner)
+                                            giveTheUserALoss(game: displayedGame, username: loser1)
+                                            
+                                            //TODO: if the game is finished do not let the user add other points and change the interface accordingly.
+                                        } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1){
+                                            var winner = displayedGame.squad2.first!
+                                            var loser1 = displayedGame.squad1.first!
+                                         
+                                            //we need the player name to be unique at this point, or switch to id for every check
+                                            giveTheUserAWin(game: displayedGame, username: winner)
+                                            giveTheUserALoss(game: displayedGame, username: loser1)
+                                            
+                                        }
+                                        
+                                    
                                     print("the game is concluded")
                                 } else {
                                     
@@ -225,6 +272,31 @@ struct GameAddPointsSheetView: View {
             }
             
         }
+    }
+    
+    func giveTheUserAWin(game: Game, username: String){
+        print("checking users...")
+        print(username)
+        for player in players {
+            print(player.name)
+            if player.name == username{
+                print(username)
+                print("win added correctly")
+                player.numberOfGameWon += 1
+                player.numberOfGamePlayed += 1
+            }
+            
+        }
+    }
+    
+    func giveTheUserALoss(game: Game, username: String){
+        for player in players {
+            if player.name == username{
+                player.numberOfGamePlayed += 1
+            }
+            
+        }
+        
     }
 }
 

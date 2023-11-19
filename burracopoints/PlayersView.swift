@@ -13,6 +13,7 @@ import Foundation
 struct PlayerSheetView: View {
     @State private var playerName: String = ""
     @State private var iconName: String = ""
+    
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
     
@@ -97,7 +98,7 @@ struct PlayerSheetView: View {
                                     
                                 }
                             }
-                            var newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+                            let newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
                             
                             addNewPlayer(player: newPlayer, players: playerItems)
                             dismiss()
@@ -132,12 +133,17 @@ struct PlayersView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var showingSheet = false
     
+   
+    
     var body: some View {
+        
         NavigationView{
             List {
                 ForEach(playerItems) { player in
+                    
                     NavigationLink {
                         VStack{
+                            
                             Image(systemName: player.icon).font(.system(size: 70))
                             HStack{
                                 Text(player.name).font(.title)
@@ -155,6 +161,7 @@ struct PlayersView: View {
                             }
                         }
                     } label: {
+                        
                         HStack{
                             if player.icon != ""{
                                 Image(systemName: player.icon)
@@ -195,26 +202,7 @@ struct PlayersView: View {
     }
     
     
-    
-    func giveTheUserAWin(game: Game, username: String){
-        for player in playerItems {
-            if player.name == username{
-                player.numberOfGameWon += 1
-                player.numberOfGamePlayed += 1
-            }
-            
-        }
-    }
-    
-        func giveTheUserALoss(game: Game, username: String){
-            for player in playerItems {
-                if player.name == username{
-                    player.numberOfGamePlayed += 1
-                }
-                
-            }
-        
-    }
+   
     
     
     private func addItem() {

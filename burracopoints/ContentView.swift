@@ -13,6 +13,7 @@ struct SheetView: View {
     @State private var inputMaxPoints: String = ""
     @State private var selectedGameMode = "1 vs 1"
     @State private var showingPlayerSheet = false
+    
     @Environment(\.modelContext) var modelContext
     
     @State private var currentPlayersT1 = 0
@@ -30,7 +31,7 @@ struct SheetView: View {
     @State private var player4: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
     
     @Environment(\.dismiss) var dismiss
-    @Query private var players: [Player]
+    @Query var players: [Player]
     @State var oldIcon: String = ""
     @State private var showingAlert = false
     
@@ -377,6 +378,33 @@ struct SheetView: View {
         modelContext.insert(newItem)
     }
     
+    
+    func giveTheUserAWin(game: Game, username: String){
+        print("checking users...")
+        print(username)
+        for player in players {
+            print(player.name)
+            if player.name == username{
+                print(username)
+                print("win added correctly")
+                player.numberOfGameWon += 1
+                player.numberOfGamePlayed += 1
+            }
+            
+        }
+    }
+    
+    func giveTheUserALoss(game: Game, username: String){
+        for player in players {
+            if player.name == username{
+                player.numberOfGamePlayed += 1
+            }
+            
+        }
+        
+    }
+    
+    
     func resetPlayerSelection(){
         player1 = nilplayer
         player2 = nilplayer
@@ -392,6 +420,8 @@ struct SheetView: View {
             player.currentlySelected3 = false
         }
     }
+    
+    
     
     func setPlayerAmountBasedOnGamemode(){
         if (selectedGameMode == "1 vs 1 vs 1"){
@@ -410,12 +440,29 @@ struct SheetView: View {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
 struct ContentView: View {
     @State private var showingSheet = false
     
     @Environment(\.modelContext) var modelContext
     @Query private var gameItems: [Game]
+    
     @Query private var players: [Player]
+    
+  
+    
+   @State private var bestPlayers: [Player] = [Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)]
+    
     @State var fulltitle: String = "..."
     
     var body: some View {
@@ -423,16 +470,16 @@ struct ContentView: View {
             NavigationView {
                 VStack{
                     List {
-                        ForEach(gameItems) { game in
+                        ForEach(gameItems.reversed()) { game in //reversed, so the most recent games go on top.
                             NavigationLink {
                                 GameDetailedView(displayedGame: game, title: fulltitle)
                             } label: {
                                 HStack{
                                     if(!game.isGameConcluded){
                                         // if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){
-                                        Image(systemName: "play.circle")
+                                        Image(systemName: "play.circle").font(.system(size: 20))//.padding(.trailing)
                                     } else {
-                                        Image(systemName: "flag.checkered.circle")
+                                        Image(systemName: "flag.checkered.circle").font(.system(size: 20))//.padding(.trailing)
                                     }
                                     
                                     if(game.squad1.count == 1 && game.squad3.first! == "nil" && game.squad2.count == 1 && game.squad3.count == 1){
@@ -468,7 +515,7 @@ struct ContentView: View {
                                             }
                                     
                                     // Text(game))
-                                }.padding()
+                                }.padding(.top, 15)
                             }
                         }
                         // .onDelete(perform: deleteItems)
@@ -491,7 +538,8 @@ struct ContentView: View {
                 .tabItem{
                     Label ("player-title-string", systemImage: "person.3.fill")
                 }
-            LeaderboardView()
+            //Let's pass the best players
+            LeaderboardView(bestPlayers: bestPlayers, rotation: 0.0)
                 .tabItem{
                     Label ("leaderboard-title-string", systemImage: "trophy.fill")
                 }
@@ -500,13 +548,38 @@ struct ContentView: View {
         //end of tabview
         .onAppear(perform: {
             resetPlayerSelection()
+           bestPlayers = getBestPlayers()
         })
     }
     
     
-    
-    
-    
+    private func getBestPlayers() -> [Player]{
+        var nilplayer: Player = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+        var maxPlayer = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+        var maxPlayer2 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+        var maxPlayer3 = Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+        
+        for player in players{
+            if player.numberOfGameWon > maxPlayer.numberOfGameWon{
+                maxPlayer = player
+            }
+        }
+        
+        for player in players{
+            if player.numberOfGameWon > maxPlayer2.numberOfGameWon && player != maxPlayer{
+                maxPlayer2 = player
+            }
+        }
+        
+        for player in players{
+            if player.numberOfGameWon > maxPlayer2.numberOfGameWon && player != maxPlayer2{
+                maxPlayer3 = player
+            }
+        }
+        
+        return [maxPlayer, maxPlayer2, maxPlayer3]
+    }
+     
     private func addItem() {
         showingSheet.toggle()
         print("adding a new item")
