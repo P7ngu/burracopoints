@@ -176,7 +176,7 @@ struct GameAddPointsSheetView: View {
                                     //let's save our winner
                                     if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2 && displayedGame.currentPoints_p1 > displayedGame.currentPoints_p3){
                                         //player 1 is the winner
-                                        print("player 1 wins - 3")
+                                       
                                         var winner = displayedGame.squad1.first!
                                         var loser1 = displayedGame.squad2.first!
                                         var loser2 = displayedGame.squad3.first!
@@ -230,7 +230,7 @@ struct GameAddPointsSheetView: View {
                                         //let's save our winner
                                         if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2){
                                             //player 1 is the winner
-                                            print("player 1 wins 1 vs 1")
+                                            
                                             var winner = displayedGame.squad1.first!
                                             var loser1 = displayedGame.squad2.first!
                                             //we need the player name to be unique at this point, or switch to id for every check
@@ -249,7 +249,7 @@ struct GameAddPointsSheetView: View {
                                         }
                                         
                                     
-                                    print("the game is concluded")
+                                   
                                 } else {
                                     
                                 }
@@ -283,13 +283,11 @@ struct GameAddPointsSheetView: View {
     }
     
     func giveTheUserAWin(game: Game, username: String){
-        print("checking users...")
-        print(username)
+       
         for player in players {
             print(player.name)
             if player.name == username{
-                print(username)
-                print("win added correctly")
+               
                 player.numberOfGameWon += 1
                 player.numberOfGamePlayed += 1
             }

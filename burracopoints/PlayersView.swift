@@ -229,7 +229,7 @@ struct PlayersView: View {
     
     
     private func addItem() {
-        print("adding a new item in players")
+       
         showingSheet.toggle()
         withAnimation {
             // let newItem = Player(name: "Matteo", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)

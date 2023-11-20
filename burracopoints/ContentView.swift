@@ -589,7 +589,7 @@ struct ContentView: View {
         
         for player in players{
            
-            print(maxPlayer.numberOfGameWon)
+           
             if player.numberOfGameWon > maxPlayer.numberOfGameWon{
                 maxPlayer = player
                 print("switching player - 1")
@@ -619,7 +619,7 @@ struct ContentView: View {
         }
         
         }else {
-            print("elses")
+           
             return players
         }
         return players
@@ -627,7 +627,7 @@ struct ContentView: View {
      
     private func addItem() {
         showingSheet.toggle()
-        print("adding a new item")
+        
         withAnimation {
             // let newItem = Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 3, squad3Enabled: true, squad1: [player1.name], squad2: [player2.name], squad3: [player3.name], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0)
             
