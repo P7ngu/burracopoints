@@ -33,6 +33,8 @@
 
 "errorinputname-string" = "Input a name";
 "errordetailinputname-string" = "Please input a name";
+"errorinputname2-string" = "Duplicated name";
+"errordetailinputname2-string" = "Please, choose a unique username.";
 "okbuttonerror-string" = "Got it!";
 
 "addpoints-string" = "Add points";

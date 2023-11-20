@@ -32,6 +32,8 @@
 
 "errorinputname-string" = "Inserisci un nome";
 "errordetailinputname-string" = "Compila tutti i campi!";
+"errorinputname2-string" = "Nome già in uso";
+"errordetailinputname2-string" = "Perfavore, seleziona un nome diverso.";
 "okbuttonerror-string" = "Capito!";
 
 "addpoints-string" = "Aggiungi punti";

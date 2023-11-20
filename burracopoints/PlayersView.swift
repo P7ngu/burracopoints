@@ -18,6 +18,7 @@ struct PlayerSheetView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State private var showingAlert = false
+    @State private var showingAlert_nameuniqueness = false
     
     @State var colorState = Color.blue
     
@@ -89,8 +90,12 @@ struct PlayerSheetView: View {
             .navigationBarTitle("addnewplayer-string", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    
                     Button("done-button-string") {
+                        showingAlert_nameuniqueness = false
                         if(playerName != ""){
+                            //chech name uniqueness
+                          
                             ForEach(iconList){ icon in
                                 if icon.isSelected == true {
                                   //  iconName = icon.name
@@ -98,13 +103,21 @@ struct PlayerSheetView: View {
                                     
                                 }
                             }
-                            let newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+                            for player in playerItems {
+                                if player.name == playerName{
+                                    showingAlert_nameuniqueness = true
+                                    showingAlert = true
+                                }
+                            }
                             
-                            addNewPlayer(player: newPlayer, players: playerItems)
-                            dismiss()
+                            if(!showingAlert_nameuniqueness){
+                                let newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+                                
+                                addNewPlayer(player: newPlayer, players: playerItems)
+                                dismiss()
+                            }
                         } else {
                            showingAlert = true
-                            showingAlert = true
                            
                         }
                     }
@@ -114,8 +127,14 @@ struct PlayerSheetView: View {
                         dismiss()
                     }
                 }
-            } .alert(isPresented: $showingAlert) {
-                Alert(title: Text("errorinputname-string"), message: Text("errordetailinputname-string"), dismissButton: .default(Text("okbuttonerror-string")))
+            } 
+            
+            .alert(isPresented: $showingAlert) {
+                if(showingAlert_nameuniqueness){
+                    Alert(title: Text("errorinputname2-string"), message: Text("errordetailinputname2-string"), dismissButton: .default(Text("okbuttonerror-string")))
+                } else{
+                    Alert(title: Text("errorinputname-string"), message: Text("errordetailinputname-string"), dismissButton: .default(Text("okbuttonerror-string")))
+                }
             }
         }
     }
