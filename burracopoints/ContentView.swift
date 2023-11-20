@@ -618,11 +618,11 @@ struct ContentView: View {
             return [maxPlayer, maxPlayer2, maxPlayer3]
         }
         
-        }else {
+            }else {
            
-            return players
+            return bestPlayers
         }
-        return players
+        return bestPlayers
     }
      
     private func addItem() {
