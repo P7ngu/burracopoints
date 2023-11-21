@@ -26,63 +26,89 @@ struct PlayerSheetView: View {
     
     
     var iconList = [
-        Icon(name: "star.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "sun.max.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "person.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "heart.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "moon.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "cloud.circle", id: UUID(), isSelected: false, color: Color.blue), Icon(name: "bolt.circle", id: UUID(), isSelected: false, color: Color.blue)
+        Icon(name: "star.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "sun.max.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "person.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "heart.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "moon.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "cloud.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "bolt.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "snowflake.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "flame.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "theatermasks.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "popcorn.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "tortoise.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "lizard.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "fish.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "tortoise.circle", id: UUID(), isSelected: false, color: Color.blue)
     ]
     
     var body: some View{
         NavigationView{
             VStack{
-                GroupBox{
-                    Text("selectedicon-string")
-                    if(iconName == ""){
-                        Image(systemName: "x.circle")
-                            .font(.system(size: 52))
-                            .padding()
-                    } else {
-                        Image(systemName: iconName)
-                            .font(.system(size: 52))
-                            .padding()
-                    }
-                }
+              
                 
                 HStack{
                     Text("name-string").padding()
                     TextField("player-name-string", text: $playerName).padding()
                 }//.padding()
                 
-               
-                    Text("pickicon-string")
+               // Spacer()
+                
+                Text("pickicon-string")
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(iconList){ icon in
                                 if(!icon.isSelected){
                                     GroupBox{
                                         Image(systemName: icon.name)
-                                            .font(.system(size: 52))
-                                            .foregroundColor(icon.color)
+                                            .font(.title)                                            //.foregroundColor(icon.color)
                                     }.onTapGesture {
+                                        if(!icon.isSelected){
                                             icon.isSelected = true
+                                            if(icon.isSelected){
+                                                print ("hello1")
+                                            } else{
+                                                
+                                            }
                                             iconName = icon.name
                                             colorState = Color.green
                                             icon.color = colorState
                                             print("icon selected")
+                                        } else if(icon.isSelected){
+                                            icon.isSelected = false
+                                            iconName = icon.name
+                                            colorState = Color.blue
+                                            icon.color = colorState
+                                            print("icon unselected")
+                                        }
                                         }
                                 }
                                 else {
+                                   // print("hi there")
                                     GroupBox{
-                                        Image(systemName: icon.name)
-                                            .font(.system(size: 52))
-                                            .foregroundColor(icon.color)
-                                    }.onTapGesture {
-                                            icon.isSelected = false
-                                        colorState = Color.blue
-                                        icon.color = colorState
-                                           
-                                        }
+                                        //Image(systemName: icon.name)
+                                        //    .font(.system(size: 52))
+                                         //   .foregroundColor(colorState)
+                                    }
                                 }
                             }
                         //.padding()
                         
+                    } .frame(width: 1800, height: 150, alignment: .topLeading)
+                    }.scrollIndicators(.hidden)
+                
+                GroupBox{
+                   // Spacer()
+                    Text("selectedicon-string")
+                    if(iconName == ""){
+                        Image(systemName: "x.circle")
+                            .font(.title)
+                            .padding()
+                    } else {
+                        Image(systemName: iconName)
+                            .font(.title)
+                            .padding()
                     }
                 }
                 
@@ -163,7 +189,7 @@ struct PlayersView: View {
                     NavigationLink {
                         VStack{
                             
-                            Image(systemName: player.icon).font(.system(size: 70))
+                            Image(systemName: player.icon) .font(.largeTitle).bold()
                             HStack{
                                 Text(player.name).font(.title)
                                     .padding()
@@ -184,6 +210,7 @@ struct PlayersView: View {
                         HStack{
                             if player.icon != ""{
                                 Image(systemName: player.icon)
+                                    .font(.title2)
                             } else {
                                 Image(systemName: "person.fill")
                             }

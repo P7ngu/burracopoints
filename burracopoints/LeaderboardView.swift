@@ -28,35 +28,41 @@ struct LeaderboardView: View {
             ZStack{
                 RoundedRectangle(cornerRadius: 20, style:  .continuous)
                     .frame(width: 260, height: 340)
-                    .foregroundColor(Color.green)
+                    .foregroundColor(Color("L"))
                 
                 RoundedRectangle(cornerRadius: 20, style:  .continuous)
                     .frame(width: 130, height: 500)
-                    .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color.pink, Color.yellow]), startPoint: .top, endPoint: .bottom))
+                    .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color("L"), Color("L")]), startPoint: .top, endPoint: .bottom))
                     .rotationEffect(.degrees(rotation))
                     .mask{
                         RoundedRectangle(cornerRadius: 20, style:  .continuous)
-                            .stroke(lineWidth: 7)
+                            .stroke(lineWidth: 12)
                             .frame(width: 256, height: 336)
                     }
                 
                 VStack{
-                    Image(systemName: "trophy.circle.fill")
-                        .foregroundColor(Color.yellow)
-                        .font(.system(size: 40))
-                        //.withAnimation(SwiftUI.Animation?, <#T##() -> Result#>)
-                    Text(bestPlayers.first!.name).bold()
-                    
                     VStack{
-                        Image(systemName: "trophy.circle.fill")
-                            .foregroundColor(Color.gray)
-                            .font(.system(size: 35))
-                        Text(bestPlayers[1].name).bold().padding()
-                        Image(systemName: "trophy.circle.fill")
-                            .foregroundColor(Color.orange)
-                            .font(.system(size: 30))
-                        Text(bestPlayers[2].name).bold().padding()
-                    }.padding()
+                        VStack{
+                            Image(systemName: "trophy.circle.fill")
+                                .foregroundStyle(Color("T"), Color.yellow)
+                                .font(.system(.largeTitle))
+                            Text(bestPlayers.first!.name).bold().padding()
+                        }
+                        
+                        VStack{
+                            Image(systemName: "trophy.circle.fill")
+                                .foregroundStyle(Color("T"), Color.gray)
+                                .font(.system(.largeTitle))
+                            Text(bestPlayers[1].name).bold().padding()
+                        }
+                        
+                        VStack{
+                            Image(systemName: "trophy.circle.fill")
+                                .foregroundStyle(Color("T"), Color.orange)
+                                .font(.system(.largeTitle))
+                            Text(bestPlayers[2].name).bold().padding()
+                        }//.padding()
+                    }
                 }
                 
             }

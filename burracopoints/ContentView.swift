@@ -476,7 +476,6 @@ struct ContentView: View {
        
     }
     
-  
     
    @State private var bestPlayers: [Player] = [Player(name: "nil", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)]
     
@@ -494,9 +493,9 @@ struct ContentView: View {
                                 HStack{
                                     if(!game.isGameConcluded){
                                         // if(game.maxPoints > game.currentPoints_p1 && game.maxPoints > game.currentPoints_p2 && game.maxPoints > game.currentPoints_p3){
-                                        Image(systemName: "play.circle").font(.system(size: 20))//.padding(.trailing)
+                                        Image(systemName: "play.circle") .font(.title2)//.padding(.trailing)
                                     } else {
-                                        Image(systemName: "flag.checkered.circle").font(.system(size: 20))//.padding(.trailing)
+                                        Image(systemName: "flag.checkered.circle") .font(.title2)//.padding(.trailing)
                                     }
                                     
                                     if(game.squad1.count == 1 && game.squad3.first! == "nil" && game.squad2.count == 1 && game.squad3.count == 1){

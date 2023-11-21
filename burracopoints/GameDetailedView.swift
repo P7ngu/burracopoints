@@ -34,10 +34,12 @@ struct GameAddPointsSheetView: View {
                 if(displayedGame.isGameConcluded == true){
                     VStack{
                         Text("gameoveradd-string").bold()
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
                 else{
-                   
+                    
                     
                     //We need at least 2 input boxes, 3 maximum
                     if displayedGame.gameMode == 2 {
@@ -103,7 +105,7 @@ struct GameAddPointsSheetView: View {
                         }
                         
                     } else if displayedGame.gameMode == 4 {
-                       
+                        
                         //2 vs 2, 2x2 boxes
                         HStack{
                             VStack{
@@ -176,7 +178,7 @@ struct GameAddPointsSheetView: View {
                                     //let's save our winner
                                     if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2 && displayedGame.currentPoints_p1 > displayedGame.currentPoints_p3){
                                         //player 1 is the winner
-                                       
+                                        
                                         var winner = displayedGame.squad1.first!
                                         var loser1 = displayedGame.squad2.first!
                                         var loser2 = displayedGame.squad3.first!
@@ -227,29 +229,29 @@ struct GameAddPointsSheetView: View {
                                 if( max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2) > displayedGame.maxPoints){
                                     //TODO: add here
                                     displayedGame.isGameConcluded = true
-                                        //let's save our winner
-                                        if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2){
-                                            //player 1 is the winner
-                                            
-                                            var winner = displayedGame.squad1.first!
-                                            var loser1 = displayedGame.squad2.first!
-                                            //we need the player name to be unique at this point, or switch to id for every check
-                                            giveTheUserAWin(game: displayedGame, username: winner)
-                                            giveTheUserALoss(game: displayedGame, username: loser1)
-                                            
-                                            //TODO: if the game is finished do not let the user add other points and change the interface accordingly.
-                                        } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1){
-                                            var winner = displayedGame.squad2.first!
-                                            var loser1 = displayedGame.squad1.first!
-                                         
-                                            //we need the player name to be unique at this point, or switch to id for every check
-                                            giveTheUserAWin(game: displayedGame, username: winner)
-                                            giveTheUserALoss(game: displayedGame, username: loser1)
-                                            
-                                        }
+                                    //let's save our winner
+                                    if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2){
+                                        //player 1 is the winner
                                         
+                                        var winner = displayedGame.squad1.first!
+                                        var loser1 = displayedGame.squad2.first!
+                                        //we need the player name to be unique at this point, or switch to id for every check
+                                        giveTheUserAWin(game: displayedGame, username: winner)
+                                        giveTheUserALoss(game: displayedGame, username: loser1)
+                                        
+                                        //TODO: if the game is finished do not let the user add other points and change the interface accordingly.
+                                    } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1){
+                                        var winner = displayedGame.squad2.first!
+                                        var loser1 = displayedGame.squad1.first!
+                                        
+                                        //we need the player name to be unique at this point, or switch to id for every check
+                                        giveTheUserAWin(game: displayedGame, username: winner)
+                                        giveTheUserALoss(game: displayedGame, username: loser1)
+                                        
+                                    }
                                     
-                                   
+                                    
+                                    
                                 } else {
                                     
                                 }
@@ -283,11 +285,11 @@ struct GameAddPointsSheetView: View {
     }
     
     func giveTheUserAWin(game: Game, username: String){
-       
+        
         for player in players {
             print(player.name)
             if player.name == username{
-               
+                
                 player.numberOfGameWon += 1
                 player.numberOfGamePlayed += 1
             }
@@ -315,141 +317,142 @@ struct GameDetailedView: View {
     @State var title: String
     @State private var showingSheet = false
     var body: some View {
-        NavigationStack{
+       // NavigationView{
             ScrollView{
-                VStack(alignment: .center, spacing: 0) {
-                    NavigationStack{
-                        
-                        if(displayedGame.isGameConcluded == true){
-                            Text("gameover-string").bold()
+                VStack{
+                    
+                    if(displayedGame.isGameConcluded == true){
+                        Text("gameover-string").bold()
+                    }
+                    if displayedGame.gameMode == 2 {
+                        HStack{
+                            GroupBox{
+                                VStack{
+                                    Text(displayedGame.squad1.first!).bold()
+                                    HStack{
+                                        Text("points-section-string")
+                                        Text(String(displayedGame.currentPoints_p1))
+                                    }.padding()
+                                    
+                                    ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                        HStack{
+                                            Text("hand-string")
+                                            Text(String(index) + ":")
+                                            Text(String(displayedGame.handPoints_p1[index]))
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                            GroupBox{
+                                VStack{
+                                    Text(displayedGame.squad2.first!).bold()
+                                    HStack{
+                                        Text("points-section-string")
+                                        Text(String(displayedGame.currentPoints_p2))
+                                    }.padding()
+                                    
+                                    
+                                    ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                        HStack{
+                                            Text("hand-string")
+                                            Text(String(index) + ":")
+                                            Text(String(displayedGame.handPoints_p2[index]))
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        if displayedGame.gameMode == 2 {
-                            HStack{
+                        
+                        
+                    } else if displayedGame.gameMode == 3 {
+                        // 1 vs 1 vs 1, 3 boxes
+                        VStack{
+                            VStack{
+                                //player 1 points
                                 GroupBox{
                                     VStack{
-                                        Text(displayedGame.squad1.first!).bold()
+                                        Text(displayedGame.squad1.first!)
                                         HStack{
                                             Text("points-section-string")
                                             Text(String(displayedGame.currentPoints_p1))
-                                        }.padding()
-                                        
+                                        }
                                         ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                             HStack{
                                                 Text("hand-string")
                                                 Text(String(index) + ":")
                                                 Text(String(displayedGame.handPoints_p1[index]))
-                                                
                                             }
                                         }
                                     }
-                                }
-                                GroupBox{
-                                    VStack{
-                                        Text(displayedGame.squad2.first!).bold()
-                                        HStack{
-                                            Text("points-section-string")
-                                            Text(String(displayedGame.currentPoints_p2))
-                                        }.padding()
-                                        
-                                        
-                                        ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                            HStack{
-                                                Text("hand-string")
-                                                Text(String(index) + ":")
-                                                Text(String(displayedGame.handPoints_p2[index]))
-                                            }
-                                        }
-                                    }
+                                    .frame(minWidth: 500)
                                 }
                             }
                             
-                            
-                        } else if displayedGame.gameMode == 3 {
-                            // 1 vs 1 vs 1, 3 boxes
                             VStack{
-                                VStack{
-                                    //player 1 points
-                                    GroupBox{
-                                        VStack{
-                                            Text(displayedGame.squad1.first!)
-                                            HStack{
-                                                Text("points-section-string")
-                                                Text(String(displayedGame.currentPoints_p1))
-                                            }
-                                            ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                                HStack{
-                                                    Text("hand-string")
-                                                    Text(String(index) + ":")
-                                                    Text(String(displayedGame.handPoints_p1[index]))
-                                                }
-                                            }
-                                        }
+                                GroupBox{
+                                    //player 2 points
+                                    Text(displayedGame.squad2.first!)
+                                    HStack{
+                                        Text("points-section-string")
                                         
-                                    }
-                                }
-                                
-                                VStack{
-                                    GroupBox{
-                                        //player 2 points
-                                        Text(displayedGame.squad2.first!)
-                                        HStack{
-                                            Text("points-section-string")
-                                            
-                                            Text(String(displayedGame.currentPoints_p2))
-                                        }
-                                        ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                            HStack{
-                                                Text("hand-string")
-                                                Text(String(index) + ":")
-                                                Text(String(displayedGame.handPoints_p2[index]))
-                                            }
-                                        }
-                                    }
-                                }
-                                
-                                VStack{
-                                    GroupBox{
-                                        //player 3 points
-                                        Text(displayedGame.squad3.first!)
-                                        HStack{
-                                            Text("points-section-string")
-                                            Text(String(displayedGame.currentPoints_p3))
-                                        }
-                                        ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
-                                            HStack{
-                                                Text("hand-string")
-                                                Text(String(index) + ":")
-                                                Text(String(displayedGame.handPoints_p3[index]))
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        } else if displayedGame.gameMode == 4 {
-                            //2 vs 2, 2x2 boxes
-                            HStack{
-                                VStack{
-                                    //player 1 points
-                                    GroupBox{
-                                        Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
-                                        Text(String(displayedGame.currentPoints_p1))
-                                        ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                            Text("hand-string")
-                                            Text(String(index) + ":")
-                                            Text(String(displayedGame.handPoints_p1[index]))
-                                        }
-                                    }
-                                }
-                                VStack{
-                                    GroupBox{
-                                        //player 2 points
-                                        Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
                                         Text(String(displayedGame.currentPoints_p2))
-                                        ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                    }
+                                    ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                        HStack{
                                             Text("hand-string")
                                             Text(String(index) + ":")
                                             Text(String(displayedGame.handPoints_p2[index]))
                                         }
+                                    }
+                                    .frame(minWidth: 500)
+                                }
+                            }
+                            
+                            VStack{
+                                GroupBox{
+                                    //player 3 points
+                                    Text(displayedGame.squad3.first!)
+                                    HStack{
+                                        Text("points-section-string")
+                                        Text(String(displayedGame.currentPoints_p3))
+                                    }
+                                    ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
+                                        HStack{
+                                            Text("hand-string")
+                                            Text(String(index) + ":")
+                                            Text(String(displayedGame.handPoints_p3[index]))
+                                        }
+                                    }
+                                    .frame(minWidth: 500)
+                                }
+                            }
+                        }
+                    } else if displayedGame.gameMode == 4 {
+                        //2 vs 2, 2x2 boxes
+                        HStack{
+                            VStack{
+                                //player 1 points
+                                GroupBox{
+                                    Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
+                                    Text(String(displayedGame.currentPoints_p1))
+                                    ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p1[index]))
+                                    }
+                                }
+                            }
+                            VStack{
+                                GroupBox{
+                                    //player 2 points
+                                    Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
+                                    Text(String(displayedGame.currentPoints_p2))
+                                    ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p2[index]))
+                                        
                                     }
                                 }//.padding()
                             }
@@ -459,20 +462,12 @@ struct GameDetailedView: View {
                         
                         
                     }
-                } //end of vstack
-                .frame(minWidth: 500 )
-            }
-        }
-        //}
-     .toolbar {
-        ToolbarItem {
-            Button(action: addPoints) {
-                Label("addpoints-string", systemImage: "note.text.badge.plus")
-            } .sheet(isPresented: $showingSheet) {
-                GameAddPointsSheetView(displayedGame: displayedGame)
-            }
-        }
-    }.navigationTitle(title)
+                    // } //end of vstack
+                    
+                    
+                    
+                }
+            }.scrollIndicators(.hidden)//.frame(minWidth: 500 )
                 .onAppear(){
                     if(displayedGame.squad3.first! != "nil"){
                         title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
@@ -480,17 +475,29 @@ struct GameDetailedView: View {
                         title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
                     }
                 }
-        
-}
-     //end view
-    
-    func addPoints(){
-        showingSheet = true
-        
+              
+        //}
+        .navigationTitle(title)
+            .toolbar {
+                ToolbarItem {
+                    Button(action: addPoints) {
+                        Label("addpoints-string", systemImage: "note.text.badge.plus")
+                    } .sheet(isPresented: $showingSheet) {
+                        GameAddPointsSheetView(displayedGame: displayedGame)
+                    }
+                }
+            }
     }
-}
+        //end view
+        
+        func addPoints(){
+            showingSheet = true
+            
+        }
+    }
 
-//#Preview {
-   // GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: ["Matteo"], squad2: ["Nonna"], squad3: ["nil"], currentPoints_p1: 500, currentPoints_p2: 340, currentPoints_p3: 0, handPoints_p1: [500], handPoints_p2: [340], handPoints_p3: [0], handsPlayed: 1))
-   // GameDetailedView()
-//}
+    
+    //#Preview {
+    // GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: ["Matteo"], squad2: ["Nonna"], squad3: ["nil"], currentPoints_p1: 500, currentPoints_p2: 340, currentPoints_p3: 0, handPoints_p1: [500], handPoints_p2: [340], handPoints_p3: [0], handsPlayed: 1))
+    // GameDetailedView()
+    //}
