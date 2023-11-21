@@ -44,7 +44,7 @@ struct GameAddPointsSheetView: View {
                     //We need at least 2 input boxes, 3 maximum
                     if displayedGame.gameMode == 2 {
                         // 1 vs 1
-                        HStack{
+                        VStack{
                             VStack{
                                 //player 1 points
                                 GroupBox{
@@ -186,7 +186,7 @@ struct GameAddPointsSheetView: View {
                                         giveTheUserAWin(game: displayedGame, username: winner)
                                         giveTheUserALoss(game: displayedGame, username: loser1)
                                         giveTheUserALoss(game: displayedGame, username: loser2)
-                                        //TODO: if the game is finished do not let the user add other points and change the interface accordingly.
+                                        //done. if the game is finished do not let the user add other points and change the interface accordingly.
                                     } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p3){
                                         var winner = displayedGame.squad2.first!
                                         var loser1 = displayedGame.squad1.first!
@@ -232,14 +232,19 @@ struct GameAddPointsSheetView: View {
                                     //let's save our winner
                                     if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2){
                                         //player 1 is the winner
-                                        
                                         var winner = displayedGame.squad1.first!
                                         var loser1 = displayedGame.squad2.first!
                                         //we need the player name to be unique at this point, or switch to id for every check
                                         giveTheUserAWin(game: displayedGame, username: winner)
                                         giveTheUserALoss(game: displayedGame, username: loser1)
                                         
-                                        //TODO: if the game is finished do not let the user add other points and change the interface accordingly.
+                                        if displayedGame.gameMode == 4 {
+                                            var winner2 = displayedGame.squad1[1]
+                                            var loser3 = displayedGame.squad2[1]
+                                            giveTheUserAWin(game: displayedGame, username: winner2)
+                                            giveTheUserALoss(game: displayedGame, username: loser3)
+                                        }
+                                        
                                     } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1){
                                         var winner = displayedGame.squad2.first!
                                         var loser1 = displayedGame.squad1.first!
@@ -247,6 +252,13 @@ struct GameAddPointsSheetView: View {
                                         //we need the player name to be unique at this point, or switch to id for every check
                                         giveTheUserAWin(game: displayedGame, username: winner)
                                         giveTheUserALoss(game: displayedGame, username: loser1)
+                                        
+                                        if displayedGame.gameMode == 4 {
+                                            var winner2 = displayedGame.squad2[1]
+                                            var loser3 = displayedGame.squad1[1]
+                                            giveTheUserAWin(game: displayedGame, username: winner2)
+                                            giveTheUserALoss(game: displayedGame, username: loser3)
+                                        }
                                         
                                     }
                                     
@@ -385,7 +397,7 @@ struct GameDetailedView: View {
                                             }
                                         }
                                     }
-                                    .frame(minWidth: 500)
+                                    //.frame(minWidth: 500)
                                 }
                             }
                             

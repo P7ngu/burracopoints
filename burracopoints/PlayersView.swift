@@ -39,8 +39,16 @@ struct PlayerSheetView: View {
         Icon(name: "popcorn.circle", id: UUID(), isSelected: false, color: Color.blue),
         Icon(name: "tortoise.circle", id: UUID(), isSelected: false, color: Color.blue),
         Icon(name: "lizard.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "bird.circle", id: UUID(), isSelected: false, color: Color.blue),
         Icon(name: "fish.circle", id: UUID(), isSelected: false, color: Color.blue),
-        Icon(name: "tortoise.circle", id: UUID(), isSelected: false, color: Color.blue)
+        Icon(name: "tennisball.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "wind.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "toilet.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "sailboat.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "airplane.circle", id: UUID(), isSelected: false, color: Color.blue),
+        Icon(name: "leaf.circle", id: UUID(), isSelected: false, color: Color.blue)
+        
+       
     ]
     
     var body: some View{
@@ -62,7 +70,7 @@ struct PlayerSheetView: View {
                                 if(!icon.isSelected){
                                     GroupBox{
                                         Image(systemName: icon.name)
-                                            .font(.title)                                            //.foregroundColor(icon.color)
+                                            .font(.largeTitle)                                            //.foregroundColor(icon.color)
                                     }.onTapGesture {
                                         if(!icon.isSelected){
                                             icon.isSelected = true
@@ -95,7 +103,7 @@ struct PlayerSheetView: View {
                             }
                         //.padding()
                         
-                    } .frame(width: 1800, height: 150, alignment: .topLeading)
+                    } .frame(height: 150, alignment: .topLeading)
                     }.scrollIndicators(.hidden)
                 
                 GroupBox{
@@ -103,7 +111,7 @@ struct PlayerSheetView: View {
                     Text("selectedicon-string")
                     if(iconName == ""){
                         Image(systemName: "x.circle")
-                            .font(.title)
+                            .font(.largeTitle)
                             .padding()
                     } else {
                         Image(systemName: iconName)
