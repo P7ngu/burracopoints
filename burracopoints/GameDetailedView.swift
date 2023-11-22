@@ -325,6 +325,7 @@ struct GameAddPointsSheetView: View {
 
 
 struct GameDetailedView: View {
+    @State private var showingAlert = false
     @Bindable var displayedGame: Game
     @State var title: String
     @State private var showingSheet = false
@@ -332,256 +333,295 @@ struct GameDetailedView: View {
     
     @State var trigger = 0
     var body: some View {
-       // NavigationView{
-            ScrollView{
-                VStack{
+        // NavigationView{
+        ScrollView{
+            VStack{
+                
+                if(displayedGame.isGameConcluded == true){
+                    VStack{
+                        Text("gameover-string").bold().font(.title3)
+                        Image(systemName: "flag.checkered.2.crossed").bold()
+                            .symbolEffect(.bounce, value: trigger)
+                            .font(.largeTitle)
+                            .onTapGesture(perform: {
+                                trigger = trigger + 1
+                            })
+                    }
+                } //else if(displayedGame.handPoints_p1.count < 2)
+                
+                
+                
+                if displayedGame.gameMode == 2 {
                     
-                    if(displayedGame.isGameConcluded == true){
-                        VStack{
-                            Text("gameover-string").bold().font(.title3)
-                            Image(systemName: "flag.checkered.2.crossed").bold()
-                                .symbolEffect(.bounce, value: trigger)
-                                .font(.largeTitle)
-                                .onTapGesture(perform: {
-                                    trigger = trigger + 1
-                                })
+                    if(displayedGame.firstDealer == "None"){
+                        GroupBox{
+                            Text("dealer-string")
+                            Picker(selection: $selectedDealer, label: Text("dealer-string")) {
+                                Text("None").tag("None")
+                                Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
+                                Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
+                                //TODO: use the actual data
+                            } .onChange(of: selectedDealer){
+                                if(selectedDealer != "None"){
+                                    displayedGame.firstDealer = selectedDealer}
+                            }
                         }
-                    } //else if(displayedGame.handPoints_p1.count < 2)
                         
+                    }
                     
                     
-                    if displayedGame.gameMode == 2 {
-                        
-                        if(displayedGame.firstDealer == "None"){
-                            GroupBox{
-                                Text("dealer-string")
-                                Picker(selection: $selectedDealer, label: Text("dealer-string")) {
-                                    Text("None").tag("None")
-                                    Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
-                                    Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                                    //TODO: use the actual data
-                                } .onChange(of: selectedDealer){
-                                    displayedGame.firstDealer = selectedDealer
+                    HStack{
+                        GroupBox{
+                            VStack{
+                                HStack{
+                                    Text(displayedGame.squad1.first!).bold()
+                                    if(displayedGame.firstDealer == displayedGame.squad1.first! ){
+                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
+                                    }
+                                }
+                                HStack{
+                                    Text("points-section-string")
+                                    Text(String(displayedGame.currentPoints_p1))
+                                }.padding()
+                                
+                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                    HStack{
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p1[index]))
+                                        
+                                    }
                                 }
                             }
-                                    
                         }
-                        
-                            
-                        HStack{
+                        GroupBox{
+                            VStack{
+                                HStack{
+                                    Text(displayedGame.squad2.first!).bold()
+                                    if(displayedGame.firstDealer == displayedGame.squad2.first! ){
+                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
+                                    }
+                                }
+                                HStack{
+                                    Text("points-section-string")
+                                    Text(String(displayedGame.currentPoints_p2))
+                                }.padding()
+                                
+                                
+                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                    HStack{
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p2[index]))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                } else if displayedGame.gameMode == 3 {
+                    if(displayedGame.firstDealer == "None"){
+                        GroupBox{
+                            Text("dealer-string")
+                            Picker(selection: $selectedDealer, label: Text("dealer-string")) {
+                                Text("None").tag("None")
+                                Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
+                                Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
+                                Text(displayedGame.squad3.first!).tag(displayedGame.squad3.first!)
+                                //TODO: use the actual data
+                            }
+                        }
+                    }
+                    
+                    // 1 vs 1 vs 1, 3 boxes
+                    VStack{
+                        VStack{
+                            //player 1 points
                             GroupBox{
                                 VStack{
-                                    HStack{
-                                        Text(displayedGame.squad1.first!).bold()
-                                        if(displayedGame.firstDealer == displayedGame.squad1.first! ){
-                                            Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                        }
-                                    }
+                                    Text(displayedGame.squad1.first!)
                                     HStack{
                                         Text("points-section-string")
                                         Text(String(displayedGame.currentPoints_p1))
-                                    }.padding()
-                                    
+                                    }
                                     ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                         HStack{
                                             Text("hand-string")
                                             Text(String(index) + ":")
                                             Text(String(displayedGame.handPoints_p1[index]))
-                                            
                                         }
                                     }
                                 }
-                            }
-                            GroupBox{
-                                VStack{
-                                    HStack{
-                                        Text(displayedGame.squad2.first!).bold()
-                                        if(displayedGame.firstDealer == displayedGame.squad2.first! ){
-                                            Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                        }
-                                    }
-                                    HStack{
-                                        Text("points-section-string")
-                                        Text(String(displayedGame.currentPoints_p2))
-                                    }.padding()
-                                    
-                                    
-                                    ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                        HStack{
-                                            Text("hand-string")
-                                            Text(String(index) + ":")
-                                            Text(String(displayedGame.handPoints_p2[index]))
-                                        }
-                                    }
-                                }
+                                //.frame(minWidth: 500)
                             }
                         }
                         
-                        
-                    } else if displayedGame.gameMode == 3 {
-                        if(displayedGame.firstDealer == "None"){
-                            GroupBox{
-                                Text("dealer-string")
-                                Picker(selection: $selectedDealer, label: Text("dealer-string")) {
-                                    Text("None").tag("None")
-                                    Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
-                                    Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                                    Text(displayedGame.squad3.first!).tag(displayedGame.squad3.first!)
-                                    //TODO: use the actual data
-                                }
-                            }
-                        }
-                            
-                        // 1 vs 1 vs 1, 3 boxes
                         VStack{
-                            VStack{
-                                //player 1 points
-                                GroupBox{
-                                    VStack{
-                                        Text(displayedGame.squad1.first!)
-                                        HStack{
-                                            Text("points-section-string")
-                                            Text(String(displayedGame.currentPoints_p1))
-                                        }
-                                        ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                            HStack{
-                                                Text("hand-string")
-                                                Text(String(index) + ":")
-                                                Text(String(displayedGame.handPoints_p1[index]))
-                                            }
-                                        }
-                                    }
-                                    //.frame(minWidth: 500)
-                                }
-                            }
-                            
-                            VStack{
-                                GroupBox{
-                                    //player 2 points
-                                    Text(displayedGame.squad2.first!)
-                                    HStack{
-                                        Text("points-section-string")
-                                        
-                                        Text(String(displayedGame.currentPoints_p2))
-                                    }
-                                    ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                        HStack{
-                                            Text("hand-string")
-                                            Text(String(index) + ":")
-                                            Text(String(displayedGame.handPoints_p2[index]))
-                                        }
-                                    }
-                                    .frame(minWidth: 500)
-                                }
-                            }
-                            
-                            VStack{
-                                GroupBox{
-                                    //player 3 points
-                                    Text(displayedGame.squad3.first!)
-                                    HStack{
-                                        Text("points-section-string")
-                                        Text(String(displayedGame.currentPoints_p3))
-                                    }
-                                    ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
-                                        HStack{
-                                            Text("hand-string")
-                                            Text(String(index) + ":")
-                                            Text(String(displayedGame.handPoints_p3[index]))
-                                        }
-                                    }
-                                    .frame(minWidth: 500)
-                                }
-                            }
-                        }
-                    } else if displayedGame.gameMode == 4 {
-                        if(displayedGame.firstDealer == "None"){
                             GroupBox{
-                                Text("dealer-string")
-                                Picker(selection: $selectedDealer, label: Text("dealer-string")) {
-                                    Text("None").tag("None")
-                                    Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
-                                    Text(displayedGame.squad1[1]).tag(displayedGame.squad1[1])
-                                    Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                                    Text(displayedGame.squad2[1]).tag(displayedGame.squad2[1])
-                                    //TODO: use the actual data
-                                }
-                            }
-                        }
-                            
-                        //2 vs 2, 2x2 boxes
-                        HStack{
-                            VStack{
-                                //player 1 points
-                                GroupBox{
-                                    Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
-                                    Text(String(displayedGame.currentPoints_p1))
-                                    ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                        Text("hand-string")
-                                        Text(String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p1[index]))
-                                    }
-                                }
-                            }
-                            VStack{
-                                GroupBox{
-                                    //player 2 points
-                                    Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
+                                //player 2 points
+                                Text(displayedGame.squad2.first!)
+                                HStack{
+                                    Text("points-section-string")
+                                    
                                     Text(String(displayedGame.currentPoints_p2))
-                                    ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                }
+                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                    HStack{
                                         Text("hand-string")
                                         Text(String(index) + ":")
                                         Text(String(displayedGame.handPoints_p2[index]))
-                                        
                                     }
-                                }//.padding()
+                                }
+                                .frame(minWidth: 500)
                             }
                         }
                         
-                        
-                        
-                        
+                        VStack{
+                            GroupBox{
+                                //player 3 points
+                                Text(displayedGame.squad3.first!)
+                                HStack{
+                                    Text("points-section-string")
+                                    Text(String(displayedGame.currentPoints_p3))
+                                }
+                                ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
+                                    HStack{
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p3[index]))
+                                    }
+                                }
+                                .frame(minWidth: 500)
+                            }
+                        }
                     }
-                    // } //end of vstack
+                } else if displayedGame.gameMode == 4 {
+                    if(displayedGame.firstDealer == "None"){
+                        GroupBox{
+                            Text("dealer-string")
+                            Picker(selection: $selectedDealer, label: Text("dealer-string")) {
+                                Text("None").tag("None")
+                                Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
+                                Text(displayedGame.squad1[1]).tag(displayedGame.squad1[1])
+                                Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
+                                Text(displayedGame.squad2[1]).tag(displayedGame.squad2[1])
+                                //TODO: use the actual data
+                            }
+                        }
+                    }
+                    
+                    //2 vs 2, 2x2 boxes
+                    HStack{
+                        VStack{
+                            //player 1 points
+                            GroupBox{
+                                Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
+                                Text(String(displayedGame.currentPoints_p1))
+                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                    Text("hand-string")
+                                    Text(String(index) + ":")
+                                    Text(String(displayedGame.handPoints_p1[index]))
+                                }
+                            }
+                        }
+                        VStack{
+                            GroupBox{
+                                //player 2 points
+                                Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
+                                Text(String(displayedGame.currentPoints_p2))
+                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
+                                    Text("hand-string")
+                                    Text(String(index) + ":")
+                                    Text(String(displayedGame.handPoints_p2[index]))
+                                    
+                                }
+                            }//.padding()
+                        }
+                    }
+                    
                     
                     
                     
                 }
-            }.scrollIndicators(.hidden)//.frame(minWidth: 500 )
-                .onAppear(){
-                    print(displayedGame.firstDealer)
-                    trigger += 1
-                    if(displayedGame.squad3.first! != "nil"){
-                        title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
-                    } else {
-                        title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
-                    }
+                // } //end of vstack
+                
+                
+                
+            }
+        }.scrollIndicators(.hidden)//.frame(minWidth: 500 )
+            .onAppear(){
+                print(displayedGame.firstDealer)
+                trigger += 1
+                if(displayedGame.squad3.first! != "nil"){
+                    title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
+                } else {
+                    title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
                 }
-              
+            }
+        
         //}
-        .navigationTitle(title)
+            .navigationTitle(title)
             .toolbar {
+               
+                ToolbarItem{
+                    
+                    Button("Undo") {
+                        showingAlert = true
+                    }
+                    .alert(isPresented:$showingAlert) {
+                        Alert(
+                            title: Text("Are you sure you want to undo the last insertion?"),
+                            message: Text("There is no way back"),
+                            primaryButton: .destructive(Text("Confirm")) {
+                                displayedGame.handsPlayed = displayedGame.handsPlayed-1
+                                displayedGame.handPoints_p1.remove(at: displayedGame.handPoints_p1.count - 1)
+                                displayedGame.handPoints_p2.remove(at: displayedGame.handPoints_p2.count - 1)
+                                if(displayedGame.squad3Enabled){
+                                    displayedGame.handPoints_p3.remove(at: displayedGame.handPoints_p3.count - 1)
+                                }
+                                print("Deleting...")
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
+                    
+                    
+                }
+                
                 ToolbarItem {
                     Button(action: addPoints) {
                         Label("addpoints-string", systemImage: "note.text.badge.plus")
                     } .sheet(isPresented: $showingSheet) {
-                       // displayedGame.firstDealer = selectedDealer
+                        // displayedGame.firstDealer = selectedDealer
                         GameAddPointsSheetView(displayedGame: displayedGame)
                     }
                 }
+               
             }
-    }
-        //end view
         
-        func addPoints(){
-            displayedGame.firstDealer = selectedDealer
-            showingSheet = true
-            
-        }
     }
-
     
-    //#Preview {
-    // GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: ["Matteo"], squad2: ["Nonna"], squad3: ["nil"], currentPoints_p1: 500, currentPoints_p2: 340, currentPoints_p3: 0, handPoints_p1: [500], handPoints_p2: [340], handPoints_p3: [0], handsPlayed: 1))
-    // GameDetailedView()
-    //}
+    
+    
+    //end view
+    
+    func undoPoints(){
+       showingAlert = true
+    }
+    
+    
+    func addPoints(){
+        // displayedGame.firstDealer = selectedDealer
+        showingSheet = true
+        
+    }
+}
+
+
+//#Preview {
+// GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: ["Matteo"], squad2: ["Nonna"], squad3: ["nil"], currentPoints_p1: 500, currentPoints_p2: 340, currentPoints_p3: 0, handPoints_p1: [500], handPoints_p2: [340], handPoints_p3: [0], handsPlayed: 1))
+// GameDetailedView()
+//}
+
+
