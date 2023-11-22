@@ -14,6 +14,7 @@ struct LeaderboardView: View {
     
     @State var bestPlayers: [Player]
     @State var rotation:CGFloat = 0.0
+    @State var trigger = 0
     
     @Environment(\.modelContext) var modelContext
     
@@ -46,21 +47,28 @@ struct LeaderboardView: View {
                             Image(systemName: "trophy.circle.fill")
                                 .foregroundStyle(Color("T"), Color.yellow)
                                 .font(.system(.largeTitle))
-                            Text(bestPlayers.first!.name).bold().padding()
+                                .symbolEffect(.bounce, value: trigger)
+                            if(bestPlayers.count > 0){
+                                Text(bestPlayers.first!.name).bold().padding()
+                            }
                         }
                         
                         VStack{
                             Image(systemName: "trophy.circle.fill")
                                 .foregroundStyle(Color("T"), Color.gray)
                                 .font(.system(.largeTitle))
-                            Text(bestPlayers[1].name).bold().padding()
+                            if(bestPlayers.count > 1){
+                                Text(bestPlayers[1].name).bold().padding()
+                            }
                         }
                         
                         VStack{
                             Image(systemName: "trophy.circle.fill")
                                 .foregroundStyle(Color("T"), Color.orange)
                                 .font(.system(.largeTitle))
-                            Text(bestPlayers[2].name).bold().padding()
+                            if(bestPlayers.count > 2){
+                                Text(bestPlayers[2].name).bold().padding()
+                            }
                         }//.padding()
                     }
                 }
@@ -69,6 +77,7 @@ struct LeaderboardView: View {
             .onAppear(){
             //TODO: test this
               // bestPlayers = ContentView().getBestPlayers()
+                trigger += 1
                 withAnimation(.linear(duration: 4).repeatForever(autoreverses: false)){
                     rotation = 360
                 }

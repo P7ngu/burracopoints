@@ -328,13 +328,20 @@ struct GameDetailedView: View {
     @Bindable var displayedGame: Game
     @State var title: String
     @State private var showingSheet = false
+    
+    @State var trigger = 0
     var body: some View {
        // NavigationView{
             ScrollView{
                 VStack{
                     
                     if(displayedGame.isGameConcluded == true){
-                        Text("gameover-string").bold()
+                        VStack{
+                            Text("gameover-string").bold().font(.title3)
+                            Image(systemName: "flag.checkered.2.crossed").bold()
+                                .symbolEffect(.bounce, value: trigger)
+                                .font(.largeTitle)
+                        }
                     }
                     if displayedGame.gameMode == 2 {
                         HStack{
@@ -481,6 +488,7 @@ struct GameDetailedView: View {
                 }
             }.scrollIndicators(.hidden)//.frame(minWidth: 500 )
                 .onAppear(){
+                    trigger += 1
                     if(displayedGame.squad3.first! != "nil"){
                         title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
                     } else {
