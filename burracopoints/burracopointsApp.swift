@@ -11,9 +11,17 @@ import SwiftData
 @main
 struct burracopointsApp: App {
     
+    // HIGH priority
+    
+    //TODO: manually pick winner, edit button for user
+    
     //TODO: update win ratio accordingly.
+    
+    
+    //Future future updates
     //TODO: widget that shows points for the last game
-    //TODO: tell the user which one has to be dealer
+    
+  
    
     
     //DONE:
@@ -22,6 +30,7 @@ struct burracopointsApp: App {
     //pick winner after hand points insertion, set the winner a win, the loser(s) a lost game,
     //after the creation of a game consider opening the game detailed view instead of the games section
     //username costraints
+    //  tell the user which one has to be dealer
     
     
     var sharedModelContainer: ModelContainer = {

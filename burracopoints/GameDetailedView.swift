@@ -397,7 +397,7 @@ struct GameDetailedView: View {
                                     HStack{
                                         Text(displayedGame.squad2.first!).bold()
                                         if(displayedGame.firstDealer == displayedGame.squad2.first! ){
-                                            Text(" *").bold()
+                                            Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                         }
                                     }
                                     HStack{
