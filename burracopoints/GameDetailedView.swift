@@ -341,6 +341,9 @@ struct GameDetailedView: View {
                             Image(systemName: "flag.checkered.2.crossed").bold()
                                 .symbolEffect(.bounce, value: trigger)
                                 .font(.largeTitle)
+                                .onTapGesture(perform: {
+                                    trigger = trigger + 1
+                                })
                         }
                     }
                     if displayedGame.gameMode == 2 {

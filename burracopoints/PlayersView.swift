@@ -54,6 +54,8 @@ struct PlayerSheetView: View {
     var body: some View{
         NavigationView{
             VStack{
+                Image(systemName: "person.crop.circle.badge.plus")
+                    .font(.system(size: 80))
               
                 
                 HStack{
