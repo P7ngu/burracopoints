@@ -41,7 +41,7 @@ struct SheetView: View {
             ScrollView{
                 Image(systemName: "trophy.circle")
                     .font(.system(size: 72))
-                    .foregroundColor(Color.green)
+                    .foregroundColor(Color("AccentColor1"))
                 LazyVStack(alignment: .leading){
                     HStack(){
                         Text("gamemode-string").padding()
