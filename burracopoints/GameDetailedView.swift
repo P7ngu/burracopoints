@@ -360,8 +360,11 @@ struct GameDetailedView: View {
                                     Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
                                     Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
                                     //TODO: use the actual data
+                                } .onChange(of: selectedDealer){
+                                    displayedGame.firstDealer = selectedDealer
                                 }
                             }
+                                    
                         }
                         
                             
