@@ -13,10 +13,8 @@ struct burracopointsApp: App {
     
     //TODO: update win ratio accordingly.
     //TODO: widget that shows points for the last game
-
     //TODO: tell the user which one has to be dealer
    
-    
     
     //DONE:
     // fix wins ____

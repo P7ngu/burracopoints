@@ -187,6 +187,7 @@ struct PlayersView: View {
     @Query private var playerItems: [Player]
     @Environment(\.modelContext) private var modelContext
     @State private var showingSheet = false
+    @State var trigger = 0
     
    
     
@@ -199,11 +200,18 @@ struct PlayersView: View {
                     NavigationLink {
                         VStack{
                             
-                            Image(systemName: player.icon) .font(.largeTitle).bold()
+                            Image(systemName: player.icon)
+                                .font(.system(size: 100))
+                                .symbolEffect(.bounce, value: trigger)
+                                .onTapGesture {
+                                    trigger = trigger + 1
+                                }
                             HStack{
-                                Text(player.name).font(.title)
+                                Text(player.name).font(.title).bold()
                                     .padding()
                                     .cornerRadius(8)
+                                   
+                                
                                // Text(String(player.id))
                             }
                             HStack{

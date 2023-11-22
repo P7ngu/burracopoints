@@ -328,6 +328,7 @@ struct GameDetailedView: View {
     @Bindable var displayedGame: Game
     @State var title: String
     @State private var showingSheet = false
+    @State private var selectedDealer = "None"
     
     @State var trigger = 0
     var body: some View {
@@ -345,12 +346,34 @@ struct GameDetailedView: View {
                                     trigger = trigger + 1
                                 })
                         }
-                    }
+                    } //else if(displayedGame.handPoints_p1.count < 2)
+                        
+                    
+                    
                     if displayedGame.gameMode == 2 {
+                        
+                        if(displayedGame.firstDealer == "None"){
+                            GroupBox{
+                                Text("dealer-string")
+                                Picker(selection: $selectedDealer, label: Text("dealer-string")) {
+                                    Text("None").tag("None")
+                                    Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
+                                    Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
+                                    //TODO: use the actual data
+                                }
+                            }
+                        }
+                        
+                            
                         HStack{
                             GroupBox{
                                 VStack{
-                                    Text(displayedGame.squad1.first!).bold()
+                                    HStack{
+                                        Text(displayedGame.squad1.first!).bold()
+                                        if(displayedGame.firstDealer == displayedGame.squad1.first! ){
+                                            Text(" *").bold().foregroundStyle(Color("AccentColor1"))
+                                        }
+                                    }
                                     HStack{
                                         Text("points-section-string")
                                         Text(String(displayedGame.currentPoints_p1))
@@ -368,7 +391,12 @@ struct GameDetailedView: View {
                             }
                             GroupBox{
                                 VStack{
-                                    Text(displayedGame.squad2.first!).bold()
+                                    HStack{
+                                        Text(displayedGame.squad2.first!).bold()
+                                        if(displayedGame.firstDealer == displayedGame.squad2.first! ){
+                                            Text(" *").bold()
+                                        }
+                                    }
                                     HStack{
                                         Text("points-section-string")
                                         Text(String(displayedGame.currentPoints_p2))
@@ -388,6 +416,19 @@ struct GameDetailedView: View {
                         
                         
                     } else if displayedGame.gameMode == 3 {
+                        if(displayedGame.firstDealer == "None"){
+                            GroupBox{
+                                Text("dealer-string")
+                                Picker(selection: $selectedDealer, label: Text("dealer-string")) {
+                                    Text("None").tag("None")
+                                    Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
+                                    Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
+                                    Text(displayedGame.squad3.first!).tag(displayedGame.squad3.first!)
+                                    //TODO: use the actual data
+                                }
+                            }
+                        }
+                            
                         // 1 vs 1 vs 1, 3 boxes
                         VStack{
                             VStack{
@@ -451,6 +492,20 @@ struct GameDetailedView: View {
                             }
                         }
                     } else if displayedGame.gameMode == 4 {
+                        if(displayedGame.firstDealer == "None"){
+                            GroupBox{
+                                Text("dealer-string")
+                                Picker(selection: $selectedDealer, label: Text("dealer-string")) {
+                                    Text("None").tag("None")
+                                    Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
+                                    Text(displayedGame.squad1[1]).tag(displayedGame.squad1[1])
+                                    Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
+                                    Text(displayedGame.squad2[1]).tag(displayedGame.squad2[1])
+                                    //TODO: use the actual data
+                                }
+                            }
+                        }
+                            
                         //2 vs 2, 2x2 boxes
                         HStack{
                             VStack{
@@ -491,6 +546,7 @@ struct GameDetailedView: View {
                 }
             }.scrollIndicators(.hidden)//.frame(minWidth: 500 )
                 .onAppear(){
+                    print(displayedGame.firstDealer)
                     trigger += 1
                     if(displayedGame.squad3.first! != "nil"){
                         title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
@@ -506,6 +562,7 @@ struct GameDetailedView: View {
                     Button(action: addPoints) {
                         Label("addpoints-string", systemImage: "note.text.badge.plus")
                     } .sheet(isPresented: $showingSheet) {
+                       // displayedGame.firstDealer = selectedDealer
                         GameAddPointsSheetView(displayedGame: displayedGame)
                     }
                 }
@@ -514,6 +571,7 @@ struct GameDetailedView: View {
         //end view
         
         func addPoints(){
+            displayedGame.firstDealer = selectedDealer
             showingSheet = true
             
         }

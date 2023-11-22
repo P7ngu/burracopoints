@@ -15,7 +15,7 @@
 "done-button-string" = "Done";
 "cancel-button-string" = "Cancel";
 
-"addnewplayer-string" = "Add a new player";
+"addnewplayer-string" = "Create a new player";
 "selectedicon-string" = "Your currently selected icon: ";
 "pickicon-string" = "Pick an icon: ";
 "name-string" = "Name";
@@ -47,3 +47,5 @@
 
 "winplayer-string" = "Win: ";
 "gamesplayed-string" = "Matches: ";
+
+"dealer-string" = "Select who deals first: ";

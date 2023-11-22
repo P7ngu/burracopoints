@@ -59,7 +59,7 @@ struct SheetView: View {
                         }
                     }
                     HStack{
-                        Text("gamewinpoints-string").padding()
+                        Text("gamewinpoints-string").padding(.leading, 16)
                         TextField("maxpoints-string", text: $inputMaxPoints).keyboardType(.decimalPad)
                     }
                     //Add button to create a new player
@@ -72,7 +72,7 @@ struct SheetView: View {
                         PlayerSheetView(playerItems: players)
                     }.padding()
                     
-                    Text("selecteplayers1-string").padding()
+                    Text("selecteplayers1-string").padding(.leading, 16)
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(players){ player in
@@ -163,7 +163,7 @@ struct SheetView: View {
                     }
                     .background(Color(UIColor.systemGroupedBackground))
                     
-                    Text("selecteplayers2-string").padding()
+                    Text("selecteplayers2-string").padding(.leading, 16)
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(players){ player in
@@ -262,7 +262,7 @@ struct SheetView: View {
                     }
                     .background(Color(UIColor.systemGroupedBackground))
                     if (selectedGameMode == "1 vs 1 vs 1"){
-                        Text("selecteplayers3-string").padding()
+                        Text("selecteplayers3-string").padding(.leading, 16)
                         ScrollView(.horizontal) {
                             LazyHStack {
                                 ForEach(players){ player in
@@ -329,7 +329,7 @@ struct SheetView: View {
                                 
                                 
                                 resetPlayerSelection()
-                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 3, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: squad3, currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
+                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 3, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: squad3, currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
                                 addNewGame(newItem: newGame)
                                 dismiss()
                                 GameDetailedView(displayedGame: newGame, title: "")
@@ -341,7 +341,7 @@ struct SheetView: View {
                                 let squad2 = [player3.name, player4.name]
                                 resetPlayerSelection()
                                 
-                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 4, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
+                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 4, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
                                 addNewGame(newItem: newGame)
                                 dismiss()
                                 GameDetailedView(displayedGame: newGame, title: "")
@@ -354,7 +354,7 @@ struct SheetView: View {
                                 let squad1 = [player1.name]
                                 let squad2 = [player2.name]
                                 resetPlayerSelection()
-                                var newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false)
+                                let newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
                                 addNewGame(newItem: newGame)
                                 dismiss()
                                 GameDetailedView(displayedGame: newGame, title: "")
