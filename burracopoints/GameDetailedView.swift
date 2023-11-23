@@ -574,12 +574,16 @@ struct GameDetailedView: View {
                             title: Text("Are you sure you want to undo the last insertion?"),
                             message: Text("There is no way back"),
                             primaryButton: .destructive(Text("Confirm")) {
-                                displayedGame.handsPlayed = displayedGame.handsPlayed-1
-                                displayedGame.handPoints_p1.remove(at: displayedGame.handPoints_p1.count - 1)
-                                displayedGame.handPoints_p2.remove(at: displayedGame.handPoints_p2.count - 1)
-                                if(displayedGame.squad3Enabled){
-                                    displayedGame.handPoints_p3.remove(at: displayedGame.handPoints_p3.count - 1)
+                                if(displayedGame.handPoints_p1.count > 1 && displayedGame.handPoints_p2.count > 1){
+                                    //displayedGame.handsPlayed = displayedGame.handsPlayed-1
+                                    displayedGame.handPoints_p1.remove(at: displayedGame.handPoints_p1.count - 1)
+                                    displayedGame.handPoints_p2.remove(at: displayedGame.handPoints_p2.count - 1)
+                                    
+                                    if(displayedGame.squad3Enabled){
+                                        displayedGame.handPoints_p3.remove(at: displayedGame.handPoints_p3.count - 1)
+                                    }
                                 }
+                               
                                 print("Deleting...")
                             },
                             secondaryButton: .cancel()
