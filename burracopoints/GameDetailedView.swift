@@ -497,7 +497,7 @@ struct GameDetailedView: View {
                         }
                     }
                 } else if displayedGame.gameMode == 4 {
-                    if(displayedGame.firstDealer == "None" && !displayedGame.isGameConcluded){
+                    if(displayedGame.firstDealer == "None"){
                         GroupBox{
                             Text("dealer-string")
                             Picker(selection: $selectedDealer, label: Text("dealer-string")) {
