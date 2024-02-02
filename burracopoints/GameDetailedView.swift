@@ -570,6 +570,7 @@ struct GameDetailedView: View {
                         showingAlert = true
                     }
                     .alert(isPresented:$showingAlert) {
+                        //Undoing the last insertion
                         Alert(
                             title: Text("Are you sure you want to undo the last insertion?"),
                             message: Text("There is no way back"),
@@ -585,6 +586,7 @@ struct GameDetailedView: View {
                                         displayedGame.currentPoints_p3 -= displayedGame.handPoints_p3.last!
                                         displayedGame.handPoints_p3.remove(at: displayedGame.handPoints_p3.count - 1)
                                     }
+                                    displayedGame.isGameConcluded = false;
                                 }
                                
                                 print("Deleting...")
