@@ -53,19 +53,18 @@ struct PlayerSheetView: View {
     
     var body: some View{
         NavigationView{
-            VStack{
-                Image(systemName: "person.crop.circle.badge.plus")
-                    .font(.system(size: 80))
-              
-                
-                HStack{
-                    Text("name-string").padding()
-                    TextField("player-name-string", text: $playerName).padding()
-                }//.padding()
-                
-               // Spacer()
-                
-                Text("pickicon-string")
+            ScrollView{
+                VStack{
+                    Image(systemName: "person.crop.circle.badge.plus")
+                      .font(.system(size: 80))
+                    HStack{
+                        Text("name-string").padding()
+                        TextField("player-name-string", text: $playerName).padding()
+                    }//.padding()
+                    
+                    // Spacer()
+                    
+                    Text("pickicon-string")
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(iconList){ icon in
@@ -92,78 +91,80 @@ struct PlayerSheetView: View {
                                             icon.color = colorState
                                             print("icon unselected")
                                         }
-                                        }
+                                    }
                                 }
                                 else {
-                                   // print("hi there")
+                                    // print("hi there")
                                     GroupBox{
                                         //Image(systemName: icon.name)
                                         //    .font(.system(size: 52))
-                                         //   .foregroundColor(colorState)
+                                        //   .foregroundColor(colorState)
                                     }
                                 }
                             }
-                        //.padding()
-                        
-                    } .frame(height: 150, alignment: .topLeading)
-                    }.scrollIndicators(.hidden)
-                
-                GroupBox{
-                   // Spacer()
-                    Text("selectedicon-string")
-                    if(iconName == ""){
-                        Image(systemName: "x.circle")
-                            .font(.largeTitle)
-                            .padding()
-                    } else {
-                        Image(systemName: iconName)
-                            .font(.title)
-                            .padding()
-                    }
-                }
-                
-            }
-            .navigationBarTitle("addnewplayer-string", displayMode: .inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    
-                    Button("done-button-string") {
-                        showingAlert_nameuniqueness = false
-                        if(playerName != ""){
-                            //chech name uniqueness
-                          
-                            ForEach(iconList){ icon in
-                                if icon.isSelected == true {
-                                  //  iconName = icon.name
-                                } else {
-                                    
-                                }
-                            }
-                            for player in playerItems {
-                                if player.name == playerName{
-                                    showingAlert_nameuniqueness = true
-                                    showingAlert = true
-                                }
-                            }
+                            //.padding()
                             
-                            if(!showingAlert_nameuniqueness){
-                                let newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
-                                
-                                addNewPlayer(player: newPlayer, players: playerItems)
-                                dismiss()
-                            }
+                        } .frame(height: 150, alignment: .topLeading)
+                    }.scrollIndicators(.hidden)
+                    
+                    GroupBox{
+                        // Spacer()
+                        Text("selectedicon-string")
+                        if(iconName == ""){
+                            Image(systemName: "x.circle")
+                                .font(.largeTitle)
+                                .padding()
                         } else {
-                           showingAlert = true
-                           
+                            Image(systemName: iconName)
+                                .font(.title)
+                                .padding()
+                        }
+                    }
+                    
+                }
+                .navigationBarTitle("addnewplayer-string", displayMode: .inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        
+                        Button("done-button-string") {
+                            showingAlert_nameuniqueness = false
+                            if(playerName != ""){
+                                //chech name uniqueness
+                                
+                                ForEach(iconList){ icon in
+                                    if icon.isSelected == true {
+                                        //  iconName = icon.name
+                                    } else {
+                                        
+                                    }
+                                }
+                                for player in playerItems {
+                                    if player.name == playerName{
+                                        showingAlert_nameuniqueness = true
+                                        showingAlert = true
+                                    }
+                                }
+                                
+                                if(!showingAlert_nameuniqueness){
+                                    let newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+                                    
+                                    addNewPlayer(player: newPlayer, players: playerItems)
+                                    dismiss()
+                                }
+                            } else {
+                                showingAlert = true
+                                
+                            }
+                        }
+                    }
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("cancel-button-string") {
+                            dismiss()
                         }
                     }
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("cancel-button-string") {
-                        dismiss()
-                    }
-                }
-            } 
+            }
+             
             
             .alert(isPresented: $showingAlert) {
                 if(showingAlert_nameuniqueness){
@@ -174,6 +175,7 @@ struct PlayerSheetView: View {
             }
         }
     }
+    
     func addNewPlayer(player: Player, players: [Player]){
             player.id = players.count + 1
             modelContext.insert(player)
