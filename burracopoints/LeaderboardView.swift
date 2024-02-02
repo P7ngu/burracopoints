@@ -48,8 +48,12 @@ struct LeaderboardView: View {
                                 .foregroundStyle(Color("T"), Color.yellow)
                                 .font(.system(.largeTitle))
                                 .symbolEffect(.bounce, value: trigger)
-                            if(bestPlayers.count > 0){
-                                Text(bestPlayers.first!.name).bold().padding()
+                            if(bestPlayers.count > 1){
+                                if bestPlayers.first!.name != "Nil"{
+                                    Text(bestPlayers.first!.name).bold().padding()
+                                } else {
+                                    
+                                }
                             }
                         }
                         
