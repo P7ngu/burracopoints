@@ -575,11 +575,14 @@ struct GameDetailedView: View {
                             message: Text("There is no way back"),
                             primaryButton: .destructive(Text("Confirm")) {
                                 if(displayedGame.handPoints_p1.count > 1 && displayedGame.handPoints_p2.count > 1){
+                                    displayedGame.currentPoints_p1 -= displayedGame.handPoints_p1.last!
+                                    displayedGame.currentPoints_p2 -= displayedGame.handPoints_p2.last!
                                     //displayedGame.handsPlayed = displayedGame.handsPlayed-1
                                     displayedGame.handPoints_p1.remove(at: displayedGame.handPoints_p1.count - 1)
                                     displayedGame.handPoints_p2.remove(at: displayedGame.handPoints_p2.count - 1)
                                     
                                     if(displayedGame.squad3Enabled){
+                                        displayedGame.currentPoints_p3 -= displayedGame.handPoints_p3.last!
                                         displayedGame.handPoints_p3.remove(at: displayedGame.handPoints_p3.count - 1)
                                     }
                                 }
