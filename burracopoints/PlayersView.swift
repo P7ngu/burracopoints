@@ -55,16 +55,36 @@ struct PlayerSheetView: View {
         NavigationView{
             ScrollView{
                 VStack{
-                    Image(systemName: "person.crop.circle.badge.plus")
-                      .font(.system(size: 80))
-                    HStack{
-                        Text("name-string").padding()
-                        TextField("player-name-string", text: $playerName).padding()
-                    }//.padding()
+                   // Image(systemName: "person.crop.circle.badge.plus")
+                    GroupBox{
+                        // Spacer()
+                        Text("selectedicon-string")
+                        if(iconName == ""){
+                            Image(systemName: "person.circle")
+                                .font(.largeTitle)
+                                .padding()
+                        } else {
+                            Image(systemName: iconName)
+                                .font(.largeTitle)
+                                .padding()
+                        }
+                    }
+
+                    
+                        HStack{
+                            Text("name-string").padding()
+                            TextField("player-name-string", text: $playerName).padding()
+                        }//.padding()
+                    
                     
                     // Spacer()
+                    HStack{
+                        Text("pickicon-string")
+                            .frame(alignment: .leading)
+                            .padding()
+                        Spacer()
+                    }
                     
-                    Text("pickicon-string")
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(iconList){ icon in
@@ -107,19 +127,6 @@ struct PlayerSheetView: View {
                         } .frame(height: 150, alignment: .topLeading)
                     }.scrollIndicators(.hidden)
                     
-                    GroupBox{
-                        // Spacer()
-                        Text("selectedicon-string")
-                        if(iconName == ""){
-                            Image(systemName: "x.circle")
-                                .font(.largeTitle)
-                                .padding()
-                        } else {
-                            Image(systemName: iconName)
-                                .font(.title)
-                                .padding()
-                        }
-                    }
                     
                 }
                 .navigationBarTitle("addnewplayer-string", displayMode: .inline)

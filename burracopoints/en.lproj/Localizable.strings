@@ -5,7 +5,7 @@
 "player-title-string" = "Players";
 "leaderboard-title-string" = "Leaderboard";
 
-"points-section-string" = "Points: ";
+"points-section-string" = "Tot: ";
 "hand-section-string" = "Hand ";
 "hand-string" = "Hand ";
 "addpoints-string" = "Add points";
@@ -25,7 +25,7 @@
 "creategame-string" = "Create a new game";
 "gamemode-string" = "Select game mode: ";
 "maxpoints-string" = "points";
-"gamewinpoints-string" = "Game win points";
+"gamewinpoints-string" = "Max points:";
 
 "selecteplayers1-string" = "Select players for team 1: ";
 "selecteplayers2-string" = "Select players for team 2: ";

@@ -5,7 +5,7 @@
 "player-title-string" = "Giocatori";
 "leaderboard-title-string" = "Classifica";
 
-"points-section-string" = "Punti totali:";
+"points-section-string" = "Tot.:";
 "hand-string" = "Mano ";
 "addpoints-string" = "Aggiungi punti";
 "base-string" = "Base";
