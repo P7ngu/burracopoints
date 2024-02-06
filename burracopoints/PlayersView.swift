@@ -48,14 +48,14 @@ struct PlayerSheetView: View {
         Icon(name: "airplane.circle", id: UUID(), isSelected: false, color: Color.blue),
         Icon(name: "leaf.circle", id: UUID(), isSelected: false, color: Color.blue)
         
-       
+        
     ]
     
     var body: some View{
         NavigationView{
             ScrollView{
                 VStack{
-                   // Image(systemName: "person.crop.circle.badge.plus")
+                    // Image(systemName: "person.crop.circle.badge.plus")
                     GroupBox{
                         // Spacer()
                         Text("selectedicon-string")
@@ -69,12 +69,12 @@ struct PlayerSheetView: View {
                                 .padding()
                         }
                     }
-
                     
-                        HStack{
-                            Text("name-string").padding()
-                            TextField("player-name-string", text: $playerName).padding()
-                        }//.padding()
+                    
+                    HStack{
+                        Text("name-string").padding()
+                        TextField("player-name-string", text: $playerName).padding()
+                    }//.padding()
                     
                     
                     // Spacer()
@@ -91,7 +91,8 @@ struct PlayerSheetView: View {
                                 if(!icon.isSelected){
                                     GroupBox{
                                         Image(systemName: icon.name)
-                                            .font(.largeTitle)                                            //.foregroundColor(icon.color)
+                                            .font(.largeTitle)
+                                            //.font(.system(size: 30))                                        //.foregroundColor(icon.color)
                                     }.onTapGesture {
                                         if(!icon.isSelected){
                                             icon.isSelected = true
@@ -123,11 +124,12 @@ struct PlayerSheetView: View {
                                 }
                             }
                             //.padding()
+                            Spacer()
                             
                         } .frame(height: 150, alignment: .topLeading)
                     }.scrollIndicators(.hidden)
                     
-                    
+                    Spacer()
                 }
                 .navigationBarTitle("addnewplayer-string", displayMode: .inline)
                 .toolbar {
@@ -171,7 +173,7 @@ struct PlayerSheetView: View {
                     }
                 }
             }
-             
+            
             
             .alert(isPresented: $showingAlert) {
                 if(showingAlert_nameuniqueness){
@@ -184,8 +186,8 @@ struct PlayerSheetView: View {
     }
     
     func addNewPlayer(player: Player, players: [Player]){
-            player.id = players.count + 1
-            modelContext.insert(player)
+        player.id = players.count + 1
+        modelContext.insert(player)
         
     }
 }
@@ -198,7 +200,7 @@ struct PlayersView: View {
     @State private var showingSheet = false
     @State var trigger = 0
     
-   
+    
     
     var body: some View {
         
@@ -219,9 +221,9 @@ struct PlayersView: View {
                                 Text(player.name).font(.title).bold()
                                     .padding()
                                     .cornerRadius(8)
-                                   
                                 
-                               // Text(String(player.id))
+                                
+                                // Text(String(player.id))
                             }
                             HStack{
                                 Text("winplayer-string")
@@ -242,9 +244,9 @@ struct PlayersView: View {
                                 Image(systemName: "person.fill")
                             }
                             
-                                Text(player.name)
-                                    .padding()
-                                    .cornerRadius(8)
+                            Text(player.name)
+                                .padding()
+                                .cornerRadius(8)
                             
                         }
                     } .swipeActions {
@@ -252,7 +254,7 @@ struct PlayersView: View {
                             modelContext.delete(player)
                         }
                     }
-                   
+                    
                     
                 }
                 // .onDelete(perform: deleteItems)
@@ -260,9 +262,9 @@ struct PlayersView: View {
                 
             }
             .toolbar {
-               // ToolbarItem(placement: .navigationBarTrailing) {
-              //      EditButton()
-               // }
+                // ToolbarItem(placement: .navigationBarTrailing) {
+                //      EditButton()
+                // }
                 ToolbarItem {
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
@@ -275,15 +277,15 @@ struct PlayersView: View {
             }  .navigationTitle("player-title-string")
         }
         
-      
+        
     }
     
     
-   
+    
     
     
     private func addItem() {
-       
+        
         showingSheet.toggle()
         withAnimation {
             // let newItem = Player(name: "Matteo", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false)
@@ -295,5 +297,5 @@ struct PlayersView: View {
 
 
 //#Preview {
-   // PlayersView()
+// PlayersView()
 //}

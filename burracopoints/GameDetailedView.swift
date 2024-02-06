@@ -429,7 +429,7 @@ struct GameDetailedView: View {
                                 Text("None").tag("None")
                                 Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
                                 Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                                //TODO: use the actual data
+                                Text(displayedGame.squad3.first!).tag(displayedGame.squad3.first!)
                             } .onChange(of: selectedDealer){
                                 if(selectedDealer != "None"){
                                     displayedGame.firstDealer = selectedDealer
