@@ -30,112 +30,112 @@ struct GameAddPointsSheetView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
-                if(displayedGame.isGameConcluded == true){
-                    VStack{
-                        Text("gameoveradd-string").bold()
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    }
-                }
-                else{
-                    
-                    
-                    //We need at least 2 input boxes, 3 maximum
-                    if displayedGame.gameMode == 2 {
-                        // 1 vs 1
+            ScrollView{
+                VStack{
+                    if(displayedGame.isGameConcluded == true){
                         VStack{
-                            VStack{
-                                //player 1 points
-                                GroupBox{
-                                    Text(displayedGame.squad1.first!)
-                                    TextField("base-string", text: $squad1pointsbase)
-                                        .padding().keyboardType(.decimalPad)
-                                    TextField("score-string", text: $squad1pointsscore)
-                                        .padding().keyboardType(.decimalPad)
-                                }
-                            }.padding()
-                            VStack{
-                                GroupBox{
-                                    //player 2 points
-                                    Text(displayedGame.squad2.first!)
-                                    TextField("base-string", text: $squad2pointsbase)
-                                        .padding().keyboardType(.decimalPad)
-                                    TextField("score-string", text: $squad2pointsscore)
-                                        .padding().keyboardType(.decimalPad)
-                                }
-                            }.padding()
-                        }
-                        
-                    } else if displayedGame.gameMode == 3 {
-                        // 1 vs 1 vs 1, 3 boxes
-                        VStack{
-                            VStack{
-                                //player 1 points
-                                GroupBox{
-                                    Text(displayedGame.squad1.first!)
-                                    TextField("base-string", text: $squad1pointsbase)
-                                        .padding().keyboardType(.decimalPad)
-                                    TextField("score-string", text: $squad1pointsscore)
-                                        .padding().keyboardType(.decimalPad)
-                                }
-                            }.padding()
-                            
-                            VStack{
-                                GroupBox{
-                                    //player 2 points
-                                    Text(displayedGame.squad2.first!)
-                                    TextField("base-string", text: $squad2pointsbase)
-                                        .padding().keyboardType(.decimalPad)
-                                    TextField("score-string", text: $squad2pointsscore)
-                                        .padding().keyboardType(.decimalPad)
-                                }
-                            }.padding()
-                            
-                            VStack{
-                                GroupBox{
-                                    //player 2 points
-                                    Text(displayedGame.squad3.first!)
-                                    TextField("base-string", text: $squad3pointsbase)
-                                        .padding().keyboardType(.decimalPad)
-                                    TextField("score-string", text: $squad3pointsscore)
-                                        .padding().keyboardType(.decimalPad)
-                                }
-                            }.padding()
-                        }
-                        
-                    } else if displayedGame.gameMode == 4 {
-                        
-                        //2 vs 2, 2x2 boxes
-                        HStack{
-                            VStack{
-                                //player 1 points
-                                GroupBox{
-                                    Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
-                                    TextField("base-string", text: $squad1pointsbase)
-                                        .padding().keyboardType(.decimalPad)
-                                    TextField("score-string", text: $squad1pointsscore)
-                                        .padding().keyboardType(.decimalPad)
-                                }
-                            }.padding()
-                            
-                            VStack{
-                                GroupBox{
-                                    //player 2 points
-                                    Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
-                                    TextField("base-string", text: $squad2pointsbase)
-                                        .padding().keyboardType(.decimalPad)
-                                    TextField("score-string", text: $squad2pointsscore)
-                                        .padding().keyboardType(.decimalPad)
-                                }
-                            }.padding()
+                            Text("gameoveradd-string").bold()
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .center)
                         }
                     }
-                    
-                    
+                    else{
+                        //We need at least 2 input boxes, 3 maximum
+                        if displayedGame.gameMode == 2 {
+                            // 1 vs 1
+                            VStack{
+                                VStack{
+                                    //player 1 points
+                                    GroupBox{
+                                        Text(displayedGame.squad1.first!)
+                                        TextField("base-string", text: $squad1pointsbase)
+                                            .padding().keyboardType(.decimalPad)
+                                        TextField("score-string", text: $squad1pointsscore)
+                                            .padding().keyboardType(.decimalPad)
+                                    }
+                                }.padding()
+                                VStack{
+                                    GroupBox{
+                                        //player 2 points
+                                        Text(displayedGame.squad2.first!)
+                                        TextField("base-string", text: $squad2pointsbase)
+                                            .padding().keyboardType(.decimalPad)
+                                        TextField("score-string", text: $squad2pointsscore)
+                                            .padding().keyboardType(.decimalPad)
+                                    }
+                                }.padding()
+                            }
+                            
+                        } else if displayedGame.gameMode == 3 {
+                            // 1 vs 1 vs 1, 3 boxes
+                            VStack{
+                                VStack{
+                                    //player 1 points
+                                    GroupBox{
+                                        Text(displayedGame.squad1.first!)
+                                        TextField("base-string", text: $squad1pointsbase)
+                                            .padding().keyboardType(.decimalPad)
+                                        TextField("score-string", text: $squad1pointsscore)
+                                            .padding().keyboardType(.decimalPad)
+                                    }
+                                }.padding()
+                                
+                                VStack{
+                                    GroupBox{
+                                        //player 2 points
+                                        Text(displayedGame.squad2.first!)
+                                        TextField("base-string", text: $squad2pointsbase)
+                                            .padding().keyboardType(.decimalPad)
+                                        TextField("score-string", text: $squad2pointsscore)
+                                            .padding().keyboardType(.decimalPad)
+                                    }
+                                }.padding()
+                                
+                                VStack{
+                                    GroupBox{
+                                        //player 3 points
+                                        Text(displayedGame.squad3.first!)
+                                        TextField("base-string", text: $squad3pointsbase)
+                                            .padding().keyboardType(.decimalPad)
+                                        TextField("score-string", text: $squad3pointsscore)
+                                            .padding().keyboardType(.decimalPad)
+                                    }
+                                }.padding()
+                            }
+                            
+                        } else if displayedGame.gameMode == 4 {
+                            
+                            //2 vs 2, 2x2 boxes
+                            HStack{
+                                VStack{
+                                    //player 1 points
+                                    GroupBox{
+                                        Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
+                                        TextField("base-string", text: $squad1pointsbase)
+                                            .padding().keyboardType(.decimalPad)
+                                        TextField("score-string", text: $squad1pointsscore)
+                                            .padding().keyboardType(.decimalPad)
+                                    }
+                                }.padding()
+                                
+                                VStack{
+                                    GroupBox{
+                                        //player 2 points
+                                        Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
+                                        TextField("base-string", text: $squad2pointsbase)
+                                            .padding().keyboardType(.decimalPad)
+                                        TextField("score-string", text: $squad2pointsscore)
+                                            .padding().keyboardType(.decimalPad)
+                                    }
+                                }.padding()
+                            }
+                        }
+                        
+                        
+                    }
                 }
+                .navigationBarTitle("addpoints-string", displayMode: .inline)
             }
-            .navigationBarTitle("addpoints-string", displayMode: .inline)
             
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -441,36 +441,33 @@ struct GameDetailedView: View {
                     
                     // 1 vs 1 vs 1, 3 boxes
                     VStack{
-                        
                         VStack{
-                            //player 1 points
-                            GroupBox{
-                                VStack{
-                                    HStack{
-                                        Text(displayedGame.squad1.first!)
-                                        if(displayedGame.firstDealer == displayedGame.squad1.first! ){
-                                            Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                        }
-                                    }
-                                    HStack{
-                                        Text("points-section-string")
-                                        Text(String(displayedGame.currentPoints_p1))
-                                    }
-                                    ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                        HStack{
-                                            Text("hand-string")
-                                            Text(String(index) + ":")
-                                            Text(String(displayedGame.handPoints_p1[index]))
-                                        }
+                            GroupBox{ //player 1 points
+                                HStack{
+                                    Text(displayedGame.squad1.first!)
+                                    if(displayedGame.firstDealer == displayedGame.squad1.first! ){
+                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
                                 }
-                               
-                            } .frame(minWidth: 300)
+                                HStack{
+                                    Text("points-section-string")
+                                    Text(String(displayedGame.currentPoints_p1))
+                                }
+                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
+                                    HStack{
+                                        Text("hand-string")
+                                        Text(String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p1[index]))
+                                    }
+                                }
+                                .frame(minWidth: 300)
+                            }
                         }
+                       
+                     
                         
                         VStack{
-                            GroupBox{
-                                //player 2 points
+                            GroupBox{ //player 2 points
                                 HStack{
                                     Text(displayedGame.squad2.first!)
                                     if(displayedGame.firstDealer == displayedGame.squad2.first! ){
@@ -587,7 +584,9 @@ struct GameDetailedView: View {
                 ToolbarItem{
                     
                     Button("Undo") {
-                        showingAlert = true
+                        if(displayedGame.handPoints_p1.count > 1){
+                            showingAlert = true
+                        }
                     }
                     .alert(isPresented:$showingAlert) {
                         //Undoing the last insertion
