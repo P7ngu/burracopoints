@@ -21,7 +21,7 @@
 "player-name-string" = "Nome player";
 
 
-"creategame-string" = "Crea un nuovo gioco";
+"creategame-string" = "Crea una nuova partita";
 "gamemode-string" = "Modalità di gioco: ";
 "maxpoints-string" = "Punti";
 "gamewinpoints-string" = "Punti per la vittoria:";
