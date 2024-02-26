@@ -10,6 +10,8 @@ import SwiftData
 import Foundation
 
 
+
+
 struct PlayerSheetView: View {
     @State private var playerName: String = ""
     @State private var iconName: String = ""
@@ -21,6 +23,9 @@ struct PlayerSheetView: View {
     @State private var showingAlert_nameuniqueness = false
     
     @State var colorState = Color.blue
+    
+    @State private var selectedIcon: String? = nil
+
     
     var playerItems: [Player]
     
@@ -55,22 +60,6 @@ struct PlayerSheetView: View {
         NavigationView{
             ScrollView{
                 VStack{
-                    // Image(systemName: "person.crop.circle.badge.plus")
-                    GroupBox{
-                        // Spacer()
-                        Text("selectedicon-string")
-                        if(iconName == ""){
-                            Image(systemName: "person.circle")
-                                .font(.largeTitle)
-                                .padding()
-                        } else {
-                            Image(systemName: iconName)
-                                .font(.largeTitle)
-                                .padding()
-                        }
-                    }
-                    
-                    
                     HStack{
                         Text("name-string").padding()
                         TextField("player-name-string", text: $playerName).padding()
@@ -85,49 +74,9 @@ struct PlayerSheetView: View {
                         Spacer()
                     }
                     
-                    ScrollView(.horizontal) {
-                        LazyHStack {
-                            ForEach(iconList){ icon in
-                                if(!icon.isSelected){
-                                    GroupBox{
-                                        Image(systemName: icon.name)
-                                            .font(.largeTitle)
-                                            //.font(.system(size: 30))                                        //.foregroundColor(icon.color)
-                                    }.onTapGesture {
-                                        if(!icon.isSelected){
-                                            icon.isSelected = true
-                                            if(icon.isSelected){
-                                                print ("hello1")
-                                            } else{
-                                                
-                                            }
-                                            iconName = icon.name
-                                            colorState = Color.green
-                                            icon.color = colorState
-                                            print("icon selected")
-                                        } else if(icon.isSelected){
-                                            icon.isSelected = false
-                                            iconName = icon.name
-                                            colorState = Color.blue
-                                            icon.color = colorState
-                                            print("icon unselected")
-                                        }
-                                    }
-                                }
-                                else {
-                                    // print("hi there")
-                                    GroupBox{
-                                        //Image(systemName: icon.name)
-                                        //    .font(.system(size: 52))
-                                        //   .foregroundColor(colorState)
-                                    }
-                                }
-                            }
-                            //.padding()
-                            Spacer()
-                            
-                        } .frame(height: 150, alignment: .topLeading)
-                    }.scrollIndicators(.hidden)
+                   
+                    IconSelectionView(selectedIcon: $selectedIcon)
+                     
                     
                     Spacer()
                 }
@@ -139,14 +88,6 @@ struct PlayerSheetView: View {
                             showingAlert_nameuniqueness = false
                             if(playerName != ""){
                                 //chech name uniqueness
-                                
-                                ForEach(iconList){ icon in
-                                    if icon.isSelected == true {
-                                        //  iconName = icon.name
-                                    } else {
-                                        
-                                    }
-                                }
                                 for player in playerItems {
                                     if player.name == playerName{
                                         showingAlert_nameuniqueness = true
@@ -155,7 +96,7 @@ struct PlayerSheetView: View {
                                 }
                                 
                                 if(!showingAlert_nameuniqueness){
-                                    let newPlayer = Player(name: playerName, icon: iconName, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
+                                    let newPlayer = Player(name: playerName, icon: selectedIcon!, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
                                     
                                     addNewPlayer(player: newPlayer, players: playerItems)
                                     dismiss()
