@@ -81,7 +81,7 @@ struct PlayerSheetView: View {
                         
                         Button("done-button-string") {
                             showingAlert_nameuniqueness = false
-                            if(playerName != ""){
+                            if(playerName != "" && playerName != "Nil"){
                                 //chech name uniqueness
                                 for player in playerItems {
                                     if player.name == playerName{

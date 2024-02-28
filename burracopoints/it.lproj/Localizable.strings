@@ -30,7 +30,7 @@
 "selecteplayers2-string" = "Seleziona giocatore/i squadra 2: ";
 "selecteplayers3-string" = "Seleziona giocatore/i squadra 3: ";
 
-"errorinputname-string" = "Inserisci un nome";
+"errorinputname-string" = "Inserisci un nome valido";
 "errordetailinputname-string" = "Compila tutti i campi!";
 "errorinputname2-string" = "Nome già in uso";
 "errordetailinputname2-string" = "Perfavore, seleziona un nome diverso.";
