@@ -126,6 +126,7 @@ struct GameDetailedView: View {
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p1))
                                 }
+                                Text("")
                                 ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                     HStack{
                                         //Text("hand-string")
@@ -148,6 +149,7 @@ struct GameDetailedView: View {
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p2))
                                 }
+                                Text("")
                                 ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
                                     HStack{
                                         //Text("hand-string")
@@ -172,6 +174,7 @@ struct GameDetailedView: View {
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p3))
                                 }
+                                Text("")
                                 ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
                                     HStack{
                                         //Text("hand-string")
@@ -212,10 +215,13 @@ struct GameDetailedView: View {
                                     Text( displayedGame.squad1[1])
                                     if(displayedGame.firstDealer == displayedGame.squad1[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
                                 }
+                              
+                                
                                 HStack{
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p1))
                                 }
+                                Text("")
                                 ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                    // Text("hand-string")
                                     HStack{
@@ -239,6 +245,7 @@ struct GameDetailedView: View {
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p2))
                                 }
+                                Text("")
                                 ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
                                     //Text("hand-string")
                                     HStack{
