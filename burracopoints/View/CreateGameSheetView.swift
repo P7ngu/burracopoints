@@ -73,7 +73,7 @@ struct CreateGameSheetView: View {
                     }.padding()
                     
                     Text("selecteplayers1-string").padding(.leading, 16)
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             ForEach(players){ player in
                                 GroupBox{
@@ -88,7 +88,6 @@ struct CreateGameSheetView: View {
                                             Image(systemName: "person.crop.circle.fill.badge.checkmark")
                                             Text(player.name)
                                                 .padding()
-                                            
                                                 .cornerRadius(8)
                                         }
                                     }
@@ -160,11 +159,12 @@ struct CreateGameSheetView: View {
                             }
                         }
                         .padding()
-                    }
+                    } //end of scrollview
+                
                     .background(Color(UIColor.systemGroupedBackground))
                     
                     Text("selecteplayers2-string").padding(.leading, 16)
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             ForEach(players){ player in
                                 GroupBox{
@@ -263,7 +263,7 @@ struct CreateGameSheetView: View {
                     .background(Color(UIColor.systemGroupedBackground))
                     if (selectedGameMode == "1 vs 1 vs 1"){
                         Text("selecteplayers3-string").padding(.leading, 16)
-                        ScrollView(.horizontal) {
+                        ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
                                 ForEach(players){ player in
                                     GroupBox{

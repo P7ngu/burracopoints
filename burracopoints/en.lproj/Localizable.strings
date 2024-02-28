@@ -49,3 +49,4 @@
 "gamesplayed-string" = "Matches: ";
 
 "dealer-string" = "Select who deals first: ";
+"no-dealer" = "None";

@@ -21,7 +21,6 @@ struct GameDetailedView: View {
         // NavigationView{
         ScrollView{
             VStack{
-                
                 if(displayedGame.isGameConcluded == true){
                     VStack{
                         Text("gameover-string").bold().font(.title3)
@@ -33,9 +32,6 @@ struct GameDetailedView: View {
                             })
                     }
                 } //else if(displayedGame.handPoints_p1.count < 2)
-                
-                
-                
                 if displayedGame.gameMode == 2 {
                     
                     if(displayedGame.firstDealer == "None"){
@@ -53,8 +49,6 @@ struct GameDetailedView: View {
                         }
                         
                     }
-                    
-                    
                     HStack{
                         GroupBox{
                             VStack{
@@ -74,7 +68,6 @@ struct GameDetailedView: View {
                                         //Text("hand-string")
                                         Text("#" + String(index) + ":")
                                         Text(String(displayedGame.handPoints_p1[index]))
-                                        
                                     }
                                 }
                             }
@@ -91,8 +84,6 @@ struct GameDetailedView: View {
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p2))
                                 }.padding()
-                                
-                                
                                 ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
                                     HStack{
                                         //Text("hand-string")
@@ -103,8 +94,6 @@ struct GameDetailedView: View {
                             }
                         }
                     }
-                    
-                    
                 } else if displayedGame.gameMode == 3 {
                     
                     if(displayedGame.firstDealer == "None"){
@@ -123,7 +112,6 @@ struct GameDetailedView: View {
                         }
                         
                     }
-                    
                     // 1 vs 1 vs 1, 3 boxes
                     VStack{
                         VStack{
@@ -148,9 +136,6 @@ struct GameDetailedView: View {
                                 .frame(minWidth: 300)
                             }
                         }
-                       
-                     
-                        
                         VStack{
                             GroupBox{ //player 2 points
                                 HStack{
@@ -178,7 +163,7 @@ struct GameDetailedView: View {
                             GroupBox{
                                 //player 3 points
                                 HStack{
-                                Text(displayedGame.squad3.first!)
+                                    Text(displayedGame.squad3.first!)
                                     if(displayedGame.firstDealer == displayedGame.squad3.first! ){
                                         Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
@@ -208,17 +193,25 @@ struct GameDetailedView: View {
                                 Text(displayedGame.squad1[1]).tag(displayedGame.squad1[1])
                                 Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
                                 Text(displayedGame.squad2[1]).tag(displayedGame.squad2[1])
-                                //TODO: use the actual data
+                            }.onChange(of: selectedDealer){
+                                if(selectedDealer != "None"){
+                                    displayedGame.firstDealer = selectedDealer
+                                }
                             }
                         }
                     }
-                    
                     //2 vs 2, 2x2 boxes
                     HStack{
                         VStack{
                             //player 1 points
                             GroupBox{
-                                Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
+                                HStack{
+                                    Text(displayedGame.squad1.first!)
+                                    if(displayedGame.firstDealer == displayedGame.squad1.first!) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
+                                    Text("&")
+                                    Text( displayedGame.squad1[1])
+                                    if(displayedGame.firstDealer == displayedGame.squad1[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
+                                }
                                 Text(String(displayedGame.currentPoints_p1))
                                 ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                     Text("hand-string")
@@ -230,7 +223,14 @@ struct GameDetailedView: View {
                         VStack{
                             GroupBox{
                                 //player 2 points
-                                Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
+                                HStack{
+                                    Text(displayedGame.squad2.first!)
+                                    if(displayedGame.firstDealer == displayedGame.squad2.first!) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
+                                    Text("&")
+                                    Text( displayedGame.squad2[1])
+                                    if(displayedGame.firstDealer == displayedGame.squad2[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
+                                }
+                                
                                 Text(String(displayedGame.currentPoints_p2))
                                 ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
                                     Text("hand-string")
@@ -238,20 +238,13 @@ struct GameDetailedView: View {
                                     Text(String(displayedGame.handPoints_p2[index]))
                                     
                                 }
-                            }//.padding()
+                            }
                         }
                     }
                     
-                    
-                    
-                    
                 }
-                // } //end of vstack
-                
-                
-                
             }
-        }.scrollIndicators(.hidden)//.frame(minWidth: 500 )
+        }.scrollIndicators(.hidden)
             .onAppear(){
                 print(displayedGame.firstDealer)
                 trigger += 1
@@ -261,11 +254,9 @@ struct GameDetailedView: View {
                     title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
                 }
             }
-        
-        //}
             .navigationTitle(title)
             .toolbar {
-               
+                
                 ToolbarItem{
                     
                     Button("Undo") {
@@ -292,49 +283,35 @@ struct GameDetailedView: View {
                                     }
                                     displayedGame.isGameConcluded = false;
                                 }
-                               
+                                
                                 print("Deleting...")
                             },
                             secondaryButton: .cancel()
                         )
                     }
-                    
-                    
                 }
                 
                 ToolbarItem {
                     Button(action: addPoints) {
                         Label("addpoints-string", systemImage: "note.text.badge.plus")
                     } .sheet(isPresented: $showingSheet) {
-                        // displayedGame.firstDealer = selectedDealer
                         GameAddPointsSheetView(displayedGame: displayedGame)
                     }
                 }
-               
+                
             }
         
     }
     
-    
-    
-    //end view
-    
     func undoPoints(){
-       showingAlert = true
+        showingAlert = true
     }
     
     
     func addPoints(){
-        // displayedGame.firstDealer = selectedDealer
         showingSheet = true
-        
     }
 }
 
-
-//#Preview {
-// GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: 2005, gameMode: 2, playerCounter: 2, squad3Enabled: false, squad1: ["Matteo"], squad2: ["Nonna"], squad3: ["nil"], currentPoints_p1: 500, currentPoints_p2: 340, currentPoints_p3: 0, handPoints_p1: [500], handPoints_p2: [340], handPoints_p3: [0], handsPlayed: 1))
-// GameDetailedView()
-//}
 
 

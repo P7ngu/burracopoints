@@ -71,10 +71,7 @@ struct PlayerSheetView: View {
                             .padding()
                         Spacer()
                     }
-                    
-                    
                     IconSelectionView(selectedIcon: $selectedIcon)
-                    
                     
                     Spacer()
                 }
