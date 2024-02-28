@@ -128,8 +128,8 @@ struct GameDetailedView: View {
                                 }
                                 ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
                                     HStack{
-                                        Text("hand-string")
-                                        Text(String(index) + ":")
+                                        //Text("hand-string")
+                                        Text("#" + String(index) + ":")
                                         Text(String(displayedGame.handPoints_p1[index]))
                                     }
                                 }
@@ -150,8 +150,8 @@ struct GameDetailedView: View {
                                 }
                                 ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
                                     HStack{
-                                        Text("hand-string")
-                                        Text(String(index) + ":")
+                                        //Text("hand-string")
+                                        Text("#" + String(index) + ":")
                                         Text(String(displayedGame.handPoints_p2[index]))
                                     }
                                 }
@@ -174,8 +174,8 @@ struct GameDetailedView: View {
                                 }
                                 ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
                                     HStack{
-                                        Text("hand-string")
-                                        Text(String(index) + ":")
+                                        //Text("hand-string")
+                                        Text("#" + String(index) + ":")
                                         Text(String(displayedGame.handPoints_p3[index]))
                                     }
                                 }
@@ -212,11 +212,16 @@ struct GameDetailedView: View {
                                     Text( displayedGame.squad1[1])
                                     if(displayedGame.firstDealer == displayedGame.squad1[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
                                 }
-                                Text(String(displayedGame.currentPoints_p1))
+                                HStack{
+                                    Text("points-section-string")
+                                    Text(String(displayedGame.currentPoints_p1))
+                                }
                                 ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                    Text("hand-string")
-                                    Text(String(index) + ":")
-                                    Text(String(displayedGame.handPoints_p1[index]))
+                                   // Text("hand-string")
+                                    HStack{
+                                        Text("#" + String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p1[index]))
+                                    }
                                 }
                             }
                         }
@@ -230,12 +235,16 @@ struct GameDetailedView: View {
                                     Text( displayedGame.squad2[1])
                                     if(displayedGame.firstDealer == displayedGame.squad2[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
                                 }
-                                
-                                Text(String(displayedGame.currentPoints_p2))
+                                HStack{
+                                    Text("points-section-string")
+                                    Text(String(displayedGame.currentPoints_p2))
+                                }
                                 ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                    Text("hand-string")
-                                    Text(String(index) + ":")
-                                    Text(String(displayedGame.handPoints_p2[index]))
+                                    //Text("hand-string")
+                                    HStack{
+                                        Text("#" + String(index) + ":")
+                                        Text(String(displayedGame.handPoints_p2[index]))
+                                    }
                                     
                                 }
                             }
