@@ -256,9 +256,7 @@ struct GameDetailedView: View {
             }
             .navigationTitle(title)
             .toolbar {
-                
                 ToolbarItem{
-                    
                     Button("Undo") {
                         if(displayedGame.handPoints_p1.count > 1){
                             showingAlert = true
