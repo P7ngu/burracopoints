@@ -43,7 +43,7 @@ struct IconSelectionView: View {
                     .scaledToFit()
                     .frame(width: 60, height: 60)
                     .padding()
-                    .background(self.selectedIcon == icon.name ? Color.color2 : Color.clear) // Highlight selected icon
+                    .background(self.selectedIcon == icon.name ? Color.L : Color.clear) // Highlight selected icon
                     .cornerRadius(8)
                     .onTapGesture {
                         self.selectedIcon = icon.name
