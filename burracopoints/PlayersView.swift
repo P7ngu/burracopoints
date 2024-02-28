@@ -24,7 +24,7 @@ struct PlayerSheetView: View {
     
     @State var colorState = Color.blue
     
-    @State private var selectedIcon: String? = nil
+    @State private var selectedIcon: String? = "person.circle"
 
     
     var playerItems: [Player]

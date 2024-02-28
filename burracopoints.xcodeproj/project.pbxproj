@@ -68,15 +68,13 @@
 		639C09002B0378C1004B061A /* burracopoints */ = {
 			isa = PBXGroup;
 			children = (
+				63FEE7192B8F0C8400908006 /* Model */,
 				639C09012B0378C1004B061A /* burracopointsApp.swift */,
 				639C09032B0378C1004B061A /* ContentView.swift */,
 				63D4025F2B8CAA47002CD941 /* IconSelectionView.swift */,
 				639C09152B038328004B061A /* PlayersView.swift */,
 				63EC2EED2B07DC1800FB156A /* Localizable.strings */,
 				639C09172B038485004B061A /* LeaderboardView.swift */,
-				639C09052B0378C1004B061A /* GameModel.swift */,
-				639C09132B037A42004B061A /* PlayerModel.swift */,
-				63C8D7992B0600CA00B50EFC /* IconModel.swift */,
 				63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */,
 				639C09072B0378C2004B061A /* Assets.xcassets */,
 				639C09092B0378C2004B061A /* Preview Content */,
@@ -90,6 +88,16 @@
 				639C090A2B0378C2004B061A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		63FEE7192B8F0C8400908006 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				639C09132B037A42004B061A /* PlayerModel.swift */,
+				63C8D7992B0600CA00B50EFC /* IconModel.swift */,
+				639C09052B0378C1004B061A /* GameModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,7 +343,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = matteo.perotta.burracopoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -367,7 +375,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = matteo.perotta.burracopoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
