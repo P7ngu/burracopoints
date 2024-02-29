@@ -49,9 +49,9 @@ struct GameAddPointsSheetView: View {
                                     GroupBox{
                                         Text(displayedGame.squad1.first!)
                                         TextField("base-string", text: $squad1pointsbase)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                         TextField("score-string", text: $squad1pointsscore)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                     }
                                 }.padding()
                                 VStack{
@@ -59,9 +59,9 @@ struct GameAddPointsSheetView: View {
                                         //player 2 points
                                         Text(displayedGame.squad2.first!)
                                         TextField("base-string", text: $squad2pointsbase)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                         TextField("score-string", text: $squad2pointsscore)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                     }
                                 }.padding()
                             }
@@ -74,9 +74,9 @@ struct GameAddPointsSheetView: View {
                                     GroupBox{
                                         Text(displayedGame.squad1.first!)
                                         TextField("base-string", text: $squad1pointsbase)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                         TextField("score-string", text: $squad1pointsscore)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                     }
                                 }.padding()
                                 
@@ -85,9 +85,9 @@ struct GameAddPointsSheetView: View {
                                         //player 2 points
                                         Text(displayedGame.squad2.first!)
                                         TextField("base-string", text: $squad2pointsbase)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                         TextField("score-string", text: $squad2pointsscore)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                     }
                                 }.padding()
                                 
@@ -96,9 +96,9 @@ struct GameAddPointsSheetView: View {
                                         //player 3 points
                                         Text(displayedGame.squad3.first!)
                                         TextField("base-string", text: $squad3pointsbase)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                         TextField("score-string", text: $squad3pointsscore)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                     }
                                 }.padding()
                             }
@@ -112,9 +112,9 @@ struct GameAddPointsSheetView: View {
                                     GroupBox{
                                         Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
                                         TextField("base-string", text: $squad1pointsbase)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                         TextField("score-string", text: $squad1pointsscore)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                     }
                                 }.padding()
                                 
@@ -123,9 +123,9 @@ struct GameAddPointsSheetView: View {
                                         //player 2 points
                                         Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
                                         TextField("base-string", text: $squad2pointsbase)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                         TextField("score-string", text: $squad2pointsscore)
-                                            .padding().keyboardType(.decimalPad)
+                                            .padding().keyboardType(.numberPad)
                                     }
                                 }.padding()
                             }
