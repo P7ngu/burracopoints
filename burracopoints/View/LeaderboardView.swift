@@ -28,17 +28,17 @@ struct LeaderboardView: View {
         NavigationView{
             ZStack{
                 RoundedRectangle(cornerRadius: 20, style:  .continuous)
-                    .frame(width: 260, height: 340)
+                    .frame(width: 270, height: 350)
                     .foregroundColor(Color("L"))
                 
                 RoundedRectangle(cornerRadius: 20, style:  .continuous)
-                    .frame(width: 130, height: 500)
+                    .frame(width: 140, height: 520)
                     .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color("L"), Color("L")]), startPoint: .top, endPoint: .bottom))
                     .rotationEffect(.degrees(rotation))
                     .mask{
                         RoundedRectangle(cornerRadius: 20, style:  .continuous)
                             .stroke(lineWidth: 12)
-                            .frame(width: 256, height: 336)
+                            .frame(width: 266, height: 346)
                     }
                 
                 VStack{

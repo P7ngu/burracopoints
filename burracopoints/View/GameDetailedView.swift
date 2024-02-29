@@ -41,7 +41,6 @@ struct GameDetailedView: View {
                                 Text("None").tag("None")
                                 Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
                                 Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                                //TODO: use the actual data
                             } .onChange(of: selectedDealer){
                                 if(selectedDealer != "None"){
                                     displayedGame.firstDealer = selectedDealer}
@@ -117,7 +116,7 @@ struct GameDetailedView: View {
                         VStack{
                             GroupBox{ //player 1 points
                                 HStack{
-                                    Text(displayedGame.squad1.first!)
+                                    Text(displayedGame.squad1.first!).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad1.first! ){
                                         Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
@@ -140,7 +139,7 @@ struct GameDetailedView: View {
                         VStack{
                             GroupBox{ //player 2 points
                                 HStack{
-                                    Text(displayedGame.squad2.first!)
+                                    Text(displayedGame.squad2.first!).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad2.first! ){
                                         Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
@@ -165,7 +164,7 @@ struct GameDetailedView: View {
                             GroupBox{
                                 //player 3 points
                                 HStack{
-                                    Text(displayedGame.squad3.first!)
+                                    Text(displayedGame.squad3.first!).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad3.first! ){
                                         Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
@@ -209,10 +208,10 @@ struct GameDetailedView: View {
                             //player 1 points
                             GroupBox{
                                 HStack{
-                                    Text(displayedGame.squad1.first!)
+                                    Text(displayedGame.squad1.first!).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad1.first!) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                    Text("&")
-                                    Text( displayedGame.squad1[1])
+                                    Text("&").bold()
+                                    Text( displayedGame.squad1[1]).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad1[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
                                 }
                               
@@ -235,10 +234,10 @@ struct GameDetailedView: View {
                             GroupBox{
                                 //player 2 points
                                 HStack{
-                                    Text(displayedGame.squad2.first!)
+                                    Text(displayedGame.squad2.first!).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad2.first!) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                    Text("&")
-                                    Text( displayedGame.squad2[1])
+                                    Text("&").bold()
+                                    Text( displayedGame.squad2[1]).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad2[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
                                 }
                                 HStack{
@@ -266,8 +265,10 @@ struct GameDetailedView: View {
                 trigger += 1
                 if(displayedGame.squad3.first! != "nil"){
                     title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
-                } else {
+                } else if(displayedGame.gameMode == 2){
                     title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
+                } else if(displayedGame.gameMode == 4){
+                    title = displayedGame.squad1.first! + " & " + displayedGame.squad1[1] + " vs " + displayedGame.squad2.first! + " & " + displayedGame.squad2[1]
                 }
             }
             .navigationTitle(title)

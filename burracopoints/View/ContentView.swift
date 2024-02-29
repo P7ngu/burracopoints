@@ -49,21 +49,21 @@ struct ContentView: View {
                                         //fulltitle = String(game.squad1.first!) + " vs " + String(game.squad2.first!)
                                         
                                         Text(game.squad1.first!)
-                                        Text(" vs ")
+                                        Text("vs")
                                         Text(game.squad2.first!)
                                          
                                     }
                                     
                                    else if(game.squad3.first! != "nil"){
                                         Text(game.squad1.first!)
-                                        Text(" vs ")
+                                        Text("vs")
                                         Text(game.squad2.first!)
-                                        Text(" vs ")
+                                        Text("vs")
                                         Text(game.squad3.first!)
                                     }
                                     else if(game.squad1.count > 1){
                                         HStack{
-                                           let fulltitle2 = String(game.squad1.first!) + " && " + String(game.squad1.last!) + "  vs  " + String(game.squad2.first!) + " && " + String(game.squad2.last!)
+                                           let fulltitle2 = String(game.squad1.first!) + " & " + String(game.squad1.last!) + " vs " + String(game.squad2.first!) + " & " + String(game.squad2.last!)
                                             Text(String(fulltitle2))
                                             /*
                                             Text(game.squad1.first!)
