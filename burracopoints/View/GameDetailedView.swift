@@ -118,7 +118,7 @@ struct GameDetailedView: View {
                                     if(displayedGame.firstDealer == displayedGame.squad1.first! ){
                                         Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
-                                }
+                                }.frame(minWidth: 200)
                                 HStack{
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p1))
@@ -140,7 +140,7 @@ struct GameDetailedView: View {
                                     if(displayedGame.firstDealer == displayedGame.squad2.first! ){
                                         Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
-                                }
+                                }.frame(minWidth: 200)
                                 HStack{
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p2))
@@ -165,7 +165,7 @@ struct GameDetailedView: View {
                                     if(displayedGame.firstDealer == displayedGame.squad3.first! ){
                                         Text(" *").bold().foregroundStyle(Color("AccentColor1"))
                                     }
-                                }
+                                }.frame(minWidth: 200)
                                 HStack{
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p3))
@@ -210,7 +210,7 @@ struct GameDetailedView: View {
                                     Text("&").bold()
                                     Text( displayedGame.squad1[1]).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad1[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                }
+                                }.frame(minWidth: 200)
                                 HStack{
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p1))
@@ -234,7 +234,7 @@ struct GameDetailedView: View {
                                     Text("&").bold()
                                     Text( displayedGame.squad2[1]).bold()
                                     if(displayedGame.firstDealer == displayedGame.squad2[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                }
+                                }.frame(minWidth: 200)
                                 HStack{
                                     Text("points-section-string")
                                     Text(String(displayedGame.currentPoints_p2))
