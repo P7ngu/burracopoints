@@ -20,6 +20,7 @@ struct GameAddPointsSheetView: View {
     @State private var squad3pointsbase: String = ""
     
     @State var winner: String = ""
+    @State private var text: String = ""
     
     @Environment(\.modelContext) var modelContext
     
@@ -50,8 +51,23 @@ struct GameAddPointsSheetView: View {
                                         Text(displayedGame.squad1.first!)
                                         TextField("base-string", text: $squad1pointsbase)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad1pointsbase) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad1pointsbase = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
+                            
                                         TextField("score-string", text: $squad1pointsscore)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad1pointsscore) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad1pointsscore = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
                                     }
                                 }.padding()
                                 VStack{
@@ -60,8 +76,23 @@ struct GameAddPointsSheetView: View {
                                         Text(displayedGame.squad2.first!)
                                         TextField("base-string", text: $squad2pointsbase)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad2pointsbase) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad2pointsbase = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
+                                        
                                         TextField("score-string", text: $squad2pointsscore)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad2pointsscore) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad2pointsscore = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
                                     }
                                 }.padding()
                             }
@@ -75,6 +106,23 @@ struct GameAddPointsSheetView: View {
                                         Text(displayedGame.squad1.first!)
                                         TextField("base-string", text: $squad1pointsbase)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad1pointsbase) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad1pointsbase = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
+                                        
+                                        TextField("score-string", text: $squad1pointsscore)
+                                            .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad1pointsscore) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad1pointsscore = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
                                         TextField("score-string", text: $squad1pointsscore)
                                             .padding().keyboardType(.numberPad)
                                     }
@@ -86,8 +134,23 @@ struct GameAddPointsSheetView: View {
                                         Text(displayedGame.squad2.first!)
                                         TextField("base-string", text: $squad2pointsbase)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad2pointsbase) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad2pointsbase = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
+                                        
                                         TextField("score-string", text: $squad2pointsscore)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad2pointsscore) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad2pointsscore = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
                                     }
                                 }.padding()
                                 
@@ -97,8 +160,23 @@ struct GameAddPointsSheetView: View {
                                         Text(displayedGame.squad3.first!)
                                         TextField("base-string", text: $squad3pointsbase)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad3pointsbase) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad3pointsbase = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
+                                        
                                         TextField("score-string", text: $squad3pointsscore)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad3pointsscore) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad3pointsscore = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
                                     }
                                 }.padding()
                             }
@@ -113,8 +191,23 @@ struct GameAddPointsSheetView: View {
                                         Text(displayedGame.squad1.first! + " & " + displayedGame.squad1[1])
                                         TextField("base-string", text: $squad1pointsbase)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad1pointsbase) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad1pointsbase = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
+                                        
                                         TextField("score-string", text: $squad1pointsscore)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad1pointsscore) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad1pointsscore = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
                                     }
                                 }.padding()
                                 
@@ -124,8 +217,23 @@ struct GameAddPointsSheetView: View {
                                         Text(displayedGame.squad2.first! + " & " + displayedGame.squad2[1])
                                         TextField("base-string", text: $squad2pointsbase)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad2pointsbase) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad2pointsbase = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
+                                        
                                         TextField("score-string", text: $squad2pointsscore)
                                             .padding().keyboardType(.numberPad)
+                                            .onChange(of: squad2pointsscore) { newValue in
+                                                // Validate each time the text changes
+                                                let filtered = newValue.filter { "0123456789-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.squad2pointsscore = filtered // Update the text if it contains invalid characters
+                                                }
+                                            }
                                     }
                                 }.padding()
                             }

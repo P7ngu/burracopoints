@@ -74,8 +74,8 @@
 		639C09002B0378C1004B061A /* burracopoints */ = {
 			isa = PBXGroup;
 			children = (
-				63FEE71A2B8F0CB800908006 /* View */,
 				639C09012B0378C1004B061A /* burracopointsApp.swift */,
+				63FEE71A2B8F0CB800908006 /* View */,
 				63FEE7192B8F0C8400908006 /* Model */,
 				63EC2EED2B07DC1800FB156A /* Localizable.strings */,
 				639C09072B0378C2004B061A /* Assets.xcassets */,
