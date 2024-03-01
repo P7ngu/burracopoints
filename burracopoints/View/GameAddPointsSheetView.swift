@@ -106,7 +106,7 @@ struct GameAddPointsSheetView: View {
                         } else if displayedGame.gameMode == 4 {
                             
                             //2 vs 2, 2x2 boxes
-                            HStack{
+                            VStack{
                                 VStack{
                                     //player 1 points
                                     GroupBox{
