@@ -19,6 +19,7 @@
 		63C8D79C2B0685D500B50EFC /* GameDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8D79B2B0685D500B50EFC /* GameDetailedView.swift */; };
 		63D402602B8CAA47002CD941 /* IconSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D4025F2B8CAA47002CD941 /* IconSelectionView.swift */; };
 		63EC2EEB2B07DC1800FB156A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63EC2EED2B07DC1800FB156A /* Localizable.strings */; };
+		63F78A7D2B9EE67200EA0FD5 /* KeyboardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 63F78A7C2B9EE67200EA0FD5 /* KeyboardKit */; };
 		63FEE71C2B8F0CE900908006 /* GameAddPointsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEE71B2B8F0CE900908006 /* GameAddPointsSheetView.swift */; };
 		63FEE71E2B8F0D2200908006 /* PlayerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEE71D2B8F0D2200908006 /* PlayerSheetView.swift */; };
 		63FEE7202B8F0D7D00908006 /* CreateGameSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEE71F2B8F0D7D00908006 /* CreateGameSheetView.swift */; };
@@ -49,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63F78A7D2B9EE67200EA0FD5 /* KeyboardKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +135,9 @@
 			dependencies = (
 			);
 			name = burracopoints;
+			packageProductDependencies = (
+				63F78A7C2B9EE67200EA0FD5 /* KeyboardKit */,
+			);
 			productName = burracopoints;
 			productReference = 639C08FE2B0378C1004B061A /* burracopoints.app */;
 			productType = "com.apple.product-type.application";
@@ -162,6 +167,9 @@
 				it,
 			);
 			mainGroup = 639C08F52B0378C1004B061A;
+			packageReferences = (
+				63F78A7B2B9EE67200EA0FD5 /* XCRemoteSwiftPackageReference "KeyboardKit" */,
+			);
 			productRefGroup = 639C08FF2B0378C1004B061A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -426,6 +434,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		63F78A7B2B9EE67200EA0FD5 /* XCRemoteSwiftPackageReference "KeyboardKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KeyboardKit/KeyboardKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		63F78A7C2B9EE67200EA0FD5 /* KeyboardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63F78A7B2B9EE67200EA0FD5 /* XCRemoteSwiftPackageReference "KeyboardKit" */;
+			productName = KeyboardKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 639C08F62B0378C1004B061A /* Project object */;
 }

@@ -7,6 +7,25 @@
 
 import SwiftUI
 import SwiftData
+import KeyboardKit
+
+class KeyboardViewController: KeyboardInputViewController {
+    
+    override func viewWillSetupKeyboard() {
+        super.viewWillSetupKeyboard()
+        setup { controller in
+            SystemKeyboard(
+                state: controller.state,
+                services: controller.services,
+                buttonContent: { $0.view },
+                buttonView: { $0.view },
+                emojiKeyboard: { $0.view },
+                toolbar: { params in params.view }
+            )
+    
+        }
+    }
+}
 
 struct GameAddPointsSheetView: View {
     
