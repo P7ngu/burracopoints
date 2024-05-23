@@ -97,7 +97,7 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem {
                         Button(action: addItem) {
-                            Label("Add Item", systemImage: "plus")
+                            Label("Add a new game", systemImage: "plus")
                         } .sheet(isPresented: $showingSheet) {
                             CreateGameSheetView()
                         }

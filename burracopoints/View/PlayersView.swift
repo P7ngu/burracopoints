@@ -84,7 +84,7 @@ struct PlayersView: View {
                 // }
                 ToolbarItem {
                     Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                        Label("Add a new player", systemImage: "plus")
                     } .sheet(isPresented: $showingSheet) {
                         PlayerSheetView(playerItems: playerItems)
                     }
