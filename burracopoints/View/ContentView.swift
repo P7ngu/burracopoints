@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import StoreKit
+
 
 
 
@@ -119,6 +121,9 @@ struct ContentView: View {
         //end of tabview
         .onAppear(perform: {
             resetPlayerSelection()
+            if players.count > 1 && gameItems.count > 0 {
+                requestReview()
+            }
           // bestPlayers = getBestPlayers()
         })
     }
@@ -185,6 +190,11 @@ struct ContentView: View {
     private func addNewGame(newItem: Game){
         modelContext.insert(newItem)
     }
+    
+    func requestReview() {
+        ReviewRequestManager.shared.requestReviewIfAppropriate()
+    }
+
     
     func resetPlayerSelection(){
         

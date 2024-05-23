@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		633767642BFF17A70035F017 /* ReviewRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633767632BFF17A70035F017 /* ReviewRequestManager.swift */; };
 		639C09022B0378C1004B061A /* burracopointsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09012B0378C1004B061A /* burracopointsApp.swift */; };
 		639C09042B0378C1004B061A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09032B0378C1004B061A /* ContentView.swift */; };
 		639C09062B0378C1004B061A /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C09052B0378C1004B061A /* GameModel.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		633767632BFF17A70035F017 /* ReviewRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequestManager.swift; sourceTree = "<group>"; };
 		639C08FE2B0378C1004B061A /* burracopoints.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = burracopoints.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		639C09012B0378C1004B061A /* burracopointsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = burracopointsApp.swift; sourceTree = "<group>"; };
 		639C09032B0378C1004B061A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				63EC2EED2B07DC1800FB156A /* Localizable.strings */,
 				639C09072B0378C2004B061A /* Assets.xcassets */,
 				639C09092B0378C2004B061A /* Preview Content */,
+				633767632BFF17A70035F017 /* ReviewRequestManager.swift */,
 			);
 			path = burracopoints;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				633767642BFF17A70035F017 /* ReviewRequestManager.swift in Sources */,
 				63FEE71E2B8F0D2200908006 /* PlayerSheetView.swift in Sources */,
 				63FEE71C2B8F0CE900908006 /* GameAddPointsSheetView.swift in Sources */,
 				639C09142B037A42004B061A /* PlayerModel.swift in Sources */,
