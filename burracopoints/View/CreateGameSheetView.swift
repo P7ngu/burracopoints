@@ -35,6 +35,10 @@ struct CreateGameSheetView: View {
     @State var oldIcon: String = ""
     @State private var showingAlert = false
     
+    init() {
+        resetPlayerSelection()
+    }
+    
     var body: some View {
         
         NavigationView{
@@ -383,6 +387,9 @@ struct CreateGameSheetView: View {
                 }.alert(isPresented: $showingAlert) {
                     Alert(title: Text("errorplayer-string"), message: Text("errordescp-string"), dismissButton: .default(Text("okbuttonerror-string")))
                 }
+            }
+            .onDisappear(){
+                resetPlayerSelection()
             }
         }
     }

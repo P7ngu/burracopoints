@@ -119,6 +119,7 @@ struct GameAddPointsSheetView: View {
                             
                         } else if displayedGame.gameMode == 3 {
                             // 1 vs 1 vs 1, 3 boxes
+                            //TODO: split points mode
                             VStack{
                                 VStack{
                                     //player 1 points

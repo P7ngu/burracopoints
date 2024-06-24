@@ -8,6 +8,8 @@
 import Foundation
 import SwiftData
 
+//TODO: sort by date
+
 @Model
 class Game{
     var timestamp: Date
