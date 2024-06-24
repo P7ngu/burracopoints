@@ -19,6 +19,8 @@ struct GameAddPointsSheetView: View {
     @State private var squad3pointsscore: String = ""
     @State private var squad3pointsbase: String = ""
     
+    @State var isSoloSelected = false
+    
     @State var winner: String = ""
     @State private var text: String = ""
     
@@ -118,119 +120,152 @@ struct GameAddPointsSheetView: View {
                             }
                             
                         } else if displayedGame.gameMode == 3 {
-                            // 1 vs 1 vs 1, 3 boxes
+                            //MARK: 1 vs 1 vs 1
                             //TODO: split points mode
-                            VStack{
+                            if(isSoloSelected == false){
                                 VStack{
-                                    //player 1 points
-                                    GroupBox{
-                                        Text(displayedGame.squad1.first!)
-                                        TextField("base-string", text: $squad1pointsbase)
-                                            .padding().keyboardType(.numbersAndPunctuation)
-                                            .onChange(of: squad1pointsbase) { newValue in
-                                                var filteredString = ""
-                                                for (index, character) in newValue.enumerated() {
-                                                    if index == 0 && character == "-" {
-                                                        filteredString.append(character)
-                                                    }
-                                                    else if character.isNumber {
-                                                        filteredString.append(character)
-                                                    }
+                                    VStack{
+                                        //player 1 points
+                                        HStack{
+                                            Spacer()
+                                            if(!isSoloSelected){
+                                                Button("Mark as solo"){
+                                                    isSoloSelected = true
                                                 }
-                                                squad1pointsbase = filteredString
-                                            }
-                                        
-                                        TextField("score-string", text: $squad1pointsscore)
-                                            .padding().keyboardType(.numbersAndPunctuation)
-                                            .onChange(of: squad1pointsscore) { newValue in
-                                                var filteredString = ""
-                                                for (index, character) in newValue.enumerated() {
-                                                    if index == 0 && character == "-" {
-                                                        filteredString.append(character)
-                                                    }
-                                                    else if character.isNumber {
-                                                        filteredString.append(character)
-                                                    }
+                                            } else {
+                                                Button("Unmark as solo"){
+                                                    isSoloSelected = false
                                                 }
-                                                squad1pointsscore = filteredString
+                                                
                                             }
-                                    }
-                                }.padding()
-                                
-                                VStack{
-                                    GroupBox{
-                                        //player 2 points
-                                        Text(displayedGame.squad2.first!)
-                                        TextField("base-string", text: $squad2pointsbase)
-                                            .padding().keyboardType(.numbersAndPunctuation)
-                                            .onChange(of: squad2pointsbase) { newValue in
-                                                var filteredString = ""
-                                                for (index, character) in newValue.enumerated() {
-                                                    if index == 0 && character == "-" {
-                                                        filteredString.append(character)
+                                        }
+                                        GroupBox{
+                                            
+                                            Text(displayedGame.squad1.first!)
+                                            
+                                            
+                                            TextField("base-string", text: $squad1pointsbase)
+                                                .padding().keyboardType(.numbersAndPunctuation)
+                                                .onChange(of: squad1pointsbase) { newValue in
+                                                    var filteredString = ""
+                                                    for (index, character) in newValue.enumerated() {
+                                                        if index == 0 && character == "-" {
+                                                            filteredString.append(character)
+                                                        }
+                                                        else if character.isNumber {
+                                                            filteredString.append(character)
+                                                        }
                                                     }
-                                                    else if character.isNumber {
-                                                        filteredString.append(character)
-                                                    }
+                                                    squad1pointsbase = filteredString
                                                 }
-                                                squad2pointsbase = filteredString
-                                            }
-                                        
-                                        TextField("score-string", text: $squad2pointsscore)
-                                            .padding().keyboardType(.numbersAndPunctuation)
-                                            .onChange(of: squad2pointsscore) { newValue in
-                                                var filteredString = ""
-                                                for (index, character) in newValue.enumerated() {
-                                                    if index == 0 && character == "-" {
-                                                        filteredString.append(character)
+                                            
+                                            TextField("score-string", text: $squad1pointsscore)
+                                                .padding().keyboardType(.numbersAndPunctuation)
+                                                .onChange(of: squad1pointsscore) { newValue in
+                                                    var filteredString = ""
+                                                    for (index, character) in newValue.enumerated() {
+                                                        if index == 0 && character == "-" {
+                                                            filteredString.append(character)
+                                                        }
+                                                        else if character.isNumber {
+                                                            filteredString.append(character)
+                                                        }
                                                     }
-                                                    else if character.isNumber {
-                                                        filteredString.append(character)
-                                                    }
+                                                    squad1pointsscore = filteredString
                                                 }
-                                                squad2pointsscore = filteredString
+                                        }
+                                    }.padding()
+                                    
+                                    VStack{
+                                        HStack{
+                                            Spacer()
+                                            Button("Mark as solo"){
+                                                
                                             }
-                                    }
-                                }.padding()
-                                
-                                VStack{
-                                    GroupBox{
-                                        //player 3 points
-                                        Text(displayedGame.squad3.first!)
-                                        TextField("base-string", text: $squad3pointsbase)
-                                            .padding().keyboardType(.numbersAndPunctuation)
-                                            .onChange(of: squad3pointsbase) { newValue in
-                                                var filteredString = ""
-                                                for (index, character) in newValue.enumerated() {
-                                                    if index == 0 && character == "-" {
-                                                        filteredString.append(character)
+                                        }
+                                        GroupBox{
+                                            //player 2 points
+                                            Text(displayedGame.squad2.first!)
+                                            TextField("base-string", text: $squad2pointsbase)
+                                                .padding().keyboardType(.numbersAndPunctuation)
+                                                .onChange(of: squad2pointsbase) { newValue in
+                                                    var filteredString = ""
+                                                    for (index, character) in newValue.enumerated() {
+                                                        if index == 0 && character == "-" {
+                                                            filteredString.append(character)
+                                                        }
+                                                        else if character.isNumber {
+                                                            filteredString.append(character)
+                                                        }
                                                     }
-                                                    else if character.isNumber {
-                                                        filteredString.append(character)
-                                                    }
+                                                    squad2pointsbase = filteredString
                                                 }
-                                                squad3pointsbase = filteredString
-                                            }
-                                        
-                                        TextField("score-string", text: $squad3pointsscore)
-                                            .padding().keyboardType(.numbersAndPunctuation)
-                                            .onChange(of: squad3pointsscore) { newValue in
-                                                var filteredString = ""
-                                                for (index, character) in newValue.enumerated() {
-                                                    if index == 0 && character == "-" {
-                                                        filteredString.append(character)
+                                            
+                                            TextField("score-string", text: $squad2pointsscore)
+                                                .padding().keyboardType(.numbersAndPunctuation)
+                                                .onChange(of: squad2pointsscore) { newValue in
+                                                    var filteredString = ""
+                                                    for (index, character) in newValue.enumerated() {
+                                                        if index == 0 && character == "-" {
+                                                            filteredString.append(character)
+                                                        }
+                                                        else if character.isNumber {
+                                                            filteredString.append(character)
+                                                        }
                                                     }
-                                                    else if character.isNumber {
-                                                        filteredString.append(character)
-                                                    }
+                                                    squad2pointsscore = filteredString
                                                 }
-                                                squad3pointsscore = filteredString
+                                        }
+                                    }.padding()
+                                    
+                                    VStack{
+                                        HStack{
+                                            Spacer()
+                                            Button("Mark as solo"){
+                                                
                                             }
-                                    }
-                                }.padding()
+                                        }
+                                        GroupBox{
+                                            //player 3 points
+                                            Text(displayedGame.squad3.first!)
+                                            TextField("base-string", text: $squad3pointsbase)
+                                                .padding().keyboardType(.numbersAndPunctuation)
+                                                .onChange(of: squad3pointsbase) { newValue in
+                                                    var filteredString = ""
+                                                    for (index, character) in newValue.enumerated() {
+                                                        if index == 0 && character == "-" {
+                                                            filteredString.append(character)
+                                                        }
+                                                        else if character.isNumber {
+                                                            filteredString.append(character)
+                                                        }
+                                                    }
+                                                    squad3pointsbase = filteredString
+                                                }
+                                            
+                                            TextField("score-string", text: $squad3pointsscore)
+                                                .padding().keyboardType(.numbersAndPunctuation)
+                                                .onChange(of: squad3pointsscore) { newValue in
+                                                    var filteredString = ""
+                                                    for (index, character) in newValue.enumerated() {
+                                                        if index == 0 && character == "-" {
+                                                            filteredString.append(character)
+                                                        }
+                                                        else if character.isNumber {
+                                                            filteredString.append(character)
+                                                        }
+                                                    }
+                                                    squad3pointsscore = filteredString
+                                                }
+                                        }
+                                    }.padding()
+                                }
+                            } else {
+                                //Solo is selected, adjust interface
                             }
-                            
-                        } else if displayedGame.gameMode == 4 {
+                        }
+                        
+                        else if displayedGame.gameMode == 4 {
                             
                             //2 vs 2, 2x2 boxes
                             VStack{
@@ -495,4 +530,9 @@ struct GameAddPointsSheetView: View {
         }
         
     }
+}
+
+
+#Preview {
+    GameAddPointsSheetView(displayedGame: Game(timestamp: Date(), maxPoints: Int(2001), gameMode: 3, playerCounter: 3, squad3Enabled: true, squad1: ["Test"], squad2: ["squad2"], squad3: ["squad3"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None"))
 }
