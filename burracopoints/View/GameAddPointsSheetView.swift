@@ -24,8 +24,6 @@ struct GameAddPointsSheetView: View {
     @State var isPlayerTwoSolo = false
     @State var isPlayerThreeSolo = false
     
-  
-    
     @State var winner: String = ""
     @State private var text: String = ""
     
@@ -669,7 +667,8 @@ struct GameAddPointsSheetView: View {
                                     dismiss()
                                     GameDetailedView(displayedGame: displayedGame, title: "")
                                 }
-                            else if(isSoloSelected){ //MARK: points if solo exists
+                            else if(isSoloSelected){
+                                //MARK: points if solo exists
                                 print("25 - Solo is selected")
                                 // Must handle the solo scenario
                                 if squad3pointsbase == "" {
@@ -683,10 +682,8 @@ struct GameAddPointsSheetView: View {
                                     print("25 - Player One is Solo")
                                     var tempPointsBase1 = Double(squad1pointsbase)!
                                     tempPointsBase1 = (tempPointsBase1 / 1.0)
-                                    
                                     var tempPointsScore1 = Double(squad1pointsscore)!
                                     tempPointsScore1 = (tempPointsScore1 / 1.0)
-                                    
                                     var tempSumScore1 = Int(tempPointsBase1 + tempPointsScore1)
                                     
                                     displayedGame.currentPoints_p1 += Int(tempSumScore1)
@@ -694,10 +691,8 @@ struct GameAddPointsSheetView: View {
                                     
                                     var tempPointsBase2 = Double(squad2pointsbase)!
                                     tempPointsBase2 = (tempPointsBase2 / 2.0)
-                                    
                                     var tempPointsScore2 = Double(squad2pointsscore)!
                                     tempPointsScore2 = (tempPointsScore2 / 2.0)
-                                    
                                     var tempSumScore2 = Int(tempPointsBase2 + tempPointsScore2)
                                     
                                     displayedGame.currentPoints_p2 += Int(tempSumScore2)
@@ -705,10 +700,38 @@ struct GameAddPointsSheetView: View {
                                     
                                     var tempPointsBase3 = Double(squad3pointsbase)!
                                     tempPointsBase3 = (tempPointsBase3 / 2.0)
-                                    
                                     var tempPointsScore3 = Double(squad3pointsscore)!
                                     tempPointsScore3 = (tempPointsScore3 / 2.0)
+                                    var tempSumScore3 = Int(tempPointsBase3 + tempPointsScore3)
                                     
+                                    displayedGame.currentPoints_p3 += Int(tempSumScore3)
+                                    displayedGame.handPoints_p3.append(Int(tempSumScore3))
+                                    
+                                    dismiss()
+                                    GameDetailedView(displayedGame: displayedGame, title: "")
+                                } else if(isPlayerTwoSolo){
+                                    var tempPointsBase1 = Double(squad1pointsbase)!
+                                    tempPointsBase1 = (tempPointsBase1 / 2.0)
+                                    var tempPointsScore1 = Double(squad1pointsscore)!
+                                    tempPointsScore1 = (tempPointsScore1 / 2.0)
+                                    var tempSumScore1 = Int(tempPointsBase1 + tempPointsScore1)
+                                    
+                                    displayedGame.currentPoints_p1 += Int(tempSumScore1)
+                                    displayedGame.handPoints_p1.append(Int(tempSumScore1))
+                                    
+                                    var tempPointsBase2 = Double(squad2pointsbase)!
+                                    tempPointsBase2 = (tempPointsBase2 / 1.0)
+                                    var tempPointsScore2 = Double(squad2pointsscore)!
+                                    tempPointsScore2 = (tempPointsScore2 / 1.0)
+                                    var tempSumScore2 = Int(tempPointsBase2 + tempPointsScore2)
+                                    
+                                    displayedGame.currentPoints_p2 += Int(tempSumScore2)
+                                    displayedGame.handPoints_p2.append(Int(tempSumScore2))
+                                    
+                                    var tempPointsBase3 = Double(squad3pointsbase)!
+                                    tempPointsBase3 = (tempPointsBase3 / 2.0)
+                                    var tempPointsScore3 = Double(squad3pointsscore)!
+                                    tempPointsScore3 = (tempPointsScore3 / 2.0)
                                     var tempSumScore3 = Int(tempPointsBase3 + tempPointsScore3)
                                     
                                     displayedGame.currentPoints_p3 += Int(tempSumScore3)
@@ -717,15 +740,41 @@ struct GameAddPointsSheetView: View {
                                     dismiss()
                                     GameDetailedView(displayedGame: displayedGame, title: "")
                                     
-                                    
-                                } else if(isPlayerTwoSolo){
-                                    
                                 } else if (isPlayerThreeSolo){
+                                    var tempPointsBase1 = Double(squad1pointsbase)!
+                                    tempPointsBase1 = (tempPointsBase1 / 2.0)
+                                    var tempPointsScore1 = Double(squad1pointsscore)!
+                                    tempPointsScore1 = (tempPointsScore1 / 2.0)
+                                    var tempSumScore1 = Int(tempPointsBase1 + tempPointsScore1)
                                     
+                                    displayedGame.currentPoints_p1 += Int(tempSumScore1)
+                                    displayedGame.handPoints_p1.append(Int(tempSumScore1))
+                                    
+                                    var tempPointsBase2 = Double(squad2pointsbase)!
+                                    tempPointsBase2 = (tempPointsBase2 / 2.0)
+                                    var tempPointsScore2 = Double(squad2pointsscore)!
+                                    tempPointsScore2 = (tempPointsScore2 / 2.0)
+                                    var tempSumScore2 = Int(tempPointsBase2 + tempPointsScore2)
+                                    
+                                    displayedGame.currentPoints_p2 += Int(tempSumScore2)
+                                    displayedGame.handPoints_p2.append(Int(tempSumScore2))
+                                    
+                                    var tempPointsBase3 = Double(squad3pointsbase)!
+                                    tempPointsBase3 = (tempPointsBase3 / 1.0)
+                                    var tempPointsScore3 = Double(squad3pointsscore)!
+                                    tempPointsScore3 = (tempPointsScore3 / 1.0)
+                                    var tempSumScore3 = Int(tempPointsBase3 + tempPointsScore3)
+                                    
+                                    displayedGame.currentPoints_p3 += Int(tempSumScore3)
+                                    displayedGame.handPoints_p3.append(Int(tempSumScore3))
+                                    
+                                    dismiss()
+                                    GameDetailedView(displayedGame: displayedGame, title: "")
                                 }
                                 
                             } // end of solo cases
-                        }else if(!(isSoloSelected)) { //There is no squad3 and no solo
+                        }// end of squad3 enabled
+                            else if(!(isSoloSelected)) { //There is no squad3 and no solo
                                 print(squad1pointsbase + "  -  " + squad2pointsbase)
                                 print(squad1pointsscore + "  -  " + squad2pointsscore)
                                 
