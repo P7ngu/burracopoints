@@ -24,14 +24,7 @@ struct GameAddPointsSheetView: View {
     @State var isPlayerTwoSolo = false
     @State var isPlayerThreeSolo = false
     
-    @State var tempBase1: Double = 0.0
-    @State var tempScore1: Double = 0.0
-    
-    @State var tempBase2: Double = 0.0
-    @State var tempScore2: Double = 0.0
-    
-    @State var tempBase3: Double = 0.0
-    @State var tempScore3: Double = 0.0
+  
     
     @State var winner: String = ""
     @State private var text: String = ""
@@ -55,6 +48,7 @@ struct GameAddPointsSheetView: View {
                         }
                     }
                     else{
+                       // print(displayedGame.squad1.first!)
                         //We need at least 2 input boxes, 3 maximum
                         if displayedGame.gameMode == 2 {
                             // 1 vs 1
@@ -155,10 +149,7 @@ struct GameAddPointsSheetView: View {
                                             }
                                         }
                                         GroupBox{
-                                            
                                             Text(displayedGame.squad1.first!)
-                                            
-                                            
                                             TextField("base-string", text: $squad1pointsbase)
                                                 .padding().keyboardType(.numbersAndPunctuation)
                                                 .onChange(of: squad1pointsbase) { newValue in
@@ -604,7 +595,7 @@ struct GameAddPointsSheetView: View {
                             dismiss()
                             GameDetailedView(displayedGame: displayedGame, title: "")
                             
-                        } else{ //Game still going
+                        } else{  //Game still going
                             if squad1pointsbase == "" {
                                 squad1pointsbase = "0"
                             }
@@ -626,57 +617,115 @@ struct GameAddPointsSheetView: View {
                                     squad3pointsscore = "0"
                                 }
                                 
-                                displayedGame.currentPoints_p1 += Int(squad1pointsbase)! + Int(squad1pointsscore)!
-                                displayedGame.currentPoints_p2 += Int(squad2pointsbase)! + Int(squad2pointsscore)!
-                                displayedGame.currentPoints_p3 += Int(squad3pointsbase)! + Int(squad3pointsscore)!
-                                
-                                if( max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2, displayedGame.currentPoints_p3) > displayedGame.maxPoints){
-                                    displayedGame.isGameConcluded = true
-                                    //let's save our winner
-                                    if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2 && displayedGame.currentPoints_p1 > displayedGame.currentPoints_p3){
-                                        //player 1 is the winner
+                                if(!isSoloSelected){
+                                    displayedGame.currentPoints_p1 += Int(squad1pointsbase)! + Int(squad1pointsscore)!
+                                    displayedGame.currentPoints_p2 += Int(squad2pointsbase)! + Int(squad2pointsscore)!
+                                    displayedGame.currentPoints_p3 += Int(squad3pointsbase)! + Int(squad3pointsscore)!
+                                    
+                                    if( max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2, displayedGame.currentPoints_p3) > displayedGame.maxPoints){
+                                        displayedGame.isGameConcluded = true
+                                        //let's save our winner
+                                        if (displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2 && displayedGame.currentPoints_p1 > displayedGame.currentPoints_p3){
+                                            //player 1 is the winner
+                                            
+                                            let winner = displayedGame.squad1.first!
+                                            let loser1 = displayedGame.squad2.first!
+                                            let loser2 = displayedGame.squad3.first!
+                                            //we need the player name to be unique at this point, or switch to id for every check
+                                            giveTheUserAWin(game: displayedGame, username: winner)
+                                            giveTheUserALoss(game: displayedGame, username: loser1)
+                                            giveTheUserALoss(game: displayedGame, username: loser2)
+                                            //done. if the game is finished do not let the user add other points and change the interface accordingly.
+                                        } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p3){
+                                            let winner = displayedGame.squad2.first!
+                                            let loser1 = displayedGame.squad1.first!
+                                            let loser2 = displayedGame.squad3.first!
+                                            //we need the player name to be unique at this point, or switch to id for every check
+                                            giveTheUserAWin(game: displayedGame, username: winner)
+                                            giveTheUserALoss(game: displayedGame, username: loser1)
+                                            giveTheUserALoss(game: displayedGame, username: loser2)
+                                        } else if(displayedGame.currentPoints_p3 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p3 > displayedGame.currentPoints_p2){
+                                            let winner = displayedGame.squad3.first!
+                                            let loser1 = displayedGame.squad1.first!
+                                            let loser2 = displayedGame.squad2.first!
+                                            //we need the player name to be unique at this point, or switch to id for every check
+                                            giveTheUserAWin(game: displayedGame, username: winner)
+                                            giveTheUserALoss(game: displayedGame, username: loser1)
+                                            giveTheUserALoss(game: displayedGame, username: loser2)
+                                            
+                                            //TODO: pareggio, the most unlikely thing to happen so all good for now, right me of the future?
+                                        }
                                         
-                                        let winner = displayedGame.squad1.first!
-                                        let loser1 = displayedGame.squad2.first!
-                                        let loser2 = displayedGame.squad3.first!
-                                        //we need the player name to be unique at this point, or switch to id for every check
-                                        giveTheUserAWin(game: displayedGame, username: winner)
-                                        giveTheUserALoss(game: displayedGame, username: loser1)
-                                        giveTheUserALoss(game: displayedGame, username: loser2)
-                                        //done. if the game is finished do not let the user add other points and change the interface accordingly.
-                                    } else if(displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p3){
-                                        let winner = displayedGame.squad2.first!
-                                        let loser1 = displayedGame.squad1.first!
-                                        let loser2 = displayedGame.squad3.first!
-                                        //we need the player name to be unique at this point, or switch to id for every check
-                                        giveTheUserAWin(game: displayedGame, username: winner)
-                                        giveTheUserALoss(game: displayedGame, username: loser1)
-                                        giveTheUserALoss(game: displayedGame, username: loser2)
-                                    } else if(displayedGame.currentPoints_p3 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p3 > displayedGame.currentPoints_p2){
-                                        let winner = displayedGame.squad3.first!
-                                        let loser1 = displayedGame.squad1.first!
-                                        let loser2 = displayedGame.squad2.first!
-                                        //we need the player name to be unique at this point, or switch to id for every check
-                                        giveTheUserAWin(game: displayedGame, username: winner)
-                                        giveTheUserALoss(game: displayedGame, username: loser1)
-                                        giveTheUserALoss(game: displayedGame, username: loser2)
+                                    } else {
                                         
-                                        //TODO: pareggio, the most unlikely thing to happen so all good for now, right me of the future?
                                     }
                                     
-                                } else {
+                                    _ = displayedGame.handPoints_p1.count
+                                    
+                                    displayedGame.handPoints_p1.append( Int( Int(squad1pointsbase)! + Int(squad1pointsscore)! ) )
+                                    displayedGame.handPoints_p2.append( Int( Int(squad2pointsbase)! + Int(squad2pointsscore)! ) )
+                                    displayedGame.handPoints_p3.append( Int( Int(squad3pointsbase)! + Int(squad3pointsscore)! ) )
+                                    
+                                    dismiss()
+                                    GameDetailedView(displayedGame: displayedGame, title: "")
+                                }
+                            else if(isSoloSelected){ //MARK: points if solo exists
+                                print("25 - Solo is selected")
+                                // Must handle the solo scenario
+                                if squad3pointsbase == "" {
+                                    squad3pointsbase = "0"
+                                }
+                                if squad3pointsscore == "" {
+                                    squad3pointsscore = "0"
+                                }
+                                
+                                if(isPlayerOneSolo){
+                                    print("25 - Player One is Solo")
+                                    var tempPointsBase1 = Double(squad1pointsbase)!
+                                    tempPointsBase1 = (tempPointsBase1 / 1.0)
+                                    
+                                    var tempPointsScore1 = Double(squad1pointsscore)!
+                                    tempPointsScore1 = (tempPointsScore1 / 1.0)
+                                    
+                                    var tempSumScore1 = Int(tempPointsBase1 + tempPointsScore1)
+                                    
+                                    displayedGame.currentPoints_p1 += Int(tempSumScore1)
+                                    displayedGame.handPoints_p1.append(Int(tempSumScore1))
+                                    
+                                    var tempPointsBase2 = Double(squad2pointsbase)!
+                                    tempPointsBase2 = (tempPointsBase2 / 2.0)
+                                    
+                                    var tempPointsScore2 = Double(squad2pointsscore)!
+                                    tempPointsScore2 = (tempPointsScore2 / 2.0)
+                                    
+                                    var tempSumScore2 = Int(tempPointsBase2 + tempPointsScore2)
+                                    
+                                    displayedGame.currentPoints_p2 += Int(tempSumScore2)
+                                    displayedGame.handPoints_p2.append(Int(tempSumScore2))
+                                    
+                                    var tempPointsBase3 = Double(squad3pointsbase)!
+                                    tempPointsBase3 = (tempPointsBase3 / 2.0)
+                                    
+                                    var tempPointsScore3 = Double(squad3pointsscore)!
+                                    tempPointsScore3 = (tempPointsScore3 / 2.0)
+                                    
+                                    var tempSumScore3 = Int(tempPointsBase3 + tempPointsScore3)
+                                    
+                                    displayedGame.currentPoints_p3 += Int(tempSumScore3)
+                                    displayedGame.handPoints_p3.append(Int(tempSumScore3))
+                                    
+                                    dismiss()
+                                    GameDetailedView(displayedGame: displayedGame, title: "")
+                                    
+                                    
+                                } else if(isPlayerTwoSolo){
+                                    
+                                } else if (isPlayerThreeSolo){
                                     
                                 }
                                 
-                                _ = displayedGame.handPoints_p1.count
-                                
-                                displayedGame.handPoints_p1.append( Int( Int(squad1pointsbase)! + Int(squad1pointsscore)! ) )
-                                displayedGame.handPoints_p2.append( Int( Int(squad2pointsbase)! + Int(squad2pointsscore)! ) )
-                                displayedGame.handPoints_p3.append( Int( Int(squad3pointsbase)! + Int(squad3pointsscore)! ) )
-                                
-                                dismiss()
-                                GameDetailedView(displayedGame: displayedGame, title: "")
-                            } else if(!(isSoloSelected)) { //There is no squad3 and no solo
+                            } // end of solo cases
+                        }else if(!(isSoloSelected)) { //There is no squad3 and no solo
                                 print(squad1pointsbase + "  -  " + squad2pointsbase)
                                 print(squad1pointsscore + "  -  " + squad2pointsscore)
                                 
@@ -733,50 +782,7 @@ struct GameAddPointsSheetView: View {
                                 dismiss()
                                 GameDetailedView(displayedGame: displayedGame, title: "")
                             }
-                            else if(isSoloSelected){ //MARK: points if solo exists
-                               // Must handle the solo scenario
-                                if squad3pointsbase == "" {
-                                    squad3pointsbase = "0"
-                                }
-                                if squad3pointsscore == "" {
-                                    squad3pointsscore = "0"
-                                }
-                                
-                                if(isPlayerOneSolo){
-                                    tempBase1 = (Int(squad1pointsbase)! / 2.0)!
-                                    tempScore1 = (Int(squad1pointsscore)! / 2.0)
-                                    
-                                    tempBase2 = (Double(squad2pointsbase)! / 2.0)
-                                    tempScore2 = (Double(squad2pointsscore)! / 2.0)
-                                    
-                                    tempBase3 = (Double(squad3pointsbase)! / 2.0)
-                                    tempScore3 = (Double(squad3pointsscore)! / 2.0)
-                                    
-                                    displayedGame.currentPoints_p1 += Int(tempBase1 + tempScore1)
-                                    displayedGame.currentPoints_p2 += Int(tempBase2 + tempScore2)
-                                    displayedGame.currentPoints_p3 += Int(tempBase3 + tempScore3)
-                                    
-                                    _ = displayedGame.handPoints_p1.count
-                                    
-                                    displayedGame.handPoints_p1.append(Int(tempBase1 + tempScore1))
-                                    displayedGame.handPoints_p2.append(Int(tempBase2 + tempScore2))
-                                    displayedGame.handPoints_p3.append(Int(tempBase3 + tempScore3))
-                                    
-                                    
-                                    if(max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2, displayedGame.currentPoints_p3) > displayedGame.maxPoints){
-                                        //TODO: Handle winner
-                                        
-                                        
-                                    }
-                                   
-                                    
-                                } else if(isPlayerTwoSolo){
-                                    
-                                } else if (isPlayerThreeSolo){
-                                    
-                                }
-                                
-                            } // end of solo cases
+                           
                         }
                     }
                 }
