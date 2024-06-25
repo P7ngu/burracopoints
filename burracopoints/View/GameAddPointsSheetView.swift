@@ -24,6 +24,15 @@ struct GameAddPointsSheetView: View {
     @State var isPlayerTwoSolo = false
     @State var isPlayerThreeSolo = false
     
+    @State var tempBase1: Double = 0.0
+    @State var tempScore1: Double = 0.0
+    
+    @State var tempBase2: Double = 0.0
+    @State var tempScore2: Double = 0.0
+    
+    @State var tempBase3: Double = 0.0
+    @State var tempScore3: Double = 0.0
+    
     @State var winner: String = ""
     @State private var text: String = ""
     
@@ -307,7 +316,11 @@ struct GameAddPointsSheetView: View {
                                     }
                                     //MARK: Player Three + Two Points
                                     GroupBox{
-                                        Text(displayedGame.squad3.first!)
+                                        HStack{
+                                            Text(displayedGame.squad3.first!)
+                                            Text(" && ")
+                                            Text(displayedGame.squad2.first!)
+                                        }
                                         TextField("base-string", text: $squad3pointsbase)
                                             .padding().keyboardType(.numbersAndPunctuation)
                                             .onChange(of: squad3pointsbase) { newValue in
@@ -321,6 +334,7 @@ struct GameAddPointsSheetView: View {
                                                     }
                                                 }
                                                 squad3pointsbase = filteredString
+                                                squad2pointsbase = filteredString
                                             }
                                         
                                         TextField("score-string", text: $squad3pointsscore)
@@ -336,6 +350,7 @@ struct GameAddPointsSheetView: View {
                                                     }
                                                 }
                                                 squad3pointsscore = filteredString
+                                                squad2pointsscore = filteredString
                                             }
                                     }
                                     
@@ -376,7 +391,12 @@ struct GameAddPointsSheetView: View {
                                     }
                                     //MARK: Player three + one
                                     GroupBox{
-                                        Text(displayedGame.squad3.first!)
+                                        HStack{
+                                            Text(displayedGame.squad3.first!)
+                                            Text(" && ")
+                                            Text(displayedGame.squad1.first!)
+                                            
+                                        }
                                         TextField("base-string", text: $squad3pointsbase)
                                             .padding().keyboardType(.numbersAndPunctuation)
                                             .onChange(of: squad3pointsbase) { newValue in
@@ -390,6 +410,7 @@ struct GameAddPointsSheetView: View {
                                                     }
                                                 }
                                                 squad3pointsbase = filteredString
+                                                squad1pointsbase = filteredString
                                             }
                                         
                                         TextField("score-string", text: $squad3pointsscore)
@@ -405,6 +426,7 @@ struct GameAddPointsSheetView: View {
                                                     }
                                                 }
                                                 squad3pointsscore = filteredString
+                                                squad1pointsscore = filteredString
                                             }
                                     }
                                 }
@@ -445,7 +467,11 @@ struct GameAddPointsSheetView: View {
                                     //MARK: Player Two + One Points
                                     GroupBox{
                                         //player 2 points
-                                        Text(displayedGame.squad2.first!)
+                                        HStack{
+                                            Text(displayedGame.squad2.first!)
+                                            Text(" && ")
+                                            Text(displayedGame.squad1.first!)
+                                        }
                                         TextField("base-string", text: $squad2pointsbase)
                                             .padding().keyboardType(.numbersAndPunctuation)
                                             .onChange(of: squad2pointsbase) { newValue in
@@ -459,6 +485,7 @@ struct GameAddPointsSheetView: View {
                                                     }
                                                 }
                                                 squad2pointsbase = filteredString
+                                                squad1pointsbase = filteredString
                                             }
                                         
                                         TextField("score-string", text: $squad2pointsscore)
@@ -474,6 +501,7 @@ struct GameAddPointsSheetView: View {
                                                     }
                                                 }
                                                 squad2pointsscore = filteredString
+                                                squad1pointsscore = filteredString
                                             }
                                     }
                                     
@@ -576,7 +604,7 @@ struct GameAddPointsSheetView: View {
                             dismiss()
                             GameDetailedView(displayedGame: displayedGame, title: "")
                             
-                        } else{
+                        } else{ //Game still going
                             if squad1pointsbase == "" {
                                 squad1pointsbase = "0"
                             }
@@ -597,6 +625,7 @@ struct GameAddPointsSheetView: View {
                                 if squad3pointsscore == "" {
                                     squad3pointsscore = "0"
                                 }
+                                
                                 displayedGame.currentPoints_p1 += Int(squad1pointsbase)! + Int(squad1pointsscore)!
                                 displayedGame.currentPoints_p2 += Int(squad2pointsbase)! + Int(squad2pointsscore)!
                                 displayedGame.currentPoints_p3 += Int(squad3pointsbase)! + Int(squad3pointsscore)!
@@ -647,7 +676,7 @@ struct GameAddPointsSheetView: View {
                                 
                                 dismiss()
                                 GameDetailedView(displayedGame: displayedGame, title: "")
-                            } else {
+                            } else if(!(isSoloSelected)) { //There is no squad3 and no solo
                                 print(squad1pointsbase + "  -  " + squad2pointsbase)
                                 print(squad1pointsscore + "  -  " + squad2pointsscore)
                                 
@@ -704,6 +733,50 @@ struct GameAddPointsSheetView: View {
                                 dismiss()
                                 GameDetailedView(displayedGame: displayedGame, title: "")
                             }
+                            else if(isSoloSelected){ //MARK: points if solo exists
+                               // Must handle the solo scenario
+                                if squad3pointsbase == "" {
+                                    squad3pointsbase = "0"
+                                }
+                                if squad3pointsscore == "" {
+                                    squad3pointsscore = "0"
+                                }
+                                
+                                if(isPlayerOneSolo){
+                                    tempBase1 = (Int(squad1pointsbase)! / 2.0)!
+                                    tempScore1 = (Int(squad1pointsscore)! / 2.0)
+                                    
+                                    tempBase2 = (Double(squad2pointsbase)! / 2.0)
+                                    tempScore2 = (Double(squad2pointsscore)! / 2.0)
+                                    
+                                    tempBase3 = (Double(squad3pointsbase)! / 2.0)
+                                    tempScore3 = (Double(squad3pointsscore)! / 2.0)
+                                    
+                                    displayedGame.currentPoints_p1 += Int(tempBase1 + tempScore1)
+                                    displayedGame.currentPoints_p2 += Int(tempBase2 + tempScore2)
+                                    displayedGame.currentPoints_p3 += Int(tempBase3 + tempScore3)
+                                    
+                                    _ = displayedGame.handPoints_p1.count
+                                    
+                                    displayedGame.handPoints_p1.append(Int(tempBase1 + tempScore1))
+                                    displayedGame.handPoints_p2.append(Int(tempBase2 + tempScore2))
+                                    displayedGame.handPoints_p3.append(Int(tempBase3 + tempScore3))
+                                    
+                                    
+                                    if(max(displayedGame.currentPoints_p1, displayedGame.currentPoints_p2, displayedGame.currentPoints_p3) > displayedGame.maxPoints){
+                                        //TODO: Handle winner
+                                        
+                                        
+                                    }
+                                   
+                                    
+                                } else if(isPlayerTwoSolo){
+                                    
+                                } else if (isPlayerThreeSolo){
+                                    
+                                }
+                                
+                            } // end of solo cases
                         }
                     }
                 }
