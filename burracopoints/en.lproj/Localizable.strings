@@ -5,6 +5,8 @@
 "player-title-string" = "Players";
 "leaderboard-title-string" = "Leaderboard";
 
+"mark-solo" = "Mark as solo";
+
 "points-section-string" = "Tot: ";
 "hand-section-string" = "Hand ";
 "hand-string" = "Hand ";

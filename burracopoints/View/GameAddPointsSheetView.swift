@@ -133,7 +133,7 @@ struct GameAddPointsSheetView: View {
                                         HStack{
                                             Spacer()
                                             if(!isSoloSelected){
-                                                Button("Mark as solo"){
+                                                Button("mark-solo"){
                                                     isSoloSelected = true
                                                     isPlayerOneSolo = true
                                                 }
@@ -183,7 +183,7 @@ struct GameAddPointsSheetView: View {
                                     VStack{
                                         HStack{
                                             Spacer()
-                                            Button("Mark as solo"){
+                                            Button("mark-solo"){
                                                 isSoloSelected = true
                                                 isPlayerTwoSolo = true
                                             }
@@ -226,7 +226,7 @@ struct GameAddPointsSheetView: View {
                                     VStack{
                                         HStack{
                                             Spacer()
-                                            Button("Mark as solo"){
+                                            Button("mark-solo"){
                                                 isSoloSelected = true
                                                 isPlayerThreeSolo = true
                                             }

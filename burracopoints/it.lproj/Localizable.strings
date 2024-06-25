@@ -5,6 +5,8 @@
 "player-title-string" = "Giocatori";
 "leaderboard-title-string" = "Classifica";
 
+"mark-solo" = "Primo pozzetto";
+
 "points-section-string" = "Tot.:";
 "hand-string" = "Mano ";
 "addpoints-string" = "Aggiungi punti";
