@@ -816,16 +816,12 @@ struct GameAddPointsSheetView: View {
                                         }
                                         
                                     }
-                                    
-                                    
+                                      
                                     
                                 } else {
                                     
                                 }
-                                
                                 _ = displayedGame.handPoints_p1.count
-                                
-                                
                                 displayedGame.handPoints_p1.append( Int( Int(squad1pointsbase)! + Int(squad1pointsscore)! ))
                                 displayedGame.handPoints_p2.append( Int( Int(squad2pointsbase)! + Int(squad2pointsscore)! ))
                                 dismiss()
