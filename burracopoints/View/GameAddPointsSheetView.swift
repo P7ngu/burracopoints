@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+//TODO: Victory Points
+
 struct GameAddPointsSheetView: View {
     
     @Bindable var displayedGame: Game
