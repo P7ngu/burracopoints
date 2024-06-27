@@ -6,6 +6,7 @@
 "leaderboard-title-string" = "Leaderboard";
 
 "mark-solo" = "Mark as solo";
+"unmark-solo" = "Unmark";
 
 "points-section-string" = "Tot: ";
 "hand-section-string" = "Hand ";

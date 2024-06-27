@@ -6,6 +6,7 @@
 "leaderboard-title-string" = "Classifica";
 
 "mark-solo" = "Ha giocato da solo";
+"unmark-solo" = "Annulla";
 
 "points-section-string" = "Tot.:";
 "hand-string" = "Mano ";

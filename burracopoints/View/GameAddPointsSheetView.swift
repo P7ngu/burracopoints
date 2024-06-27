@@ -138,11 +138,7 @@ struct GameAddPointsSheetView: View {
                                                     isPlayerOneSolo = true
                                                 }
                                             } else {
-                                                Button("Unmark as solo"){
-                                                    isSoloSelected = false
-                                                    isPlayerOneSolo = false
-                                                    
-                                                }
+                                               
                                                 
                                             }
                                         }
@@ -224,16 +220,16 @@ struct GameAddPointsSheetView: View {
                                     }.padding()
                                     
                                     VStack{
-                                        
+                                        HStack{
+                                            Spacer()
+                                            Button("mark-solo"){
+                                                isSoloSelected = true
+                                                isPlayerThreeSolo = true
+                                            }
+                                        }
                                         GroupBox{
                                             //player 3 points
-                                            HStack{
-                                                Spacer()
-                                                Button("mark-solo"){
-                                                    isSoloSelected = true
-                                                    isPlayerThreeSolo = true
-                                                }
-                                            }
+                                           
                                             Text(displayedGame.squad3.first!)
                                             TextField("base-string", text: $squad3pointsbase)
                                                 .padding().keyboardType(.numbersAndPunctuation)
@@ -278,7 +274,7 @@ struct GameAddPointsSheetView: View {
                                             Spacer()
                                             Text(displayedGame.squad1.first!)
                                             Spacer()
-                                            Button("unmark-text"){
+                                            Button("unmark-solo"){
                                                 isPlayerOneSolo = false
                                                 isSoloSelected = false
                                             }
@@ -363,7 +359,7 @@ struct GameAddPointsSheetView: View {
                                             Spacer()
                                             Text(displayedGame.squad2.first!)
                                             Spacer()
-                                            Button("unmark-text"){
+                                            Button("unmark-solo"){
                                                 isPlayerTwoSolo = false
                                                 isSoloSelected = false
                                             }
@@ -449,7 +445,7 @@ struct GameAddPointsSheetView: View {
                                             Spacer()
                                             Text(displayedGame.squad3.first!)
                                             Spacer()
-                                            Button("unmark-text"){
+                                            Button("unmark-solo"){
                                                 isPlayerThreeSolo = false
                                                 isSoloSelected = false
                                             }
@@ -872,6 +868,15 @@ struct GameAddPointsSheetView: View {
                         squad3pointsscore = "0"
                         dismiss()
                         GameDetailedView(displayedGame: displayedGame, title: "")
+                    }
+                    .onChange(of: isSoloSelected){
+                        //TODO: Here is were we reset after solo is changed
+                        squad1pointsbase = ""
+                        squad1pointsscore = ""
+                        squad2pointsbase = ""
+                        squad2pointsscore = ""
+                        squad3pointsbase = ""
+                        squad3pointsscore = ""
                     }
                 }
             }
