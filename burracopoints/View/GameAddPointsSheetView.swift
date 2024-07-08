@@ -8,7 +8,20 @@
 import SwiftUI
 import SwiftData
 
-//TODO: Victory Points
+//MARK: Victory Points
+//VP depend on the point difference between squads.
+/*
+ da 55 a 150 MP: 11- 9 VP
+ da 155 a 250 MP: 12 – 8 VP
+ da 255 a 350 MP: 13 – 7 VP
+ da 355 a 500 MP: 14 – 6 VP
+ da 505 a 650 MP: 15 – 5 VP
+ da 655 a 800 MP: 16 – 4 VP
+ da 805 a 1000 MP: 17 – 3 VP
+ da 1005 a 1250 MP: 18 – 2 VP
+ da 1255 a 1500 MP: 19 – 1 VP
+ Da 1505 in poi si daranno 20 punti alla squadra vincitrice.
+ */
 
 struct GameAddPointsSheetView: View {
     

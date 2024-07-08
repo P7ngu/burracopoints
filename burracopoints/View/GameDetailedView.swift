@@ -321,5 +321,14 @@ struct GameDetailedView: View {
     }
 }
 
+/*
+#Preview {
+    
+    GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: Int(2001), gameMode: 3, playerCounter: 3, squad3Enabled: true, squad1: ["squad1"], squad2: ["squad2"], squad3: ["squad3"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None"), title: "Test")
+    
+}
+ */
+
+
 
 

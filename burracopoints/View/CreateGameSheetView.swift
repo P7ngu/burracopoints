@@ -459,3 +459,6 @@ struct CreateGameSheetView: View {
     }
 }
 
+#Preview {
+    CreateGameSheetView()
+}
