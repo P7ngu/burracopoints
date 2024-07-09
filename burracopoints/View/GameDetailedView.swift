@@ -1,333 +1,211 @@
-//
-//  GameDetailedView.swift
-//  burracopoints
-//
-//  Created by Matteo Perotta on 16/11/23.
-//
-
 import SwiftUI
 import SwiftData
 
 
+
 struct GameDetailedView: View {
-    @State private var showingAlert = false
-    @Bindable var displayedGame: Game
+    @State public var showingAlert = false
+    @State public var displayedGame: Game
     @State var title: String
-    @State private var showingSheet = false
-    @State private var selectedDealer = "None"
-    
+    @State public var showingSheet = false
+    @State public var selectedDealer = "None"
     @State var trigger = 0
+    
     var body: some View {
-        // NavigationView{
-        ScrollView{
-            VStack{
-                if(displayedGame.isGameConcluded == true){
-                    VStack{
-                        Text("gameover-string").bold().font(.title3)
-                        Image(systemName: "flag.checkered.2.crossed").bold()
-                            .symbolEffect(.bounce, value: trigger)
-                            .font(.largeTitle)
-                            .onTapGesture(perform: {
-                                trigger = trigger + 1
-                            })
+        ScrollView {
+            VStack {
+                switch displayedGame.gameMode {
+                case 2:
+                    TwoPlayerModeView(displayedGame: $displayedGame, selectedDealer: $selectedDealer)
+                case 3:
+                    ThreePlayerModeView(displayedGame: $displayedGame, selectedDealer: $selectedDealer)
+                case 4:
+                    FourPlayerModeView(displayedGame: $displayedGame,selectedDealer: $selectedDealer)
+                default:
+                    Text("Invalid game mode")
+                }
+            }
+        }
+        .scrollIndicators(.hidden)
+        .onAppear {
+            setupTitle()
+        }
+        .navigationTitle(title)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Undo") {
+                    if displayedGame.handPoints_p1.count > 1 {
+                        showingAlert = true
                     }
-                } //else if(displayedGame.handPoints_p1.count < 2)
-                if displayedGame.gameMode == 2 {
-                    if(displayedGame.firstDealer == "None"){
-                        GroupBox{
-                            Text("dealer-string")
-                            Picker(selection: $selectedDealer, label: Text("dealer-string")) {
-                                Text("None").tag("None")
-                                Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
-                                Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                            } .onChange(of: selectedDealer){
-                                if(selectedDealer != "None"){
-                                    displayedGame.firstDealer = selectedDealer}
-                            }
-                        }
-                        
-                    }
-                    HStack{
-                        GroupBox{
-                            VStack{
-                                HStack{
-                                    Text(displayedGame.squad1.first!).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad1.first! ){
-                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                    }
-                                }
-                                HStack{
-                                    Text("points-section-string")
-                                    Text(String(displayedGame.currentPoints_p1))
-                                }.padding()
+                }
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Are you sure you want to undo the last insertion?"), message: Text("There is no way back"), primaryButton: .destructive(Text("Confirm")) {
+                            if displayedGame.handPoints_p1.count > 1 && displayedGame.handPoints_p2.count > 1 {
+                                displayedGame.currentPoints_p1 -= displayedGame.handPoints_p1.last!
+                                displayedGame.currentPoints_p2 -= displayedGame.handPoints_p2.last!
+                                displayedGame.handPoints_p1.removeLast()
+                                displayedGame.handPoints_p2.removeLast()
                                 
-                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                    HStack{
-                                        //Text("hand-string")
-                                        Text("#" + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p1[index]))
-                                    }
+                                if displayedGame.squad3Enabled {
+                                    displayedGame.currentPoints_p3 -= displayedGame.handPoints_p3.last!
+                                    displayedGame.handPoints_p3.removeLast()
                                 }
-                            }.frame(minWidth: 150, minHeight: 80)
-                        }
-                        GroupBox{
-                            VStack{
-                                HStack{
-                                    Text(displayedGame.squad2.first!).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad2.first! ){
-                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                    }
-                                }
-                                HStack{
-                                    Text("points-section-string")
-                                    Text(String(displayedGame.currentPoints_p2))
-                                }.padding()
-                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                    HStack{
-                                        //Text("hand-string")
-                                        Text("#" + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p2[index]))
-                                    }
-                                }
-                            }.frame(minWidth: 150, minHeight: 80)
-                        }
-                    }
-                } else if displayedGame.gameMode == 3 {
-                    if(displayedGame.firstDealer == "None"){
-                        GroupBox{
-                            Text("dealer-string")
-                            Picker(selection: $selectedDealer, label: Text("dealer-string")) {
-                                Text("None").tag("None")
-                                Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
-                                Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                                Text(displayedGame.squad3.first!).tag(displayedGame.squad3.first!)
-                            } .onChange(of: selectedDealer){
-                                if(selectedDealer != "None"){
-                                    displayedGame.firstDealer = selectedDealer
-                                }
+                                displayedGame.isGameConcluded = false
                             }
-                        }
-                        
-                    }
-                    // 1 vs 1 vs 1, 3 boxes
-                    VStack{
-                        VStack{
-                            GroupBox{
-                                HStack{
-                                    Text(displayedGame.squad1.first!).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad1.first! ){
-                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                    }
-                                }.frame(minWidth: 200)
-                                HStack{
-                                    Text("points-section-string")
-                                    Text(String(displayedGame.currentPoints_p1))
-                                }
-                                Text("")
-                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                    HStack{
-                                        //Text("hand-string")
-                                        Text("#" + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p1[index]))
-                                    }.frame(minWidth: 300)
-                                }
-                            }
-                        }
-                        VStack{
-                            GroupBox{ //player 2 points
-                                HStack{
-                                    Text(displayedGame.squad2.first!).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad2.first! ){
-                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                    }
-                                }.frame(minWidth: 200)
-                                HStack{
-                                    Text("points-section-string")
-                                    Text(String(displayedGame.currentPoints_p2))
-                                }
-                                Text("")
-                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                    HStack{
-                                        //Text("hand-string")
-                                        Text("#" + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p2[index]))
-                                    }
-                                }
-                                .frame(minWidth: 300)
-                            }
-                        }.frame(minWidth: 150, minHeight: 80)
-                        
-                        VStack{
-                            GroupBox{
-                                //player 3 points
-                                HStack{
-                                    Text(displayedGame.squad3.first!).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad3.first! ){
-                                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
-                                    }
-                                }.frame(minWidth: 200)
-                                HStack{
-                                    Text("points-section-string")
-                                    Text(String(displayedGame.currentPoints_p3))
-                                }
-                                Text("")
-                                ForEach(1..<displayedGame.handPoints_p3.count, id: \.self){ index in
-                                    HStack{
-                                        //Text("hand-string")
-                                        Text("#" + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p3[index]))
-                                    }
-                                }
-                                .frame(minWidth: 300)
-                            }
-                        }
-                    }.frame(minWidth: 150, minHeight: 80)
-                } else if displayedGame.gameMode == 4 {
-                    if(displayedGame.firstDealer == "None"){
-                        GroupBox{
-                            Text("dealer-string")
-                            Picker(selection: $selectedDealer, label: Text("dealer-string")) {
-                                Text("None").tag("None")
-                                Text(displayedGame.squad1.first!).tag(displayedGame.squad1.first!)
-                                Text(displayedGame.squad1[1]).tag(displayedGame.squad1[1])
-                                Text(displayedGame.squad2.first!).tag(displayedGame.squad2.first!)
-                                Text(displayedGame.squad2[1]).tag(displayedGame.squad2[1])
-                            }.onChange(of: selectedDealer){
-                                if(selectedDealer != "None"){
-                                    displayedGame.firstDealer = selectedDealer
-                                }
-                            }
-                        }
-                    }
-                    //2 vs 2, 2x2 boxes
-                    VStack{
-                        VStack{
-                            //player 1 points
-                            GroupBox{
-                                HStack{
-                                    Text(displayedGame.squad1.first!).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad1.first!) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                    Text("&").bold()
-                                    Text( displayedGame.squad1[1]).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad1[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                }.frame(minWidth: 200)
-                                HStack{
-                                    Text("points-section-string")
-                                    Text(String(displayedGame.currentPoints_p1))
-                                }
-                                Text("")
-                                ForEach(1..<displayedGame.handPoints_p1.count, id: \.self){ index in
-                                   // Text("hand-string")
-                                    HStack{
-                                        Text("#" + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p1[index]))
-                                    }.frame(minWidth: 300)
-                                }
-                            }
-                        }
-                        VStack{
-                            GroupBox{
-                                //player 2 points
-                                HStack{
-                                    Text(displayedGame.squad2.first!).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad2.first!) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                    Text("&").bold()
-                                    Text( displayedGame.squad2[1]).bold()
-                                    if(displayedGame.firstDealer == displayedGame.squad2[1]) { Text("*").bold().foregroundStyle(Color("AccentColor1")) }
-                                }.frame(minWidth: 200)
-                                HStack{
-                                    Text("points-section-string")
-                                    Text(String(displayedGame.currentPoints_p2))
-                                }
-                                Text("")
-                                ForEach(1..<displayedGame.handPoints_p2.count, id: \.self){ index in
-                                    //Text("hand-string")
-                                    HStack{
-                                        Text("#" + String(index) + ":")
-                                        Text(String(displayedGame.handPoints_p2[index]))
-                                    }.frame(minWidth: 300)
-                                }
-                            }
-                        }
-                    }
+                        },
+                        secondaryButton: .cancel()
+                    )
                 }
             }
-        }.scrollIndicators(.hidden)
-            .onAppear(){
-                print(displayedGame.firstDealer)
-                trigger += 1
-                if(displayedGame.squad3.first! != "nil"){
-                    title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first! + " vs " + displayedGame.squad3.first!
-                } else if(displayedGame.gameMode == 2){
-                    title = displayedGame.squad1.first! + " vs " + displayedGame.squad2.first!
-                } else if(displayedGame.gameMode == 4){
-                    title = displayedGame.squad1.first! + " & " + displayedGame.squad1[1] + " vs " + displayedGame.squad2.first! + " & " + displayedGame.squad2[1]
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showingSheet = true
+                }) {
+                    Label("addpoints-string", systemImage: "note.text.badge.plus")
+                }
+                .sheet(isPresented: $showingSheet) {
+                GameAddPointsSheetView(displayedGame: displayedGame)
                 }
             }
-            .navigationTitle(title)
-            .toolbar {
-                ToolbarItem{
-                    Button("Undo") {
-                        if(displayedGame.handPoints_p1.count > 1){
-                            showingAlert = true
-                        }
-                    }
-                    .alert(isPresented:$showingAlert) {
-                        //Undoing the last insertion
-                        Alert(
-                            title: Text("Are you sure you want to undo the last insertion?"),
-                            message: Text("There is no way back"),
-                            primaryButton: .destructive(Text("Confirm")) {
-                                if(displayedGame.handPoints_p1.count > 1 && displayedGame.handPoints_p2.count > 1){
-                                    displayedGame.currentPoints_p1 -= displayedGame.handPoints_p1.last!
-                                    displayedGame.currentPoints_p2 -= displayedGame.handPoints_p2.last!
-                                    //displayedGame.handsPlayed = displayedGame.handsPlayed-1
-                                    displayedGame.handPoints_p1.remove(at: displayedGame.handPoints_p1.count - 1)
-                                    displayedGame.handPoints_p2.remove(at: displayedGame.handPoints_p2.count - 1)
-                                    
-                                    if(displayedGame.squad3Enabled){
-                                        displayedGame.currentPoints_p3 -= displayedGame.handPoints_p3.last!
-                                        displayedGame.handPoints_p3.remove(at: displayedGame.handPoints_p3.count - 1)
-                                    }
-                                    displayedGame.isGameConcluded = false;
-                                }
-                                
-                                print("Deleting...")
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
-                }
-                
-                ToolbarItem {
-                    Button(action: addPoints) {
-                        Label("addpoints-string", systemImage: "note.text.badge.plus")
-                    } .sheet(isPresented: $showingSheet) {
-                        GameAddPointsSheetView(displayedGame: displayedGame)
-                    }
-                }
-                
-            }
-        
+        }
     }
     
-    func undoPoints(){
-        showingAlert = true
-    }
-    
-    
-    func addPoints(){
-        showingSheet = true
+    private func setupTitle() {
+        if displayedGame.squad3.first != "nil" {
+            title = "\(displayedGame.squad1.first ?? "") vs \(displayedGame.squad2.first ?? "") vs \(displayedGame.squad3.first ?? "")"
+        } else if displayedGame.gameMode == 2 {
+            title = "\(displayedGame.squad1.first ?? "") vs \(displayedGame.squad2.first ?? "")"
+        } else if displayedGame.gameMode == 4 {
+            title = "\(displayedGame.squad1.first ?? "") & \(displayedGame.squad1[1]) vs \(displayedGame.squad2.first ?? "") & \(displayedGame.squad2[1])"
+        }
     }
 }
 
-/*
-#Preview {
+struct GameOverView: View {
+    @Binding var trigger: Int
     
-    GameDetailedView(displayedGame: Game(timestamp: Date(), maxPoints: Int(2001), gameMode: 3, playerCounter: 3, squad3Enabled: true, squad1: ["squad1"], squad2: ["squad2"], squad3: ["squad3"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None"), title: "Test")
-    
+    var body: some View {
+        VStack {
+            Text("gameover-string")
+                .bold()
+                .font(.title3)
+            Image(systemName: "flag.checkered.2.crossed")
+                .bold()
+                .symbolEffect(.bounce, value: trigger)
+                .font(.largeTitle)
+                .onTapGesture {
+                    trigger += 1
+                }
+        }
+    }
 }
- */
+
+struct TwoPlayerModeView: View {
+    @Binding var displayedGame: Game
+    @Binding var selectedDealer: String
+    
+    var body: some View {
+        VStack {
+            if displayedGame.firstDealer == "None" {
+                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!])
+            }
+            
+            PlayerPointsView(displayedGame: displayedGame, players: displayedGame.squad1, currentPoints: displayedGame.currentPoints_p1, handPoints: displayedGame.handPoints_p1, isDealer: displayedGame.firstDealer == displayedGame.squad1.first!)
+            PlayerPointsView(displayedGame: displayedGame, players: displayedGame.squad2, currentPoints: displayedGame.currentPoints_p2, handPoints: displayedGame.handPoints_p2, isDealer: displayedGame.firstDealer == displayedGame.squad2.first!)
+        }
+    }
+}
+
+struct ThreePlayerModeView: View {
+    @Binding var displayedGame: Game
+    @Binding var selectedDealer: String
+    
+    var body: some View {
+        VStack {
+            if displayedGame.firstDealer == "None" {
+                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!, displayedGame.squad3.first!])
+            }
+            
+            PlayerPointsView(displayedGame: displayedGame, players: displayedGame.squad1, currentPoints: displayedGame.currentPoints_p1, handPoints: displayedGame.handPoints_p1, isDealer: displayedGame.firstDealer == displayedGame.squad1.first!)
+            PlayerPointsView(displayedGame: displayedGame, players: displayedGame.squad2, currentPoints: displayedGame.currentPoints_p2, handPoints: displayedGame.handPoints_p2, isDealer: displayedGame.firstDealer == displayedGame.squad2.first!)
+            PlayerPointsView(displayedGame: displayedGame, players: displayedGame.squad3, currentPoints: displayedGame.currentPoints_p3, handPoints: displayedGame.handPoints_p3, isDealer: displayedGame.firstDealer == displayedGame.squad3.first!)
+        }
+    }
+}
+
+struct FourPlayerModeView: View {
+    @Binding var displayedGame: Game
+    @Binding var selectedDealer: String
+    
+    var body: some View {
+        VStack {
+            if displayedGame.firstDealer == "None" {
+                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad1[1], displayedGame.squad2.first!, displayedGame.squad2[1]])
+            }
+            
+            PlayerPointsView(displayedGame: displayedGame, players: [displayedGame.squad1.first!, displayedGame.squad1[1]], currentPoints: displayedGame.currentPoints_p1, handPoints: displayedGame.handPoints_p1, isDealer: displayedGame.firstDealer == displayedGame.squad1.first! || displayedGame.firstDealer == displayedGame.squad1[1])
+            PlayerPointsView(displayedGame: displayedGame, players: [displayedGame.squad2.first!, displayedGame.squad2[1]], currentPoints: displayedGame.currentPoints_p2, handPoints: displayedGame.handPoints_p2, isDealer: displayedGame.firstDealer == displayedGame.squad2.first! || displayedGame.firstDealer == displayedGame.squad2[1])
+        }
+    }
+}
+
+struct PlayerPointsView: View {
+    var displayedGame: Game
+    var players: [String]
+    var currentPoints: Int
+    var handPoints: [Int]
+    var isDealer: Bool
+    
+    var body: some View {
+        GroupBox {
+            VStack {
+                HStack {
+                    ForEach(players, id: \.self) { player in
+                        Text(player).bold()
+                    }
+                    if isDealer {
+                        Text(" *").bold().foregroundStyle(Color("AccentColor1"))
+                    }
+                }
+                HStack {
+                    Text("points-section-string")
+                    Text(String(currentPoints))
+                }.padding()
+                
+                ForEach(1..<handPoints.count, id: \.self) { index in
+                    HStack {
+                        Text("#" + String(index) + ":")
+                        Text(String(handPoints[index]))
+                    }
+                }
+            }
+            .frame(minWidth: 150, minHeight: 80)
+        }
+    }
+}
+
+struct DealerPickerView: View {
+    @Binding var selectedDealer: String
+    var players: [String]
+    
+    var body: some View {
+        GroupBox {
+            Text("dealer-string")
+            Picker(selection: $selectedDealer, label: Text("dealer-string")) {
+                ForEach(players, id: \.self) { player in
+                    Text(player).tag(player)
+                }
+                Text("None").tag("None")
+            }
+            .onChange(of: selectedDealer) { newValue in
+                if newValue != "None" {
+                    // Handle dealer change logic
+                }
+            }
+        }
+    }
+}
 
 
 
