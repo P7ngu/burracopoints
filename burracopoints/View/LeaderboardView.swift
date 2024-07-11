@@ -71,6 +71,4 @@ struct LeaderboardEntryView: View {
     }
 }
 
-#Preview {
-    LeaderboardView()
-}
+

@@ -50,6 +50,7 @@ struct burracopointsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(sharedModelContainer)
                 .onAppear(perform: {
                     
                 })
