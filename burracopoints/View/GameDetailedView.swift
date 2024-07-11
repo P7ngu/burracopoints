@@ -131,7 +131,7 @@ struct TwoPlayerModeView: View {
     
     var body: some View {
         VStack {
-            if displayedGame.firstDealer == "None" {
+            if displayedGame.firstDealer == "None" && !displayedGame.isGameConcluded{
                 DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!], displayedGame: $displayedGame)
             }
             
@@ -147,7 +147,7 @@ struct ThreePlayerModeView: View {
     
     var body: some View {
         VStack {
-            if displayedGame.firstDealer == "None" {
+            if displayedGame.firstDealer == "None" && !displayedGame.isGameConcluded{
                 DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!, displayedGame.squad3.first!], displayedGame: $displayedGame)
             }
             
@@ -164,7 +164,7 @@ struct FourPlayerModeView: View {
     
     var body: some View {
         VStack {
-            if displayedGame.firstDealer == "None" {
+            if displayedGame.firstDealer == "None" && !displayedGame.isGameConcluded{
                 DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad1[1], displayedGame.squad2.first!, displayedGame.squad2[1]], displayedGame: $displayedGame)
             }
             
