@@ -27,6 +27,17 @@ struct GameDetailedView: View {
     var body: some View {
         ScrollView {
             VStack {
+                if(displayedGame.isGameConcluded){
+                    VStack{
+                        Text("gameover-string").bold().font(.title3)
+                        Image(systemName: "flag.checkered.2.crossed").bold()
+                            .symbolEffect(.bounce, value: trigger)
+                            .font(.largeTitle)
+                            .onTapGesture(perform: {
+                                trigger = trigger + 1
+                            })
+                    }
+                }
                 switch displayedGame.gameMode {
                 case 2:
                     TwoPlayerModeView(displayedGame: $displayedGame, selectedDealer: $selectedDealer)
