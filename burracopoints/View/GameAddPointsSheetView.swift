@@ -147,6 +147,42 @@ struct GameAddPointsSheetView: View {
             displayedGame.currentPoints_p2 >= displayedGame.maxPoints ||
             displayedGame.currentPoints_p3 >= displayedGame.maxPoints {
             displayedGame.isGameConcluded = true
+            //TODO: add win
+            processConcludedGame()
+            
+        }
+    }
+    
+    private func processConcludedGame() {
+        if displayedGame.currentPoints_p1 >= displayedGame.maxPoints {
+            giveTheUserAWin(username: displayedGame.squad1.first!)
+            if(displayedGame.squad1.count > 1){
+                giveTheUserAWin(username: displayedGame.squad1[1])
+            }
+        } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints{
+            giveTheUserAWin(username: displayedGame.squad2.first!)
+            if(displayedGame.squad2.count > 1){
+                giveTheUserAWin(username: displayedGame.squad2[1])
+            }
+        } else if displayedGame.currentPoints_p3 >= displayedGame.maxPoints{
+            giveTheUserAWin(username: displayedGame.squad3.first!)
+        }
+    }
+    
+    private func giveTheUserAWin (username: String){
+        for player in players {
+            if player.name == username {
+                player.numberOfGamePlayed += 1
+                player.numberOfGameWon += 1
+            }
+        }
+    }
+    
+    private func giveTheUserALoss (username: String){
+        for player in players {
+            if player.name == username {
+                player.numberOfGamePlayed += 1
+            }
         }
     }
     
