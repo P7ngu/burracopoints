@@ -121,7 +121,7 @@ struct TwoPlayerModeView: View {
     var body: some View {
         VStack {
             if displayedGame.firstDealer == "None" {
-                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!])
+                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!], displayedGame: $displayedGame)
             }
             
             PlayerPointsView(displayedGame: displayedGame, players: displayedGame.squad1, currentPoints: displayedGame.currentPoints_p1, handPoints: displayedGame.handPoints_p1, isDealer: displayedGame.firstDealer == displayedGame.squad1.first!)
@@ -137,7 +137,7 @@ struct ThreePlayerModeView: View {
     var body: some View {
         VStack {
             if displayedGame.firstDealer == "None" {
-                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!, displayedGame.squad3.first!])
+                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad2.first!, displayedGame.squad3.first!], displayedGame: $displayedGame)
             }
             
             PlayerPointsView(displayedGame: displayedGame, players: displayedGame.squad1, currentPoints: displayedGame.currentPoints_p1, handPoints: displayedGame.handPoints_p1, isDealer: displayedGame.firstDealer == displayedGame.squad1.first!)
@@ -154,7 +154,7 @@ struct FourPlayerModeView: View {
     var body: some View {
         VStack {
             if displayedGame.firstDealer == "None" {
-                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad1[1], displayedGame.squad2.first!, displayedGame.squad2[1]])
+                DealerPickerView(selectedDealer: $selectedDealer, players: [displayedGame.squad1.first!, displayedGame.squad1[1], displayedGame.squad2.first!, displayedGame.squad2[1]], displayedGame: $displayedGame)
             }
             
             PlayerPointsView(displayedGame: displayedGame, players: [displayedGame.squad1.first!, displayedGame.squad1[1]], currentPoints: displayedGame.currentPoints_p1, handPoints: displayedGame.handPoints_p1, isDealer: displayedGame.firstDealer == displayedGame.squad1.first! || displayedGame.firstDealer == displayedGame.squad1[1])
@@ -201,6 +201,7 @@ struct PlayerPointsView: View {
 struct DealerPickerView: View {
     @Binding var selectedDealer: String
     var players: [String]
+    @Binding var displayedGame: Game
     
     var body: some View {
         GroupBox {
@@ -214,6 +215,7 @@ struct DealerPickerView: View {
             .onChange(of: selectedDealer) { newValue in
                 if newValue != "None" {
                     // Handle dealer change logic
+                    displayedGame.firstDealer = selectedDealer
                 }
             }
         }
