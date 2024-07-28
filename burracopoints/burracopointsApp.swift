@@ -21,9 +21,6 @@ struct burracopointsApp: App {
     //Future future updates
     //TODO: widget that shows points for the last game
     
-  
-   
-    
     //DONE:
     // fix wins ____
     //sort games by time: most recent ones on top, divide them by finished and not
