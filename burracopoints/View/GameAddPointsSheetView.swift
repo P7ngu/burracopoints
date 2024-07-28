@@ -131,6 +131,7 @@ struct GameAddPointsSheetView: View {
                              squad2Points: (Double(squad1pointsbase) ?? 0) / factor + (Double(squad1pointsscore) ?? 0) / factor,
                              squad3Points: (Double(squad2pointsbase) ?? 0) / factor + (Double(squad2pointsscore) ?? 0) / factor)
         }
+        checkGameConclusion()
     }
     
     private func updateSoloPoints(squadSoloPoints: Double, squad2Points: Double, squad3Points: Double) {
@@ -156,16 +157,38 @@ struct GameAddPointsSheetView: View {
     private func processConcludedGame() {
         if displayedGame.currentPoints_p1 >= displayedGame.maxPoints {
             giveTheUserAWin(username: displayedGame.squad1.first!)
+            giveTheUserALoss(username: displayedGame.squad2.first!)
+            
             if(displayedGame.squad1.count > 1){
                 giveTheUserAWin(username: displayedGame.squad1[1])
+                giveTheUserALoss(username: displayedGame.squad2[1])
             }
+            
+            if(displayedGame.squad3Enabled){
+                giveTheUserALoss(username: displayedGame.squad3.first!)
+            }
+            
+            
         } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints{
             giveTheUserAWin(username: displayedGame.squad2.first!)
+            giveTheUserALoss(username: displayedGame.squad1.first!)
+            
             if(displayedGame.squad2.count > 1){
                 giveTheUserAWin(username: displayedGame.squad2[1])
+                giveTheUserALoss(username: displayedGame.squad1[1])
             }
+            
+            if(displayedGame.squad3Enabled){
+                giveTheUserALoss(username: displayedGame.squad3.first!)
+            }
+            
+            
+            
         } else if displayedGame.currentPoints_p3 >= displayedGame.maxPoints{
             giveTheUserAWin(username: displayedGame.squad3.first!)
+            
+            giveTheUserALoss(username: displayedGame.squad2.first!)
+            giveTheUserALoss(username: displayedGame.squad1.first!)
         }
     }
     
@@ -322,21 +345,62 @@ struct RegularThreePlayerPointsView: View {
     
     var body: some View {
         VStack {
-            PointsInputView(playerName: squad1Name, pointsbase: $squad1pointsbase, pointsscore: $squad1pointsscore)
-            Button("mark-solo") {
-                isSoloSelected = true
-                isPlayerOneSolo = true
+            VStack{
+                ZStack{
+                    PointsInputView(playerName: squad1Name, pointsbase: $squad1pointsbase, pointsscore: $squad1pointsscore)
+                    VStack{
+                        HStack{
+                            Spacer()
+                            Spacer()
+                            Button("mark-solo") {
+                                isSoloSelected = true
+                                isPlayerOneSolo = true
+                            }
+                            .padding()
+                        }
+                        Spacer()
+                    }
+                }
+            }.padding(.bottom, 20)
+            
+            VStack{
+                ZStack{
+                    PointsInputView(playerName: squad2Name, pointsbase: $squad2pointsbase, pointsscore: $squad2pointsscore)
+                    VStack{
+                        HStack{
+                            Spacer()
+                            Spacer()
+                            Button("mark-solo") {
+                                isSoloSelected = true
+                                isPlayerTwoSolo = true
+                            }
+                            .padding()
+                        }
+                        Spacer()
+                    }
+                }
+            }.padding(.bottom, 20)
+            
+            VStack{
+                ZStack{
+                    PointsInputView(playerName: squad3Name, pointsbase: $squad3pointsbase, pointsscore: $squad3pointsscore)
+                    VStack{
+                        HStack{
+                            Spacer()
+                            Spacer()
+                            Button("mark-solo") {
+                                isSoloSelected = true
+                                isPlayerThreeSolo = true
+                            }
+                            .padding()
+                        }
+                        Spacer()
+                    }
+                }
             }
-            PointsInputView(playerName: squad2Name, pointsbase: $squad2pointsbase, pointsscore: $squad2pointsscore)
-            Button("mark-solo") {
-                isSoloSelected = true
-                isPlayerTwoSolo = true
-            }
-            PointsInputView(playerName: squad3Name, pointsbase: $squad3pointsbase, pointsscore: $squad3pointsscore)
-            Button("mark-solo") {
-                isSoloSelected = true
-                isPlayerThreeSolo = true
-            }
+                
+                
+                
         }.padding()
     }
 }

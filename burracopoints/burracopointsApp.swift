@@ -5,6 +5,9 @@
 //  Created by Matteo Perotta on 14/11/23.
 //
 
+//open /Applications/Xcode.app/Contents/MacOS/Xcode
+//build: 18F132
+
 import SwiftUI
 import SwiftData
 
@@ -16,6 +19,9 @@ struct burracopointsApp: App {
     //TODO: manually pick winner, edit button for user
     
     //TODO: update win ratio accordingly.
+    //  tell the user which one has to be dealer, turn by turn
+    
+    //TODO: FIX UNDO AFTER WIN.
     
     
     //Future future updates

@@ -19,6 +19,7 @@ import SwiftData
 struct GameDetailedView: View {
     @State public var showingAlert = false
     @State public var displayedGame: Game
+    @Query public var players: [Player] = []
     @State var title: String
     @State public var showingSheet = false
     @State public var selectedDealer = "None"
@@ -65,15 +66,10 @@ struct GameDetailedView: View {
                 .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Are you sure you want to undo the last insertion?"), message: Text("There is no way back"), primaryButton: .destructive(Text("Confirm")) {
                             if displayedGame.handPoints_p1.count > 1 && displayedGame.handPoints_p2.count > 1 {
-                                displayedGame.currentPoints_p1 -= displayedGame.handPoints_p1.last!
-                                displayedGame.currentPoints_p2 -= displayedGame.handPoints_p2.last!
-                                displayedGame.handPoints_p1.removeLast()
-                                displayedGame.handPoints_p2.removeLast()
-                                
-                                if displayedGame.squad3Enabled {
-                                    displayedGame.currentPoints_p3 -= displayedGame.handPoints_p3.last!
-                                    displayedGame.handPoints_p3.removeLast()
+                                if displayedGame.isGameConcluded {
+                                    removeLastGameRecord()
                                 }
+                                removeLastGamePoints()
                                 displayedGame.isGameConcluded = false
                             }
                         },
@@ -92,6 +88,76 @@ struct GameDetailedView: View {
                 GameAddPointsSheetView(displayedGame: displayedGame)
                 }
             }
+        }
+    }
+    
+    private func removeLastGameRecord() {
+        if displayedGame.currentPoints_p1 >= displayedGame.maxPoints {
+            removeAWinFromUser(username: displayedGame.squad1.first!)
+            removeALossFromUser(username: displayedGame.squad2.first!)
+            
+            if(displayedGame.squad1.count > 1){
+                removeAWinFromUser(username: displayedGame.squad1[1])
+                removeALossFromUser(username: displayedGame.squad2[1])
+            }
+            
+            if(displayedGame.squad3Enabled){
+                removeALossFromUser(username: displayedGame.squad3.first!)
+            }
+            
+            
+        } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints{
+            removeAWinFromUser(username: displayedGame.squad2.first!)
+            removeALossFromUser(username: displayedGame.squad1.first!)
+            
+            if(displayedGame.squad2.count > 1){
+                removeAWinFromUser(username: displayedGame.squad2[1])
+                removeALossFromUser(username: displayedGame.squad1[1])
+            }
+            
+            if(displayedGame.squad3Enabled){
+                removeALossFromUser(username: displayedGame.squad3.first!)
+            }
+              
+        } else if displayedGame.currentPoints_p3 >= displayedGame.maxPoints{
+            removeAWinFromUser(username: displayedGame.squad3.first!)
+            removeALossFromUser(username: displayedGame.squad2.first!)
+            removeALossFromUser(username: displayedGame.squad1.first!)
+        }
+    }
+    
+    private func removeAWinFromUser(username: String){
+        for player in players {
+            if player.name == username {
+                if player.numberOfGamePlayed > 0{
+                    player.numberOfGamePlayed -= 1
+                    if player.numberOfGameWon > 0{
+                        player.numberOfGameWon -= 1
+                    }
+                }
+            }
+        }
+    }
+    
+    private func removeALossFromUser(username: String){
+        for player in players {
+            if player.name == username {
+                if player.numberOfGamePlayed > 0{
+                    player.numberOfGamePlayed -= 1
+                }
+            }
+        }
+    }
+    
+    private func removeLastGamePoints() {
+        displayedGame.currentPoints_p1 -= displayedGame.handPoints_p1.last!
+        displayedGame.currentPoints_p2 -= displayedGame.handPoints_p2.last!
+        displayedGame.handPoints_p1.removeLast()
+        displayedGame.handPoints_p2.removeLast()
+        
+        if displayedGame.squad3Enabled {
+            displayedGame.currentPoints_p3 -= displayedGame.handPoints_p3.last!
+            displayedGame.handPoints_p3.removeLast()
         }
     }
     
