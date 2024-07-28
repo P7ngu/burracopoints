@@ -104,7 +104,7 @@ struct GameRowView: View {
             
             Text(getGameTitle(for: game))
         }
-        .padding(.top, 15)
+        .padding(.top, 12)
     }
     
     private func getGameTitle(for game: Game) -> String {

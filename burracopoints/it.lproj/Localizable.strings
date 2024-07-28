@@ -48,7 +48,7 @@
 "gameoveradd-string" = "La partita si è conclusa, non puoi aggiungere dei punti!";
 
 "winplayer-string" = "Vittorie: ";
-"gamesplayed-string" = "Partite: ";
+"gamesplayed-string" = "Partite totali: ";
 
 "dealer-string" = "Seleziona chi inizia a dare le carte: ";
 "no-dealer" = "None";
