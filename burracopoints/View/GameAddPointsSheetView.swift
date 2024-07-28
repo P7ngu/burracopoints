@@ -298,7 +298,11 @@ struct PointsInputView: View {
     
     var body: some View {
         GroupBox {
-            Text(playerName)
+            HStack{
+                Text(playerName)
+                    .padding(.leading, 10)
+                Spacer()
+            }
             TextField("base-string", text: $pointsbase)
                 .padding().keyboardType(.numbersAndPunctuation)
                 .onChange(of: pointsbase) { newValue in
