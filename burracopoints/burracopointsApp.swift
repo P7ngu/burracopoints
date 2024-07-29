@@ -21,7 +21,7 @@ struct burracopointsApp: App {
     //TODO: update win ratio accordingly.
     //  tell the user which one has to be dealer, turn by turn
     
-    //TODO: FIX UNDO AFTER WIN.
+    //done: FIX UNDO AFTER WIN.
     
     
     //Future future updates

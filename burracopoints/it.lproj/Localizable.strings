@@ -5,6 +5,10 @@
 "player-title-string" = "Giocatori";
 "leaderboard-title-string" = "Classifica";
 
+"last-insertion-string" = "Annullare l'ultimo inserimento punti?";
+"confirm-string" = "Conferma";
+"no-way-string" = "Cancellerai i punti dell'ultima mano. Non sarà possibile annullare tornare indietro.";
+
 "mark-solo" = "Ha giocato da solo";
 "unmark-solo" = "Annulla";
 

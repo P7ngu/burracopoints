@@ -5,6 +5,11 @@
 "player-title-string" = "Players";
 "leaderboard-title-string" = "Leaderboard";
 
+"last-insertion-string" = "Are you sure you want to undo the last insertion?";
+"confirm-string" = "Confirm";
+"no-way-string" = "There is no way back";
+
+
 "mark-solo" = "Mark as solo";
 "unmark-solo" = "Unmark";
 

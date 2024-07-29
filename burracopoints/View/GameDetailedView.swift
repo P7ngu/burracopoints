@@ -64,7 +64,7 @@ struct GameDetailedView: View {
                     }
                 }
                 .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Are you sure you want to undo the last insertion?"), message: Text("There is no way back"), primaryButton: .destructive(Text("Confirm")) {
+                    Alert(title: Text("last-insertion-string"), message: Text("no-way-string"), primaryButton: .destructive(Text("confirm-string")) {
                             if displayedGame.handPoints_p1.count > 1 && displayedGame.handPoints_p2.count > 1 {
                                 if displayedGame.isGameConcluded {
                                     removeLastGameRecord()
