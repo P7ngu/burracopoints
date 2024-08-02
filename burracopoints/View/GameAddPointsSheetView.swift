@@ -99,16 +99,25 @@ struct GameAddPointsSheetView: View {
     }
     
     private func processRegularPoints() {
-        let squad1Points = Int(squad1pointsbase) ?? 0 + (Int(squad1pointsscore) ?? 0)
-        let squad2Points = Int(squad2pointsbase) ?? 0 + (Int(squad2pointsscore) ?? 0)
+        let squad1PointsBase = (Int(squad1pointsbase))!
+        let squad1PointsScore = (Int(squad1pointsscore))!
+        let squad1Points = squad1PointsBase + squad1PointsScore
+        
+        let squad2PointsBase = Int(squad2pointsbase)!
+        let squad2PointsScore = Int(squad2pointsscore)!
+        let squad2Points = squad2PointsBase + squad2PointsScore
         
         displayedGame.currentPoints_p1 += squad1Points
         displayedGame.currentPoints_p2 += squad2Points
+        
         displayedGame.handPoints_p1.append(squad1Points)
         displayedGame.handPoints_p2.append(squad2Points)
         
         if displayedGame.squad3Enabled {
-            let squad3Points = Int(squad3pointsbase) ?? 0 + (Int(squad3pointsscore) ?? 0)
+            let squad3PointsBase = Int(squad3pointsbase)!
+            let squad3PointsScore = Int(squad3pointsscore)!
+            let squad3Points = squad3PointsBase + squad3PointsScore
+            
             displayedGame.currentPoints_p3 += squad3Points
             displayedGame.handPoints_p3.append(squad3Points)
         }
