@@ -10,6 +10,11 @@ struct GameAddPointsSheetView: View {
     @State private var squad3pointsscore: String = ""
     @State private var squad3pointsbase: String = ""
     
+    @State var squad1PointsBase: Int = 0
+    @State var squad1PointsScore: Int = 0
+    @State var squad2PointsBase: Int = 0
+    @State var squad2PointsScore: Int = 0
+    
     @State var isSoloSelected = false
     @State var isPlayerOneSolo = false
     @State var isPlayerTwoSolo = false
@@ -98,14 +103,15 @@ struct GameAddPointsSheetView: View {
         }
     }
     
-    private func processRegularPoints() {
-        let squad1PointsBase = (Int(squad1pointsbase))!
-        let squad1PointsScore = (Int(squad1pointsscore))!
-        let squad1Points = squad1PointsBase + squad1PointsScore
-        
-        let squad2PointsBase = Int(squad2pointsbase)!
-        let squad2PointsScore = Int(squad2pointsscore)!
-        let squad2Points = squad2PointsBase + squad2PointsScore
+    private func processRegularPoints(){
+            squad1PointsBase = (Int(squad1pointsbase) ?? 0)
+            squad1PointsScore = (Int(squad1pointsscore) ?? 0)
+             let squad1Points = squad1PointsBase + squad1PointsScore
+            
+             squad2PointsBase = Int(squad2pointsbase) ?? 0
+             squad2PointsScore = Int(squad2pointsscore) ?? 0
+            let squad2Points = squad2PointsBase + squad2PointsScore
+       
         
         displayedGame.currentPoints_p1 += squad1Points
         displayedGame.currentPoints_p2 += squad2Points
@@ -123,6 +129,7 @@ struct GameAddPointsSheetView: View {
         }
         
         checkGameConclusion()
+        
     }
     
     private func processSoloPoints() {
@@ -442,10 +449,13 @@ struct SoloPointsView: View {
                 CombinedPlayerPointsView(player1Name: squad2Name, player2Name: squad3Name, pointsbase1: $squad2pointsbase, pointsscore1: $squad2pointsscore, pointsbase2: $squad3pointsbase, pointsscore2: $squad3pointsscore)
             } else if isPlayerTwoSolo {
                 SoloPlayerPointsView(playerName: squad2Name, pointsbase: $squad2pointsbase, pointsscore: $squad2pointsscore, isPlayerSolo: $isPlayerTwoSolo, isSoloSelected: $isSoloSelected)
+                
                 CombinedPlayerPointsView(player1Name: squad1Name, player2Name: squad3Name, pointsbase1: $squad1pointsbase, pointsscore1: $squad1pointsscore, pointsbase2: $squad3pointsbase, pointsscore2: $squad3pointsscore)
+                
             } else if isPlayerThreeSolo {
                 SoloPlayerPointsView(playerName: squad3Name, pointsbase: $squad3pointsbase, pointsscore: $squad3pointsscore, isPlayerSolo: $isPlayerThreeSolo, isSoloSelected: $isSoloSelected)
-                CombinedPlayerPointsView(player1Name: squad1Name, player2Name: squad2Name, pointsbase1: $squad1pointsbase, pointsscore1: $squad1pointsscore, pointsbase2: $squad3pointsbase, pointsscore2: $squad3pointsscore)
+                
+                CombinedPlayerPointsView(player1Name: squad1Name, player2Name: squad2Name, pointsbase1: $squad1pointsbase, pointsscore1: $squad1pointsscore, pointsbase2: $squad2pointsbase, pointsscore2: $squad2pointsscore)
             }
         }.padding()
     }
