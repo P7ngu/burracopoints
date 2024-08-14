@@ -14,6 +14,8 @@ struct GameAddPointsSheetView: View {
     @State var squad1PointsScore: Int = 0
     @State var squad2PointsBase: Int = 0
     @State var squad2PointsScore: Int = 0
+    @State var squad3PointsBase: Int = 0
+    @State var squad3PointsScore: Int = 0
     
     @State var isSoloSelected = false
     @State var isPlayerOneSolo = false
@@ -120,8 +122,9 @@ struct GameAddPointsSheetView: View {
         displayedGame.handPoints_p2.append(squad2Points)
         
         if displayedGame.squad3Enabled {
-            let squad3PointsBase = Int(squad3pointsbase)!
-            let squad3PointsScore = Int(squad3pointsscore)!
+            //TODO: Fix
+            squad3PointsBase = (Int(squad3pointsbase) ?? 0)
+            squad3PointsScore = (Int(squad3pointsscore) ?? 0)
             let squad3Points = squad3PointsBase + squad3PointsScore
             
             displayedGame.currentPoints_p3 += squad3Points
