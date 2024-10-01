@@ -64,7 +64,10 @@ struct CreateGameSheetView: View {
                     }
                     HStack{
                         Text("gamewinpoints-string").padding(.leading, 16)
-                        TextField("maxpoints-string", text: $inputMaxPoints).keyboardType(.decimalPad)
+                        TextField("maxpoints-string", text: $inputMaxPoints).keyboardType(.numberPad)
+                            .onChange(of: inputMaxPoints) { newValue in
+                                inputMaxPoints = filterInput(newValue)
+                            }
                     }
                     //Add button to create a new player
                     Button(action: {
@@ -413,6 +416,18 @@ struct CreateGameSheetView: View {
         }
     }
     
+    private func filterInput(_ input: String) -> String {
+        var filteredString = ""
+        for (index, character) in input.enumerated() {
+            if index == 0 && character == "-" {
+                filteredString.append(character)
+            } else if character.isNumber {
+                filteredString.append(character)
+            }
+        }
+        return filteredString
+    }
+
     func giveTheUserALoss(game: Game, username: String){
         for player in players {
             if player.name == username{
