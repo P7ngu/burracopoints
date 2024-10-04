@@ -24,9 +24,16 @@ struct PlayersView: View {
         NavigationView{
                 
                 List {
-                    Button("addnewplayer-string"){
+                    Button(action: {
                         showingSheet = true
+                    }) {
+                        HStack {
+                            Image(systemName: "plus")
+                            Text("addnewplayer-string")
+                        }
                     }
+                    .buttonStyle(.borderless)
+                    
                     ForEach(playerItems) { player in
                         
                         NavigationLink {

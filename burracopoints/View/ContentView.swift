@@ -22,9 +22,16 @@ struct ContentView: View {
             NavigationView {
                 
                     List {
-                        Button("creategame-string"){
+                        Button(action: {
                             showingSheet = true
-                        }.buttonStyle(.borderless)
+                        }) {
+                            HStack {
+                                Image(systemName: "plus")
+                                Text("creategame-string")
+                            }
+                        }
+                        .buttonStyle(.borderless)
+                        
                         ForEach(gameItems.reversed()) { game in // reversed, so the most recent games go on top.
                             NavigationLink {
                                 GameDetailedView(displayedGame: game, title: fulltitle)
