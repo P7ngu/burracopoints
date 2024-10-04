@@ -22,62 +22,67 @@ struct PlayersView: View {
     var body: some View {
         
         NavigationView{
-            List {
-                ForEach(playerItems) { player in
-                    
-                    NavigationLink {
-                        VStack{
-                            
-                            Image(systemName: player.icon)
-                                .font(.system(size: 100))
-                                .symbolEffect(.bounce, value: trigger)
-                                .onTapGesture {
-                                    trigger = trigger + 1
+                
+                List {
+                    Button("addnewplayer-string"){
+                        showingSheet = true
+                    }
+                    ForEach(playerItems) { player in
+                        
+                        NavigationLink {
+                            VStack{
+                                
+                                Image(systemName: player.icon)
+                                    .font(.system(size: 100))
+                                    .symbolEffect(.bounce, value: trigger)
+                                    .onTapGesture {
+                                        trigger = trigger + 1
+                                    }
+                                HStack{
+                                    Text(player.name).font(.title).bold()
+                                        .padding()
+                                        .cornerRadius(8)
+                                    
+                                    
+                                    // Text(String(player.id))
                                 }
+                                HStack{
+                                    Text("winplayer-string")
+                                    Text(String(player.numberOfGameWon))
+                                }
+                                HStack{
+                                    Text("gamesplayed-string")
+                                    Text(String(player.numberOfGamePlayed))
+                                }
+                            }
+                        } label: {
+                            
                             HStack{
-                                Text(player.name).font(.title).bold()
+                                if player.icon != ""{
+                                    Image(systemName: player.icon)
+                                        .font(.title2)
+                                } else {
+                                    Image(systemName: "person.fill")
+                                }
+                                
+                                Text(player.name)
                                     .padding()
                                     .cornerRadius(8)
                                 
-                                
-                                // Text(String(player.id))
                             }
-                            HStack{
-                                Text("winplayer-string")
-                                Text(String(player.numberOfGameWon))
-                            }
-                            HStack{
-                                Text("gamesplayed-string")
-                                Text(String(player.numberOfGamePlayed))
+                        } .swipeActions {
+                            Button("Delete", systemImage: "trash", role: .destructive) {
+                                modelContext.delete(player)
                             }
                         }
-                    } label: {
                         
-                        HStack{
-                            if player.icon != ""{
-                                Image(systemName: player.icon)
-                                    .font(.title2)
-                            } else {
-                                Image(systemName: "person.fill")
-                            }
-                            
-                            Text(player.name)
-                                .padding()
-                                .cornerRadius(8)
-                            
-                        }
-                    } .swipeActions {
-                        Button("Delete", systemImage: "trash", role: .destructive) {
-                            modelContext.delete(player)
-                        }
+                        
                     }
+                    // .onDelete(perform: deleteItems)
                     
                     
                 }
-                // .onDelete(perform: deleteItems)
-                
-                
-            }
+            
             .toolbar {
                 // ToolbarItem(placement: .navigationBarTrailing) {
                 //      EditButton()

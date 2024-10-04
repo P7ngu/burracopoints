@@ -20,8 +20,11 @@ struct ContentView: View {
     var body: some View {
         TabView {
             NavigationView {
-                VStack {
+                
                     List {
+                        Button("creategame-string"){
+                            showingSheet = true
+                        }.buttonStyle(.borderless)
                         ForEach(gameItems.reversed()) { game in // reversed, so the most recent games go on top.
                             NavigationLink {
                                 GameDetailedView(displayedGame: game, title: fulltitle)
@@ -37,7 +40,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                }
+                
                 .toolbar {
                     ToolbarItem {
                         Button(action: { showingSheet.toggle() }) {
@@ -68,6 +71,11 @@ struct ContentView: View {
                 }
         }
         .onAppear(perform: {
+            if players.count == 0 {
+                let player1 = Player(name: "Guest", icon: "person.fill", currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 0.0, id: 0)
+                modelContext.insert(player1)
+                
+            }
             resetPlayerSelection()
             if players.count > 1 && gameItems.count > 0 {
                 requestReview()

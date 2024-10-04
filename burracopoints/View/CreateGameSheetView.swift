@@ -77,6 +77,7 @@ struct CreateGameSheetView: View {
                         Text("addnewplayer-string")
                     }).sheet(isPresented: $showingPlayerSheet) {
                         PlayerSheetView(playerItems: players)
+                            .modelContext(modelContext)
                     }.padding()
                     
                     Text("selecteplayers1-string").padding(.leading, 16)
