@@ -95,6 +95,7 @@ struct PlayerSheetView: View {
                                     let newPlayer = Player(name: playerName, icon: selectedIcon!, currentlySelected1: false, currentlySelected2: false, currentlySelected3: false, numberOfGamePlayed: 0, numberOfGameWon: 0, winRatio: 1.0, id: -1)
                                     
                                     addNewPlayer(player: newPlayer, players: playerItems)
+                                    dismiss()
                                    
                                 }
                             } else {
