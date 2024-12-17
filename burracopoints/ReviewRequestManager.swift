@@ -10,13 +10,13 @@ import SwiftUI
 import StoreKit
 
 class ReviewRequestManager {
-    static let shared = ReviewRequestManager()
+    @MainActor static let shared = ReviewRequestManager()
     
     private let minimumUsageCount = 2
     private let reviewRequestedKey = "reviewRequested"
     private let appUsageCountKey = "appUsageCount"
     
-    func requestReviewIfAppropriate() {
+    @MainActor func requestReviewIfAppropriate() {
         var count = UserDefaults.standard.integer(forKey: appUsageCountKey)
         count += 1
         UserDefaults.standard.set(count, forKey: appUsageCountKey)
@@ -37,7 +37,7 @@ class ReviewRequestManager {
         }
     }
     
-    private func requestReview() {
+    @MainActor private func requestReview() {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             SKStoreReviewController.requestReview(in: windowScene)
         }

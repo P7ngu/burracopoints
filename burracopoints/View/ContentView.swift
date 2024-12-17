@@ -61,6 +61,8 @@ struct ContentView: View {
                 }
                 .navigationTitle("game-title-string")
             }
+            
+            
             .tabItem {
                 Label("game-title-string", systemImage: "pencil.and.list.clipboard")
             }
