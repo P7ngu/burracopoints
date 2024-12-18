@@ -65,7 +65,7 @@ struct CreateGameSheetView: View {
                     HStack{
                         Text("gamewinpoints-string").padding(.leading, 16)
                         TextField("maxpoints-string", text: $inputMaxPoints).keyboardType(.numberPad)
-                            .onChange(of: inputMaxPoints) { newValue in
+                            .onChange(of: inputMaxPoints) {_, newValue in
                                 inputMaxPoints = filterInput(newValue)
                             }
                     }
@@ -322,8 +322,6 @@ struct CreateGameSheetView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("done-button-string") {
                             //Create the new game
-                            let gamemode = selectedGameMode
-                            let timestamp = Date()
                             let maxPoints = Int(inputMaxPoints)
                             var playerCounter = 0
                             
@@ -367,7 +365,7 @@ struct CreateGameSheetView: View {
                                 dismiss()
                                 GameDetailedView(displayedGame: newGame, title: "")
                                 
-                            } else{
+                            } else {
                                 print("invalid data - last else")
                                 print(selectedGameMode)
                                 print(player1.name)

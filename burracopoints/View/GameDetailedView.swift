@@ -289,7 +289,7 @@ struct DealerPickerView: View {
                 }
                 Text("None").tag("None")
             }
-            .onChange(of: selectedDealer) { newValue in
+            .onChange(of: selectedDealer) { _, newValue in
                 if newValue != "None" {
                     // Handle dealer change logic
                     displayedGame.firstDealer = selectedDealer

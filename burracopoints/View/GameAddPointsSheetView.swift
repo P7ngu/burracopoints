@@ -324,13 +324,13 @@ struct PointsInputView: View {
             }
             TextField("base-string", text: $pointsbase)
                 .padding().keyboardType(.numbersAndPunctuation)
-                .onChange(of: pointsbase) { newValue in
+                .onChange(of: pointsbase) {_, newValue in
                     pointsbase = filterInput(newValue)
                 }
             
             TextField("score-string", text: $pointsscore)
                 .padding().keyboardType(.numbersAndPunctuation)
-                .onChange(of: pointsscore) { newValue in
+                .onChange(of: pointsscore) {_, newValue in
                     pointsscore = filterInput(newValue)
                 }
         }
@@ -484,13 +484,13 @@ struct SoloPlayerPointsView: View {
             }
             TextField("base-string", text: $pointsbase)
                 .padding().keyboardType(.numbersAndPunctuation)
-                .onChange(of: pointsbase) { newValue in
+                .onChange(of: pointsbase) {_, newValue in
                     pointsbase = filterInput(newValue)
                 }
             
             TextField("score-string", text: $pointsscore)
                 .padding().keyboardType(.numbersAndPunctuation)
-                .onChange(of: pointsscore) { newValue in
+                .onChange(of: pointsscore) {_, newValue in
                     pointsscore = filterInput(newValue)
                 }
         }
@@ -526,14 +526,14 @@ struct CombinedPlayerPointsView: View {
             }
             TextField("base-string", text: $pointsbase1)
                 .padding().keyboardType(.numbersAndPunctuation)
-                .onChange(of: pointsbase1) { newValue in
+                .onChange(of: pointsbase1) {_, newValue in
                     pointsbase1 = filterInput(newValue)
                     pointsbase2 = filterInput(newValue)
                 }
             
             TextField("score-string", text: $pointsscore1)
                 .padding().keyboardType(.numbersAndPunctuation)
-                .onChange(of: pointsscore1) { newValue in
+                .onChange(of: pointsscore1) {_, newValue in
                     pointsscore1 = filterInput(newValue)
                     pointsscore2 = filterInput(newValue)
                 }
