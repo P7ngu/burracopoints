@@ -65,7 +65,7 @@ struct CreateGameSheetView: View {
                     HStack{
                         Text("gamewinpoints-string").padding(.leading, 16)
                         TextField("maxpoints-string", text: $inputMaxPoints).keyboardType(.numberPad)
-                            .onChange(of: inputMaxPoints) { newValue in
+                            .onChange(of: inputMaxPoints) {_, newValue in
                                 inputMaxPoints = filterInput(newValue)
                             }
                     }
