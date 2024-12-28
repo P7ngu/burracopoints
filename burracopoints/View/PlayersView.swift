@@ -85,6 +85,7 @@ struct PlayersView: View {
                         
                         
                     }
+                    .id(UUID())
                     // .onDelete(perform: deleteItems)
                     
                     
