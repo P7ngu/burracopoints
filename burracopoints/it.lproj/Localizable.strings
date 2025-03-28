@@ -47,6 +47,8 @@
 
 "errorplayer-string" = "Scegli tutti i giocatori!";
 "errordescp-string" = "Perfavore, seleziona tutti i giocatori richiesti!";
+"errormaxpoints-string" = "Inserisci i punti per la vittoria";
+"errordescmaxpoints-string" = "Perfavore, inserisci i punti richiesti per vincere la partita";
 
 "gameover-string" = "Abbiamo un vincitore!";
 "gameoveradd-string" = "La partita si è conclusa, non puoi aggiungere dei punti!";

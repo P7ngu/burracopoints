@@ -50,6 +50,9 @@
 "errorplayer-string" = "Select all the players";
 "errordescp-string" = "Please, select all the players";
 
+"errormaxpoints-string" = "Insert max points";
+"errordescmaxpoints-string" = "Please, insert the maximum points amount";
+
 "gameover-string" = "We have a winner!";
 "gameoveradd-string" = "The game is over, we already have a winner! You cannot add points to an ended game.";
 

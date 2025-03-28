@@ -34,6 +34,7 @@ struct CreateGameSheetView: View {
     @Query var players: [Player]
     @State var oldIcon: String = ""
     @State private var showingAlert = false
+    @State private var showingMaxPointsAlert = false
     
     init() {
         resetPlayerSelection()
@@ -322,57 +323,62 @@ struct CreateGameSheetView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("done-button-string") {
                             //Create the new game
-                            let maxPoints = Int(inputMaxPoints)
-                            var playerCounter = 0
-                            
-                            if (selectedGameMode == "1 vs 1 vs 1" && player1.name != "nil" &&  player2.name != "nil" &&  player3.name != "nil"){
-                                print("valid data1")
-                                playerCounter = 3
-                                let squad3Enabled = true
-                                let squad1 = [player1.name]
-                                let squad2 = [player2.name]
-                                let squad3 = [player3.name]
+                            if let maxPoints = Int(inputMaxPoints) {
+                                var playerCounter = 0
                                 
-                                
-                                resetPlayerSelection()
-                                let newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 3, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: squad3, currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
-                                addNewGame(newItem: newGame)
-                                dismiss()
-                                GameDetailedView(displayedGame: newGame, title: "")
-                            } else if (selectedGameMode == "2 vs 2" && player1.name != "nil" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
-                                print("valid data2")
-                                playerCounter = 4
-                                let squad3Enabled = false
-                                let squad1 = [player1.name, player2.name]
-                                let squad2 = [player3.name, player4.name]
-                                resetPlayerSelection()
-                                
-                                let newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 4, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
-                                addNewGame(newItem: newGame)
-                                dismiss()
-                                GameDetailedView(displayedGame: newGame, title: "")
-                                
-                            } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
-                                // 1 vs 1
-                                print("valid data3")
-                                playerCounter = 2
-                                let squad3Enabled = false
-                                let squad1 = [player1.name]
-                                let squad2 = [player2.name]
-                                resetPlayerSelection()
-                                let newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints!), gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
-                                addNewGame(newItem: newGame)
-                                dismiss()
-                                GameDetailedView(displayedGame: newGame, title: "")
-                                
-                            } else {
-                                print("invalid data - last else")
-                                print(selectedGameMode)
-                                print(player1.name)
-                                print(player2.name)
-                                print(player3.name)
-                                print(player4.name)
-                                
+                                if (selectedGameMode == "1 vs 1 vs 1" && player1.name != "nil" &&  player2.name != "nil" &&  player3.name != "nil"){
+                                    print("valid data1")
+                                    playerCounter = 3
+                                    let squad3Enabled = true
+                                    let squad1 = [player1.name]
+                                    let squad2 = [player2.name]
+                                    let squad3 = [player3.name]
+                                    
+                                    
+                                    resetPlayerSelection()
+                                    let newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints), gameMode: 3, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: squad3, currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
+                                    addNewGame(newItem: newGame)
+                                    dismiss()
+                                    GameDetailedView(displayedGame: newGame, title: "")
+                                } else if (selectedGameMode == "2 vs 2" && player1.name != "nil" &&  player2.name != "nil" && player3.name != "nil" &&  player4.name != "nil" ){
+                                    print("valid data2")
+                                    playerCounter = 4
+                                    let squad3Enabled = false
+                                    let squad1 = [player1.name, player2.name]
+                                    let squad2 = [player3.name, player4.name]
+                                    resetPlayerSelection()
+                                    
+                                    let newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints), gameMode: 4, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
+                                    addNewGame(newItem: newGame)
+                                    dismiss()
+                                    GameDetailedView(displayedGame: newGame, title: "")
+                                    
+                                } else if(selectedGameMode == "1 vs 1" && player1.name != "nil" && player2.name != "nil"){
+                                    // 1 vs 1
+                                    print("valid data3")
+                                    playerCounter = 2
+                                    let squad3Enabled = false
+                                    let squad1 = [player1.name]
+                                    let squad2 = [player2.name]
+                                    resetPlayerSelection()
+                                    let newGame = Game(timestamp: Date(), maxPoints: Int(maxPoints), gameMode: 2, playerCounter: playerCounter, squad3Enabled: squad3Enabled, squad1: squad1, squad2: squad2, squad3: ["nil"], currentPoints_p1: 0, currentPoints_p2: 0, currentPoints_p3: 0, handPoints_p1: [0], handPoints_p2: [0], handPoints_p3: [0], handsPlayed: 0, isGameConcluded: false, firstDealer: "None")
+                                    addNewGame(newItem: newGame)
+                                    dismiss()
+                                    GameDetailedView(displayedGame: newGame, title: "")
+                                    
+                                } else {
+                                    print("invalid data - last else")
+                                    print(selectedGameMode)
+                                    print(player1.name)
+                                    print(player2.name)
+                                    print(player3.name)
+                                    print(player4.name)
+                                    
+                                    showingAlert = true
+                                }
+                            }
+                            else { //maxpoints = nil
+                               showingMaxPointsAlert = true
                                 showingAlert = true
                             }
                         }
@@ -383,11 +389,18 @@ struct CreateGameSheetView: View {
                             resetPlayerSelection()
                             dismiss()
                             
-                            
                         }
                     }
-                }.alert(isPresented: $showingAlert) {
-                    Alert(title: Text("errorplayer-string"), message: Text("errordescp-string"), dismissButton: .default(Text("okbuttonerror-string")))
+                }
+                
+                .alert(isPresented: $showingAlert) {
+                    if !showingMaxPointsAlert {
+                        Alert(title: Text("errorplayer-string"), message: Text("errordescp-string"), dismissButton: .default(Text("okbuttonerror-string")))
+                    } else {
+                        Alert(title: Text("errormaxpoints-string"), message: Text("errordescmaxpoints-string"), dismissButton: .default(Text("okbuttonerror-string")) {
+                            showingMaxPointsAlert = false
+                        })
+                    }
                 }
             }
             .onDisappear(){
