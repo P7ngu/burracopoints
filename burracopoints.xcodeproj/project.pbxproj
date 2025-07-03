@@ -352,7 +352,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"burracopoints/Preview Content\"";
-				DEVELOPMENT_TEAM = 5Y7P52GGAD;
+				DEVELOPMENT_TEAM = MRZRL7Z4T6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Burraco punti";
@@ -367,7 +367,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2080;
+				MARKETING_VERSION = 1.2090;
 				PRODUCT_BUNDLE_IDENTIFIER = matteo.perotta.burracopoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -384,7 +384,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"burracopoints/Preview Content\"";
-				DEVELOPMENT_TEAM = 5Y7P52GGAD;
+				DEVELOPMENT_TEAM = MRZRL7Z4T6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Burraco punti";
@@ -399,7 +399,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2080;
+				MARKETING_VERSION = 1.2090;
 				PRODUCT_BUNDLE_IDENTIFIER = matteo.perotta.burracopoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
