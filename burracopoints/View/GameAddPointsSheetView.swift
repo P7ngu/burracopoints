@@ -138,26 +138,29 @@ struct GameAddPointsSheetView: View {
     private func processSoloPoints() {
         let factor = 2.0
         if isPlayerOneSolo {
-            updateSoloPoints(squadSoloPoints: (Double(squad1pointsbase) ?? 0) + (Double(squad1pointsscore) ?? 0),
+            print("1908 processing points: player one went solo")
+            updateSoloPoints(squad1Points: (Double(squad1pointsbase) ?? 0) + (Double(squad1pointsscore) ?? 0),
                              squad2Points: (Double(squad2pointsbase) ?? 0) / factor + (Double(squad2pointsscore) ?? 0) / factor,
                              squad3Points: (Double(squad3pointsbase) ?? 0) / factor + (Double(squad3pointsscore) ?? 0) / factor)
         } else if isPlayerTwoSolo {
-            updateSoloPoints(squadSoloPoints: (Double(squad2pointsbase) ?? 0) + (Double(squad2pointsscore) ?? 0),
-                             squad2Points: (Double(squad1pointsbase) ?? 0) / factor + (Double(squad1pointsscore) ?? 0) / factor,
+            print("1908 processing points: player TWO went solo")
+            updateSoloPoints(squad1Points: (Double(squad1pointsbase) ?? 0) / factor + (Double(squad1pointsscore) ?? 0) / factor,
+                             squad2Points: (Double(squad2pointsbase) ?? 0)  + (Double(squad2pointsscore) ?? 0),
                              squad3Points: (Double(squad3pointsbase) ?? 0) / factor + (Double(squad3pointsscore) ?? 0) / factor)
         } else if isPlayerThreeSolo {
-            updateSoloPoints(squadSoloPoints: (Double(squad3pointsbase) ?? 0) + (Double(squad3pointsscore) ?? 0),
-                             squad2Points: (Double(squad1pointsbase) ?? 0) / factor + (Double(squad1pointsscore) ?? 0) / factor,
-                             squad3Points: (Double(squad2pointsbase) ?? 0) / factor + (Double(squad2pointsscore) ?? 0) / factor)
+            print("1908 processing points: player THREE went solo")
+            updateSoloPoints(squad1Points: (Double(squad1pointsbase) ?? 0) / factor + (Double(squad1pointsscore) ?? 0) / factor ,
+                             squad2Points: (Double(squad2pointsbase) ?? 0) / factor + (Double(squad2pointsscore) ?? 0) / factor,
+                             squad3Points: (Double(squad3pointsbase) ?? 0) + (Double(squad3pointsscore) ?? 0) )
         }
         checkGameConclusion()
     }
     
-    private func updateSoloPoints(squadSoloPoints: Double, squad2Points: Double, squad3Points: Double) {
-        displayedGame.currentPoints_p1 += Int(squadSoloPoints)
+    private func updateSoloPoints(squad1Points: Double, squad2Points: Double, squad3Points: Double) {
+        displayedGame.currentPoints_p1 += Int(squad1Points)
         displayedGame.currentPoints_p2 += Int(squad2Points)
         displayedGame.currentPoints_p3 += Int(squad3Points)
-        displayedGame.handPoints_p1.append(Int(squadSoloPoints))
+        displayedGame.handPoints_p1.append(Int(squad1Points))
         displayedGame.handPoints_p2.append(Int(squad2Points))
         displayedGame.handPoints_p3.append(Int(squad3Points))
     }
@@ -451,6 +454,7 @@ struct SoloPointsView: View {
                 SoloPlayerPointsView(playerName: squad1Name, pointsbase: $squad1pointsbase, pointsscore: $squad1pointsscore, isPlayerSolo: $isPlayerOneSolo, isSoloSelected: $isSoloSelected)
                 CombinedPlayerPointsView(player1Name: squad2Name, player2Name: squad3Name, pointsbase1: $squad2pointsbase, pointsscore1: $squad2pointsscore, pointsbase2: $squad3pointsbase, pointsscore2: $squad3pointsscore)
             } else if isPlayerTwoSolo {
+                // When p2 is solo, points of solo get added to player 1
                 SoloPlayerPointsView(playerName: squad2Name, pointsbase: $squad2pointsbase, pointsscore: $squad2pointsscore, isPlayerSolo: $isPlayerTwoSolo, isSoloSelected: $isSoloSelected)
                 
                 CombinedPlayerPointsView(player1Name: squad1Name, player2Name: squad3Name, pointsbase1: $squad1pointsbase, pointsscore1: $squad1pointsscore, pointsbase2: $squad3pointsbase, pointsscore2: $squad3pointsscore)
