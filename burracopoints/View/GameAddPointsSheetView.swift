@@ -106,14 +106,14 @@ struct GameAddPointsSheetView: View {
     }
     
     private func processRegularPoints(){
-            squad1PointsBase = (Int(squad1pointsbase) ?? 0)
-            squad1PointsScore = (Int(squad1pointsscore) ?? 0)
-             let squad1Points = squad1PointsBase + squad1PointsScore
-            
-             squad2PointsBase = Int(squad2pointsbase) ?? 0
-             squad2PointsScore = Int(squad2pointsscore) ?? 0
-            let squad2Points = squad2PointsBase + squad2PointsScore
-       
+        squad1PointsBase = (Int(squad1pointsbase) ?? 0)
+        squad1PointsScore = (Int(squad1pointsscore) ?? 0)
+        let squad1Points = squad1PointsBase + squad1PointsScore
+        
+        squad2PointsBase = Int(squad2pointsbase) ?? 0
+        squad2PointsScore = Int(squad2pointsscore) ?? 0
+        let squad2Points = squad2PointsBase + squad2PointsScore
+        
         
         displayedGame.currentPoints_p1 += squad1Points
         displayedGame.currentPoints_p2 += squad2Points
@@ -176,8 +176,41 @@ struct GameAddPointsSheetView: View {
         }
     }
     
+    private func checkIfSquadHasMostPoints(squadToCheck: Int) -> Bool{
+        switch squadToCheck {
+        case 1:
+            if displayedGame.currentPoints_p1 >= displayedGame.maxPoints && displayedGame.currentPoints_p1 > displayedGame.currentPoints_p2 && displayedGame.currentPoints_p1 > displayedGame.currentPoints_p3 {
+               return true
+            }
+        case 2:
+            if displayedGame.currentPoints_p2 >= displayedGame.maxPoints && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p3 {
+               return false
+            }
+        case 3:
+            if displayedGame.currentPoints_p3 >= displayedGame.maxPoints && displayedGame.currentPoints_p3 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p3 > displayedGame.currentPoints_p2 {
+                return false
+            }
+        default: return false
+        }
+        
+        return false
+    }
+    
+    
+    private func processThirdSquadConcludedGame() {
+        if displayedGame.currentPoints_p3 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 3){
+            giveTheUserAWin(username: displayedGame.squad3.first!)
+            giveTheUserALoss(username: displayedGame.squad2.first!)
+            giveTheUserALoss(username: displayedGame.squad1.first!)
+        }
+    }
+    
     private func processConcludedGame() {
-        if displayedGame.currentPoints_p1 >= displayedGame.maxPoints {
+        if(displayedGame.squad3Enabled){
+            processThirdSquadConcludedGame()
+        }
+        
+        if displayedGame.currentPoints_p1 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 1) {
             giveTheUserAWin(username: displayedGame.squad1.first!)
             giveTheUserALoss(username: displayedGame.squad2.first!)
             
@@ -186,12 +219,7 @@ struct GameAddPointsSheetView: View {
                 giveTheUserALoss(username: displayedGame.squad2[1])
             }
             
-            if(displayedGame.squad3Enabled){
-                giveTheUserALoss(username: displayedGame.squad3.first!)
-            }
-            
-            
-        } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints{
+        } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 2){
             giveTheUserAWin(username: displayedGame.squad2.first!)
             giveTheUserALoss(username: displayedGame.squad1.first!)
             
@@ -199,20 +227,10 @@ struct GameAddPointsSheetView: View {
                 giveTheUserAWin(username: displayedGame.squad2[1])
                 giveTheUserALoss(username: displayedGame.squad1[1])
             }
-            
-            if(displayedGame.squad3Enabled){
-                giveTheUserALoss(username: displayedGame.squad3.first!)
-            }
-            
-            
-            
-        } else if displayedGame.currentPoints_p3 >= displayedGame.maxPoints{
-            giveTheUserAWin(username: displayedGame.squad3.first!)
-            
-            giveTheUserALoss(username: displayedGame.squad2.first!)
-            giveTheUserALoss(username: displayedGame.squad1.first!)
         }
     }
+    
+    //End
     
     private func giveTheUserAWin (username: String){
         for player in players {
@@ -424,9 +442,9 @@ struct RegularThreePlayerPointsView: View {
                     }
                 }
             }
-                
-                
-                
+            
+            
+            
         }.padding()
     }
 }
