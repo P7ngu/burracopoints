@@ -12,7 +12,12 @@ import StoreKit
 struct ContentView: View {
     @State private var showingSheet = false
     @Environment(\.modelContext) var modelContext
-    @Query private var gameItems: [Game]
+    @Query(
+        sort: [
+            SortDescriptor(\Game.timestamp, order: .reverse)
+        ]
+    )
+    private var gameItems: [Game]
     @Query private var players: [Player]
     @State private var bestPlayers: [Player] = []
     @State var fulltitle: String = "..."
@@ -32,7 +37,7 @@ struct ContentView: View {
                         }
                         .buttonStyle(.borderless)
                         
-                        ForEach(gameItems.reversed()) { game in // reversed, so the most recent games go on top.
+                        ForEach(gameItems) { game in // reversed, so the most recent games go on top.
                             NavigationLink {
                                 GameDetailedView(displayedGame: game, title: fulltitle)
                             } label: {
