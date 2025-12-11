@@ -184,11 +184,11 @@ struct GameAddPointsSheetView: View {
             }
         case 2:
             if displayedGame.currentPoints_p2 >= displayedGame.maxPoints && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p2 > displayedGame.currentPoints_p3 {
-               return false
+               return true
             }
         case 3:
             if displayedGame.currentPoints_p3 >= displayedGame.maxPoints && displayedGame.currentPoints_p3 > displayedGame.currentPoints_p1 && displayedGame.currentPoints_p3 > displayedGame.currentPoints_p2 {
-                return false
+                return true
             }
         default: return false
         }
@@ -202,30 +202,38 @@ struct GameAddPointsSheetView: View {
             giveTheUserAWin(username: displayedGame.squad3.first!)
             giveTheUserALoss(username: displayedGame.squad2.first!)
             giveTheUserALoss(username: displayedGame.squad1.first!)
+        } else if displayedGame.currentPoints_p1 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 1){
+            giveTheUserAWin(username: displayedGame.squad1.first!)
+            giveTheUserALoss(username: displayedGame.squad2.first!)
+            giveTheUserALoss(username: displayedGame.squad3.first!)
+        } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 2){
+            giveTheUserAWin(username: displayedGame.squad2.first!)
+            giveTheUserALoss(username: displayedGame.squad1.first!)
+            giveTheUserALoss(username: displayedGame.squad3.first!)
         }
     }
     
     private func processConcludedGame() {
         if(displayedGame.squad3Enabled){
             processThirdSquadConcludedGame()
-        }
-        
-        if displayedGame.currentPoints_p1 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 1) {
-            giveTheUserAWin(username: displayedGame.squad1.first!)
-            giveTheUserALoss(username: displayedGame.squad2.first!)
-            
-            if(displayedGame.squad1.count > 1){
-                giveTheUserAWin(username: displayedGame.squad1[1])
-                giveTheUserALoss(username: displayedGame.squad2[1])
-            }
-            
-        } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 2){
-            giveTheUserAWin(username: displayedGame.squad2.first!)
-            giveTheUserALoss(username: displayedGame.squad1.first!)
-            
-            if(displayedGame.squad2.count > 1){
-                giveTheUserAWin(username: displayedGame.squad2[1])
-                giveTheUserALoss(username: displayedGame.squad1[1])
+        } else {
+            if displayedGame.currentPoints_p1 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 1) {
+                giveTheUserAWin(username: displayedGame.squad1.first!)
+                giveTheUserALoss(username: displayedGame.squad2.first!)
+                
+                if(displayedGame.squad1.count > 1){
+                    giveTheUserAWin(username: displayedGame.squad1[1])
+                    giveTheUserALoss(username: displayedGame.squad2[1])
+                }
+                
+            } else if displayedGame.currentPoints_p2 >= displayedGame.maxPoints && checkIfSquadHasMostPoints(squadToCheck: 2){
+                giveTheUserAWin(username: displayedGame.squad2.first!)
+                giveTheUserALoss(username: displayedGame.squad1.first!)
+                
+                if(displayedGame.squad2.count > 1){
+                    giveTheUserAWin(username: displayedGame.squad2[1])
+                    giveTheUserALoss(username: displayedGame.squad1[1])
+                }
             }
         }
     }
